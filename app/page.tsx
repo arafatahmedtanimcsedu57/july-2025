@@ -9,7 +9,7 @@ export default function Home() {
 			<Navbar />
 			<div className="flex flex-1 overflow-hidden relative">
 				<IncidentSidebar />
-				<div className="flex-1 relative md:ml-96">
+				<div className="flex-1 relative">
 					<MapContainer />
 				</div>
 				<Sidebar />

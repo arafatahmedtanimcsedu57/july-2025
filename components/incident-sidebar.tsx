@@ -1,22 +1,25 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { X, ExternalLink, AlertTriangle, Edit, FileEdit } from 'lucide-react';
-import { useIncidentStore } from '@/lib/incident-store';
-import { getCasualtyDataByDate } from '@/lib/data';
 import Image from 'next/image';
+import { format } from 'date-fns';
+import { X, ExternalLink, AlertTriangle, Edit, FileEdit } from 'lucide-react';
+
+import PersonEditForm from './person-edit-form';
+
+import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { useSidebarStore } from '@/lib/sidebar-store';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Card, CardContent } from '@/components/ui/card';
-import { useDayStore } from '@/lib/day-store';
-import { format, parseISO } from 'date-fns';
 import DayNavigation from '@/components/day-navigation';
-import { useEditStore, getUpdatedPersonData } from '@/lib/edit-store';
-import PersonEditForm from './person-edit-form';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Progress } from '@/components/ui/progress';
+
+import { useDayStore } from '@/lib/day-store';
+import { useIncidentStore } from '@/lib/incident-store';
+import { useSidebarStore } from '@/lib/sidebar-store';
+import { getCasualtyDataByDate } from '@/lib/data';
+import { useEditStore, getUpdatedPersonData } from '@/lib/edit-store';
 
 // Helper function to get badge color based on casualty type
 const getBadgeColor = (type: string | null) => {
@@ -106,9 +109,6 @@ export default function IncidentSidebar() {
 		} as Record<string, number>,
 	);
 
-	// Format the current day for display
-	const formattedDate = format(parseISO(currentDay), 'MMMM d, yyyy');
-
 	// Close sidebar when escape key is pressed (only if an incident is selected)
 	useEffect(() => {
 		const handleEscapeKey = (e: KeyboardEvent) => {
@@ -132,7 +132,7 @@ export default function IncidentSidebar() {
 	}, [setSelectedIncident, selectedIncidentId, isEditing, cancelEditing]);
 
 	return (
-		<div className="fixed top-20 left-0 bottom-0 w-full md:w-96 bg-background z-40 transition-all duration-300 ease-in-out">
+		<div className="fixed top-20 left-0 bottom-0 w-full md:w-96 bg-transparent z-40 transition-all duration-300 ease-in-out">
 			{selectedPerson ? (
 				// Person Details View
 				<div className="flex flex-col h-full">
@@ -329,89 +329,15 @@ export default function IncidentSidebar() {
 				// Summary View for the current day
 				<div className="flex flex-col h-full">
 					<DayNavigation />
-					<div className="p-4 border-b bg-black/5 dark:bg-white/5">
-						<div className="flex items-center gap-3">
-							<div className="w-8 h-8 flex-shrink-0 rounded-full bg-gradient-to-br from-red-700 to-red-900 flex items-center justify-center">
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									width="16"
-									height="16"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									strokeWidth="2"
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									className="text-white/90"
-								>
-									<path d="M18 6a4 4 0 0 0-4-4 7 7 0 0 0-5 2 7 7 0 0 0-5-2 4 4 0 0 0-4 4c0 9.14 9 12 9 12s9-2.86 9-12Z" />
-								</svg>
-							</div>
-							<div>
-								<h2 className="text-lg font-semibold">
-									{formattedDate} Memorial
-								</h2>
-								<p className="text-sm text-muted-foreground">
-									Honoring the victims across Bangladesh
-								</p>
-							</div>
-						</div>
-					</div>
 
 					<ScrollArea className="flex-1">
 						<div className="p-4 space-y-6">
-							{/* Memorial banner */}
-							<div className="bg-gray-100 dark:bg-gray-900/50 border-l-4 border-red-700 rounded-md p-4 flex items-start gap-3">
-								<div className="shrink-0 mt-0.5">
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										width="20"
-										height="20"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										strokeWidth="2"
-										strokeLinecap="round"
-										strokeLinejoin="round"
-										className="text-red-700 dark:text-red-500"
-									>
-										<path d="M18 6a4 4 0 0 0-4-4 7 7 0 0 0-5 2 7 7 0 0 0-5-2 4 4 0 0 0-4 4c0 9.14 9 12 9 12s9-2.86 9-12Z" />
-									</svg>
-								</div>
-								<div>
-									<h3 className="font-medium">In Memoriam</h3>
-									<p className="text-sm text-muted-foreground mt-1">
-										We remember those who lost their lives and were injured
-										during the events of {formattedDate} across Bangladesh. This
-										map serves as a digital memorial to honor their memory.
-									</p>
-								</div>
-							</div>
-
 							{/* Casualty statistics */}
 							<div>
-								<h3 className="font-medium mb-3 flex items-center gap-2">
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										width="16"
-										height="16"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										strokeWidth="2"
-										strokeLinecap="round"
-										strokeLinejoin="round"
-									>
-										<rect width="18" height="18" x="3" y="3" rx="2" />
-										<path d="M12 8v8" />
-										<path d="M8 12h8" />
-									</svg>
-									Lives Affected
-								</h3>
-								<div className="grid grid-cols-2 gap-3">
-									<Card className="bg-red-50 dark:bg-red-950/20 border-red-100 dark:border-red-900/30">
+								<div className="grid grid-cols-2 gap-3 bg-transparent border border-muted-foreground/30 p-4 rounded-2xl backdrop-blur-md shadow-2xl">
+									<Card className="scale-[1.2] -translate-x-4 -translate-y-4 rounded-2xl shadow-lg shadow-red-500/50 border border-muted-foreground/30 bg-secondary-foreground backdrop-blur-md">
 										<CardContent className="p-3">
-											<div className="text-2xl font-bold text-red-600 dark:text-red-400">
+											<div className="text-2xl font-bold text-red-600 ">
 												{totals['Death'] || 0}
 											</div>
 											<div className="text-xs text-muted-foreground">
@@ -420,9 +346,9 @@ export default function IncidentSidebar() {
 										</CardContent>
 									</Card>
 
-									<Card className="bg-orange-50 dark:bg-orange-950/20 border-orange-100 dark:border-orange-900/30">
+									<Card className="rounded-2xl shadow-lg shadow-orange-500/20 border border-muted-foreground/30 bg-secondary">
 										<CardContent className="p-3">
-											<div className="text-2xl font-bold text-orange-600 dark:text-orange-400">
+											<div className="text-2xl font-bold text-orange-600">
 												{totals['Injury'] || 0}
 											</div>
 											<div className="text-xs text-muted-foreground">
@@ -431,9 +357,9 @@ export default function IncidentSidebar() {
 										</CardContent>
 									</Card>
 
-									<Card className="bg-purple-50 dark:bg-purple-950/20 border-purple-100 dark:border-purple-900/30">
+									<Card className="rounded-2xl shadow-lg shadow-purple-500/20 border border-muted-foreground/30 bg-secondary">
 										<CardContent className="p-3">
-											<div className="text-2xl font-bold text-purple-600 dark:text-purple-400">
+											<div className="text-2xl font-bold text-purple-600">
 												{totals['Multiple Casualties'] || 0}
 											</div>
 											<div className="text-xs text-muted-foreground">
@@ -442,9 +368,9 @@ export default function IncidentSidebar() {
 										</CardContent>
 									</Card>
 
-									<Card className="bg-blue-50 dark:bg-blue-950/20 border-blue-100 dark:border-blue-900/30">
+									<Card className="rounded-2xl shadow-lg shadow-blue-500/20 border border-muted-foreground/30 bg-secondary">
 										<CardContent className="p-3">
-											<div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+											<div className="text-2xl font-bold text-blue-600">
 												{totals['No Casualties'] || 0}
 											</div>
 											<div className="text-xs text-muted-foreground">
@@ -455,97 +381,8 @@ export default function IncidentSidebar() {
 								</div>
 							</div>
 
-							{/* Event description - dynamically changes based on the day */}
-							<div className="space-y-3">
-								<h3 className="font-medium">Event Overview</h3>
-								<div className="bg-muted/50 rounded-md p-3 text-sm">
-									{currentDay === '2024-07-03' && (
-										<>
-											<p>
-												On July 3rd, 2024, student protests began at
-												universities across Bangladesh. The demonstrations,
-												which started peacefully, were organized to protest
-												against government policies affecting education and
-												employment.
-											</p>
-											<p className="mt-2">
-												Police intervention at several campuses led to clashes,
-												with security forces using tear gas and batons to
-												disperse gatherings. Multiple students were injured, and
-												one activist was reported missing.
-											</p>
-										</>
-									)}
-									{currentDay === '2024-07-04' && (
-										<>
-											<p>
-												On July 4th, 2024, protests intensified and spread
-												beyond university campuses to major cities. The first
-												fatalities were reported as security forces used
-												increased force to control the growing demonstrations.
-											</p>
-											<p className="mt-2">
-												In Chittagong, one person was killed when security
-												forces opened fire on protesters. Several people were
-												reported missing after police raids on protest camps in
-												Dhaka's Motijheel area.
-											</p>
-										</>
-									)}
-									{currentDay === '2024-07-05' && (
-										<>
-											<p>
-												On July 5th, 2024, widespread protests erupted across
-												Bangladesh in response to government policies. The
-												demonstrations, which began peacefully, escalated into
-												violence in several major cities including Dhaka,
-												Chittagong, and Rajshahi.
-											</p>
-											<p className="mt-2">
-												Security forces responded with tear gas, rubber bullets,
-												and in some instances, live ammunition. The
-												confrontations resulted in multiple fatalities,
-												injuries, and reports of missing persons.
-											</p>
-										</>
-									)}
-									{currentDay === '2024-07-06' && (
-										<>
-											<p>
-												On July 6th, 2024, protests continued for a second day
-												across Bangladesh. The situation remained tense as
-												demonstrators returned to the streets despite the
-												previous day's violence.
-											</p>
-											<p className="mt-2">
-												In Dhaka, police used water cannons and tear gas to
-												disperse crowds. A tragic incident occurred in the
-												Gulshan area when a vehicle drove through protesters,
-												resulting in one fatality.
-											</p>
-										</>
-									)}
-									{currentDay === '2024-07-07' && (
-										<>
-											<p>
-												On July 7th, 2024, the protests entered their third day
-												with significant incidents at Dhaka University where
-												security forces entered the campus, resulting in
-												multiple injuries among students.
-											</p>
-											<p className="mt-2">
-												The unrest spread to industrial areas, with port workers
-												in Chittagong and factory workers in Narayanganj joining
-												the protests. Two port workers were killed when security
-												forces attempted to clear a blockade.
-											</p>
-										</>
-									)}
-								</div>
-							</div>
-
 							{/* Affected areas - dynamically generated from the current day's data */}
-							<div className="space-y-3">
+							<div className="p-4 space-y-3 bg-transparent backdrop-blur-md border">
 								<h3 className="font-medium">Affected Individuals</h3>
 								<div className="space-y-2">
 									{casualtyData
@@ -627,13 +464,6 @@ export default function IncidentSidebar() {
 							</div>
 
 							{/* Instructions */}
-							<div className="bg-muted rounded-md p-3">
-								<p className="text-sm text-muted-foreground">
-									Click on any marker on the map to view detailed information
-									about specific individuals. You can edit incomplete
-									information by clicking the edit button.
-								</p>
-							</div>
 
 							{/* News sources - could be day-specific */}
 							<div className="space-y-2">

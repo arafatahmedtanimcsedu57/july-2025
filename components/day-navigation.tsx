@@ -15,33 +15,33 @@ export default function DayNavigation() {
 	const formattedDate = format(parseISO(currentDay), 'MMMM d, yyyy');
 
 	return (
-		<div className="flex items-center justify-between px-4 py-2 border-b bg-muted/50 dark:bg-muted/10">
-			<Button
-				variant="outline"
-				size="sm"
-				onClick={prevDay}
-				disabled={isFirstDay}
-				className="h-7 px-2 shadow-sm"
-			>
-				<ChevronLeft className="h-4 w-4 mr-1" />
-				Prev Day
-			</Button>
+		<div className="p-4">
+			<div className="flex items-center justify-between p-4 bg-transparent backdrop-blur-md shadow-2xl border border-muted-foreground/30 rounded-2xl">
+				<Button
+					variant="ghost"
+					size="sm"
+					onClick={prevDay}
+					disabled={isFirstDay}
+					className="h-7 px-2 shadow-2xl rounded-xl"
+				>
+					<ChevronLeft className="h-4 w-4 mr-1" />
+				</Button>
 
-			<div className="flex items-center bg-background/70 dark:bg-background/30 px-2 py-1 rounded-md shadow-sm">
-				<Calendar className="h-4 w-4 mr-2 text-primary" />
-				<span className="text-sm font-medium">{formattedDate}</span>
+				<div className="flex items-center px-2 py-1 rounded-md shadow-2xl text-slate-600">
+					<Calendar className="h-4 w-4 mr-2" />
+					<span className="text-sm font-medium ">{formattedDate}</span>
+				</div>
+
+				<Button
+					variant="ghost"
+					size="sm"
+					onClick={nextDay}
+					disabled={isLastDay}
+					className="h-7 px-2 shadow-2xl rounded-xl"
+				>
+					<ChevronRight className="h-4 w-4 ml-1" />
+				</Button>
 			</div>
-
-			<Button
-				variant="outline"
-				size="sm"
-				onClick={nextDay}
-				disabled={isLastDay}
-				className="h-7 px-2 shadow-sm"
-			>
-				Next Day
-				<ChevronRight className="h-4 w-4 ml-1" />
-			</Button>
 		</div>
 	);
 }

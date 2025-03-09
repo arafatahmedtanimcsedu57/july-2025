@@ -1,7 +1,16 @@
 import type React from 'react';
 import type { Metadata } from 'next';
-import '@/app/globals.css';
+import { IBM_Plex_Sans } from 'next/font/google';
+
 import { ThemeProvider } from '@/components/theme-provider';
+
+import '@/app/globals.css';
+
+const ibmPlexSans = IBM_Plex_Sans({
+	subsets: ['latin'],
+	weight: ['100', '200', '300', '400', '500', '600', '700'],
+	display: 'swap',
+});
 
 export const metadata: Metadata = {
 	title: 'Bangladesh Casualty Map',
@@ -16,7 +25,9 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang="en" suppressHydrationWarning>
-			<body className="min-h-screen bg-background font-sans antialiased">
+			<body
+				className={`min-h-screen bg-background  antialiased ${ibmPlexSans.className}`}
+			>
 				<ThemeProvider defaultTheme="system" storageKey="casualty-map-theme">
 					{children}
 				</ThemeProvider>

@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
+
 import { useTheme } from '@/components/theme-provider';
 
-// Dynamically import the map component to avoid SSR issues
 const MapComponent = dynamic(() => import('@/components/map-component'), {
 	ssr: false,
 	loading: () => (
@@ -38,19 +38,20 @@ export default function MapContainer() {
 	}
 
 	return (
-		<div
-			className={`absolute inset-0 transition-colors duration-300 ${
-				isDarkMode
-					? 'bg-gradient-to-b from-gray-900 via-gray-900 to-black'
-					: 'bg-gradient-to-b from-gray-200 via-gray-100 to-white'
-			}`}
-			key={`map-container-${theme}`} // Force re-render when theme changes
-		>
-			<div className="perspective-container">
-				<div className="tilted-map-container">
-					<MapComponent key={`map-${theme}`} />{' '}
-					{/* Force re-render when theme changes */}
+		<div className="perspective-container">
+			<div className="hidden md:block w-fit border border-muted-foreground/30 absolute bottom-4 right-4 z-[10] bg-transparent px-5 py-4 rounded-md shadow-lg backdrop-blur-md ml-96">
+				<div className="flex flex-col gap-1 text-slate-800">
+					<h2 className="text-lg font-semibold">
+						In Memory of the Victims • July 6, 2024
+					</h2>
+					<p className="text-sm opacity-80">
+						Honoring those who lost their lives during the Bangladesh protests
+					</p>
 				</div>
+			</div>
+
+			<div className="tilted-map-container">
+				<MapComponent />
 			</div>
 		</div>
 	);
