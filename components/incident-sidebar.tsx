@@ -132,7 +132,7 @@ export default function IncidentSidebar() {
 	}, [setSelectedIncident, selectedIncidentId, isEditing, cancelEditing]);
 
 	return (
-		<div className="fixed top-16 left-0 bottom-0 w-full md:w-96 bg-background border-r z-40 transition-all duration-300 ease-in-out">
+		<div className="fixed top-20 left-0 bottom-0 w-full md:w-96 bg-background z-40 transition-all duration-300 ease-in-out">
 			{selectedPerson ? (
 				// Person Details View
 				<div className="flex flex-col h-full">
@@ -329,34 +329,85 @@ export default function IncidentSidebar() {
 				// Summary View for the current day
 				<div className="flex flex-col h-full">
 					<DayNavigation />
-					<div className="p-4 border-b">
-						<h2 className="text-lg font-semibold">
-							{formattedDate} Incident Summary
-						</h2>
-						<p className="text-sm text-muted-foreground">
-							Overview of casualties across Bangladesh
-						</p>
+					<div className="p-4 border-b bg-black/5 dark:bg-white/5">
+						<div className="flex items-center gap-3">
+							<div className="w-8 h-8 flex-shrink-0 rounded-full bg-gradient-to-br from-red-700 to-red-900 flex items-center justify-center">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									width="16"
+									height="16"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									strokeWidth="2"
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									className="text-white/90"
+								>
+									<path d="M18 6a4 4 0 0 0-4-4 7 7 0 0 0-5 2 7 7 0 0 0-5-2 4 4 0 0 0-4 4c0 9.14 9 12 9 12s9-2.86 9-12Z" />
+								</svg>
+							</div>
+							<div>
+								<h2 className="text-lg font-semibold">
+									{formattedDate} Memorial
+								</h2>
+								<p className="text-sm text-muted-foreground">
+									Honoring the victims across Bangladesh
+								</p>
+							</div>
+						</div>
 					</div>
 
 					<ScrollArea className="flex-1">
 						<div className="p-4 space-y-6">
-							{/* Alert banner */}
-							<div className="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800 rounded-md p-3 flex items-start gap-3">
-								<AlertTriangle className="h-5 w-5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+							{/* Memorial banner */}
+							<div className="bg-gray-100 dark:bg-gray-900/50 border-l-4 border-red-700 rounded-md p-4 flex items-start gap-3">
+								<div className="shrink-0 mt-0.5">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="20"
+										height="20"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										strokeWidth="2"
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										className="text-red-700 dark:text-red-500"
+									>
+										<path d="M18 6a4 4 0 0 0-4-4 7 7 0 0 0-5 2 7 7 0 0 0-5-2 4 4 0 0 0-4 4c0 9.14 9 12 9 12s9-2.86 9-12Z" />
+									</svg>
+								</div>
 								<div>
-									<h3 className="font-medium text-amber-800 dark:text-amber-300">
-										Critical Situation
-									</h3>
-									<p className="text-sm text-amber-700 dark:text-amber-400">
-										The events of {formattedDate} resulted in significant
-										casualties across multiple cities in Bangladesh.
+									<h3 className="font-medium">In Memoriam</h3>
+									<p className="text-sm text-muted-foreground mt-1">
+										We remember those who lost their lives and were injured
+										during the events of {formattedDate} across Bangladesh. This
+										map serves as a digital memorial to honor their memory.
 									</p>
 								</div>
 							</div>
 
 							{/* Casualty statistics */}
 							<div>
-								<h3 className="font-medium mb-3">Casualty Statistics</h3>
+								<h3 className="font-medium mb-3 flex items-center gap-2">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="16"
+										height="16"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										strokeWidth="2"
+										strokeLinecap="round"
+										strokeLinejoin="round"
+									>
+										<rect width="18" height="18" x="3" y="3" rx="2" />
+										<path d="M12 8v8" />
+										<path d="M8 12h8" />
+									</svg>
+									Lives Affected
+								</h3>
 								<div className="grid grid-cols-2 gap-3">
 									<Card className="bg-red-50 dark:bg-red-950/20 border-red-100 dark:border-red-900/30">
 										<CardContent className="p-3">

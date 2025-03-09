@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useSidebarStore } from '@/lib/sidebar-store';
 import { useDayStore } from '@/lib/day-store';
 import { getCasualtyDataByDate } from '@/lib/data';
-import { Move, BoxIcon as Box3d, HelpCircle, Map, MapPin } from 'lucide-react';
+import { Move, BoxIcon as Box3d, HelpCircle, MapPin } from 'lucide-react';
 
 export default function Sidebar() {
 	const { isOpen, close } = useSidebarStore();
@@ -69,8 +69,21 @@ export default function Sidebar() {
 				<Card className="overflow-hidden border-primary/10">
 					<CardHeader className="bg-primary/5 py-3">
 						<CardTitle className="text-base flex items-center gap-2">
-							<Map className="h-4 w-4 text-primary" />
-							Map Legend
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="16"
+								height="16"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								strokeWidth="2"
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								className="h-4 w-4 text-primary"
+							>
+								<path d="M18 6a4 4 0 0 0-4-4 7 7 0 0 0-5 2 7 7 0 0 0-5-2 4 4 0 0 0-4 4c0 9.14 9 12 9 12s9-2.86 9-12Z" />
+							</svg>
+							Memorial Legend
 						</CardTitle>
 					</CardHeader>
 					<CardContent className="p-4">
@@ -115,16 +128,22 @@ export default function Sidebar() {
 					<CardHeader className="bg-primary/5 py-3">
 						<CardTitle className="text-base flex items-center gap-2">
 							<HelpCircle className="h-4 w-4 text-primary" />
-							About This Map
+							About This Memorial
 						</CardTitle>
 					</CardHeader>
 					<CardContent className="p-4">
 						<p className="text-sm text-muted-foreground">
-							This map focuses exclusively on Bangladesh, showing individual
-							casualties during the incidents that occurred in July 2024. Each
-							marker represents a single person who was killed, injured, or
-							reported missing.
+							This digital memorial honors the victims of the July 2024
+							incidents in Bangladesh. Each marker represents a real person
+							whose life was affected by these tragic events. We remember them
+							with respect and dignity.
 						</p>
+						<div className="mt-3 p-3 bg-black/5 dark:bg-white/5 rounded-md border-l-2 border-red-700">
+							<p className="text-xs text-muted-foreground italic">
+								"In the silence of memory, we honor those who suffered. May
+								their stories be remembered."
+							</p>
+						</div>
 						<div className="mt-2 p-2 bg-muted rounded-md flex items-center gap-2">
 							<Box3d className="h-4 w-4 text-primary" />
 							<span className="text-xs">

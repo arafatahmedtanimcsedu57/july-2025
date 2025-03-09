@@ -404,6 +404,36 @@ export default function MapComponent() {
 			maxBounds={bangladeshBounds}
 			maxBoundsViscosity={1.0} // Prevent dragging outside bounds
 		>
+			{/* Memorial Banner */}
+			<div className="absolute top-4 left-4 right-4 z-[1000] bg-black/80 dark:bg-black/90 text-white px-5 py-4 rounded-md shadow-lg backdrop-blur-md border-l-4 border-red-700">
+				<div className="flex items-center gap-3">
+					<div className="w-8 h-8 flex-shrink-0 rounded-full bg-gradient-to-br from-red-700 to-red-900 flex items-center justify-center">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="16"
+							height="16"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							strokeWidth="2"
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							className="opacity-90"
+						>
+							<path d="M18 6a4 4 0 0 0-4-4 7 7 0 0 0-5 2 7 7 0 0 0-5-2 4 4 0 0 0-4 4c0 9.14 9 12 9 12s9-2.86 9-12Z" />
+						</svg>
+					</div>
+					<div>
+						<h2 className="text-lg font-semibold">
+							In Memory of the Victims • July 6, 2024
+						</h2>
+						<p className="text-sm opacity-80">
+							Honoring those who lost their lives during the Bangladesh protests
+						</p>
+					</div>
+				</div>
+			</div>
+
 			{/* Use TileLayer directly for initial load */}
 			{isDarkMode ? (
 				<TileLayer

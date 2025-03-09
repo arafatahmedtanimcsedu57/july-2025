@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
-import { BoxIcon as Box3d } from 'lucide-react';
 import { useTheme } from '@/components/theme-provider';
 
 // Dynamically import the map component to avoid SSR issues
@@ -42,16 +41,12 @@ export default function MapContainer() {
 		<div
 			className={`absolute inset-0 transition-colors duration-300 ${
 				isDarkMode
-					? 'bg-gradient-to-b from-gray-900 to-black'
-					: 'bg-gradient-to-b from-sky-100 to-white'
+					? 'bg-gradient-to-b from-gray-900 via-gray-900 to-black'
+					: 'bg-gradient-to-b from-gray-200 via-gray-100 to-white'
 			}`}
 			key={`map-container-${theme}`} // Force re-render when theme changes
 		>
 			<div className="perspective-container">
-				<div className="perspective-indicator backdrop-blur-sm">
-					<Box3d className="h-4 w-4" />
-					<span>3D Perspective View</span>
-				</div>
 				<div className="tilted-map-container">
 					<MapComponent key={`map-${theme}`} />{' '}
 					{/* Force re-render when theme changes */}
