@@ -30,11 +30,6 @@ export interface CasualtyPerson {
 	image?: string | null;
 }
 
-// Helper function to convert date string to epoch timestamp
-const toEpoch = (dateStr: string): number => {
-	return new Date(dateStr).getTime();
-};
-
 // Helper function to filter data by date
 export const getCasualtyDataByDate = (dateStr: string): CasualtyPerson[] => {
 	const targetDate = new Date(dateStr);

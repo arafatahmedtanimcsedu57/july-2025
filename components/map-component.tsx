@@ -171,6 +171,7 @@ export default function MapComponent() {
 			center={bangladeshCenter}
 			zoom={7}
 			zoomControl={true}
+			minZoom={7}
 			dragging={true} // Ensure dragging is enabled
 			doubleClickZoom={true}
 			scrollWheelZoom={true}

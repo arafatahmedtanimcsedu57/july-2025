@@ -460,136 +460,120 @@ export default function IncidentSidebar() {
 							<div className="space-y-2">
 								<h3 className="font-medium">Major News Coverage</h3>
 								<ul className="space-y-1 bg-muted/50 p-3 rounded-md">
-									{currentDay === '2024-07-03' && (
-										<>
-											<li>
-												<a
-													href="https://www.bbc.com/news"
-													target="_blank"
-													rel="noopener noreferrer"
-													className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
-												>
-													BBC: Protests begin at Bangladesh universities{' '}
-													<ExternalLink className="h-3 w-3" />
-												</a>
-											</li>
-											<li>
-												<a
-													href="https://www.thedailystar.net"
-													target="_blank"
-													rel="noopener noreferrer"
-													className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
-												>
-													Daily Star: Students begin protests in Dhaka{' '}
-													<ExternalLink className="h-3 w-3" />
-												</a>
-											</li>
-										</>
-									)}
-									{currentDay === '2024-07-04' && (
-										<>
-											<li>
-												<a
-													href="https://www.aljazeera.com"
-													target="_blank"
-													rel="noopener noreferrer"
-													className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
-												>
-													Al Jazeera: First death reported in Bangladesh
-													protests <ExternalLink className="h-3 w-3" />
-												</a>
-											</li>
-											<li>
-												<a
-													href="https://www.reuters.com"
-													target="_blank"
-													rel="noopener noreferrer"
-													className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
-												>
-													Reuters: Protests spread to Bangladesh's port city{' '}
-													<ExternalLink className="h-3 w-3" />
-												</a>
-											</li>
-										</>
-									)}
-									{currentDay === '2024-07-05' && (
-										<>
-											<li>
-												<a
-													href="https://www.bbc.com/news"
-													target="_blank"
-													rel="noopener noreferrer"
-													className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
-												>
-													BBC: Violence erupts in Bangladesh protests{' '}
-													<ExternalLink className="h-3 w-3" />
-												</a>
-											</li>
-											<li>
-												<a
-													href="https://www.aljazeera.com"
-													target="_blank"
-													rel="noopener noreferrer"
-													className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
-												>
-													Al Jazeera: Deadly clashes in Bangladesh{' '}
-													<ExternalLink className="h-3 w-3" />
-												</a>
-											</li>
-										</>
-									)}
-									{currentDay === '2024-07-06' && (
-										<>
-											<li>
-												<a
-													href="https://www.cnn.com"
-													target="_blank"
-													rel="noopener noreferrer"
-													className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
-												>
-													CNN: Protests continue for second day{' '}
-													<ExternalLink className="h-3 w-3" />
-												</a>
-											</li>
-											<li>
-												<a
-													href="https://www.reuters.com"
-													target="_blank"
-													rel="noopener noreferrer"
-													className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
-												>
-													Reuters: Vehicle drives through protesters in Dhaka{' '}
-													<ExternalLink className="h-3 w-3" />
-												</a>
-											</li>
-										</>
-									)}
-									{currentDay === '2024-07-07' && (
-										<>
-											<li>
-												<a
-													href="https://www.theguardian.com"
-													target="_blank"
-													rel="noopener noreferrer"
-													className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
-												>
-													The Guardian: University campus stormed by security
-													forces <ExternalLink className="h-3 w-3" />
-												</a>
-											</li>
-											<li>
-												<a
-													href="https://www.nytimes.com"
-													target="_blank"
-													rel="noopener noreferrer"
-													className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
-												>
-													New York Times: Port workers join Bangladesh protests{' '}
-													<ExternalLink className="h-3 w-3" />
-												</a>
-											</li>
-										</>
-									)}
+									<li>
+										<a
+											href="https://www.bbc.com/news"
+											target="_blank"
+											rel="noopener noreferrer"
+											className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
+										>
+											BBC: Protests begin at Bangladesh universities{' '}
+											<ExternalLink className="h-3 w-3" />
+										</a>
+									</li>
+									<li>
+										<a
+											href="https://www.thedailystar.net"
+											target="_blank"
+											rel="noopener noreferrer"
+											className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
+										>
+											Daily Star: Students begin protests in Dhaka{' '}
+											<ExternalLink className="h-3 w-3" />
+										</a>
+									</li>
+
+									<li>
+										<a
+											href="https://www.aljazeera.com"
+											target="_blank"
+											rel="noopener noreferrer"
+											className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
+										>
+											Al Jazeera: First death reported in Bangladesh protests{' '}
+											<ExternalLink className="h-3 w-3" />
+										</a>
+									</li>
+									<li>
+										<a
+											href="https://www.reuters.com"
+											target="_blank"
+											rel="noopener noreferrer"
+											className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
+										>
+											Reuters: Protests spread to Bangladesh's port city{' '}
+											<ExternalLink className="h-3 w-3" />
+										</a>
+									</li>
+
+									<li>
+										<a
+											href="https://www.bbc.com/news"
+											target="_blank"
+											rel="noopener noreferrer"
+											className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
+										>
+											BBC: Violence erupts in Bangladesh protests{' '}
+											<ExternalLink className="h-3 w-3" />
+										</a>
+									</li>
+									<li>
+										<a
+											href="https://www.aljazeera.com"
+											target="_blank"
+											rel="noopener noreferrer"
+											className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
+										>
+											Al Jazeera: Deadly clashes in Bangladesh{' '}
+											<ExternalLink className="h-3 w-3" />
+										</a>
+									</li>
+
+									<li>
+										<a
+											href="https://www.cnn.com"
+											target="_blank"
+											rel="noopener noreferrer"
+											className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
+										>
+											CNN: Protests continue for second day{' '}
+											<ExternalLink className="h-3 w-3" />
+										</a>
+									</li>
+									<li>
+										<a
+											href="https://www.reuters.com"
+											target="_blank"
+											rel="noopener noreferrer"
+											className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
+										>
+											Reuters: Vehicle drives through protesters in Dhaka{' '}
+											<ExternalLink className="h-3 w-3" />
+										</a>
+									</li>
+
+									<li>
+										<a
+											href="https://www.theguardian.com"
+											target="_blank"
+											rel="noopener noreferrer"
+											className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
+										>
+											The Guardian: University campus stormed by security forces{' '}
+											<ExternalLink className="h-3 w-3" />
+										</a>
+									</li>
+									<li>
+										<a
+											href="https://www.nytimes.com"
+											target="_blank"
+											rel="noopener noreferrer"
+											className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
+										>
+											New York Times: Port workers join Bangladesh protests{' '}
+											<ExternalLink className="h-3 w-3" />
+										</a>
+									</li>
 								</ul>
 							</div>
 						</div>
