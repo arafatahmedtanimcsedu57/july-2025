@@ -38,8 +38,8 @@ export default function MapContainer() {
 	}
 
 	return (
-		<div className="perspective-container">
-			<div className="hidden md:block w-fit border border-muted-foreground/30 absolute bottom-4 right-4 z-[10] bg-transparent px-5 py-4 rounded-md shadow-lg backdrop-blur-md ml-96">
+		<div className="">
+			<div className="hidden md:block w-fit border border-muted-foreground/30 absolute bottom-8 right-8 z-[10] bg-transparent px-5 py-4 rounded-md shadow-lg backdrop-blur-md ml-96">
 				<div className="flex flex-col gap-1 text-slate-800">
 					<h2 className="text-lg font-semibold">
 						In Memory of the Victims • July 6, 2024
@@ -50,7 +50,7 @@ export default function MapContainer() {
 				</div>
 			</div>
 
-			<div className="tilted-map-container">
+			<div className="w-50 h-50 rounded-r-2xl overflow-hidden">
 				<MapComponent />
 			</div>
 		</div>

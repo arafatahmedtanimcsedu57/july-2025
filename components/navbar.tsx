@@ -12,7 +12,7 @@ export default function Navbar() {
 	const editedCount = Object.keys(editedData).length;
 
 	return (
-		<header className="sticky top-0 z-50 w-full bg-background">
+		<header className="sticky top-0 z-50 w-full ">
 			<div className="m-auto container flex items-center justify-between">
 				<div className="flex gap-2 items-center py-4 px-2">
 					<div className="relative">

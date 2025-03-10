@@ -5,11 +5,11 @@ import Sidebar from '@/components/sidebar';
 
 export default function Home() {
 	return (
-		<main className="min-h-screen flex flex-col">
+		<main className="min-h-screen flex flex-col bg-muted-foreground/20">
 			<Navbar />
-			<div className="flex flex-1 overflow-hidden relative">
+			<div className="m-4 flex overflow-hidden bg-background rounded-2xl shadow-2xl border border-muted-foreground/20">
 				<IncidentSidebar />
-				<div className="flex-1 relative">
+				<div className="hidden md:block">
 					<MapContainer />
 				</div>
 				<Sidebar />

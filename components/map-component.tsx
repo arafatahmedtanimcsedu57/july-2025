@@ -10,6 +10,7 @@ import {
 	CircleMarker,
 	Popup,
 	Rectangle,
+	ZoomControl,
 } from 'react-leaflet';
 
 import { useTheme } from '@/components/theme-provider';
@@ -169,11 +170,13 @@ export default function MapComponent() {
 		<MapContainer
 			center={bangladeshCenter}
 			zoom={7}
-			zoomControl={false}
+			zoomControl={true}
 			dragging={true} // Ensure dragging is enabled
 			doubleClickZoom={true}
 			scrollWheelZoom={true}
+			style={{ width: 'calc(100vw - 400px)', height: 'calc(100vh - 110px)' }}
 		>
+			<ZoomControl position="bottomleft" />
 			{/* Also use ThemeTileLayer to handle theme changes */}
 			<ThemeTileLayer />
 			{/* Bangladesh border outline */}

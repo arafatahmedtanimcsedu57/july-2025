@@ -132,7 +132,7 @@ export default function IncidentSidebar() {
 	}, [setSelectedIncident, selectedIncidentId, isEditing, cancelEditing]);
 
 	return (
-		<div className="fixed top-20 left-0 bottom-0 w-full md:w-96 bg-transparent z-40 transition-all duration-300 ease-in-out">
+		<div className="w-full md:w-96 bg-transparent z-40 transition-all duration-300 ease-in-out max-h-[calc(100vh-110px)] overflow-auto">
 			{selectedPerson ? (
 				// Person Details View
 				<div className="flex flex-col h-full">
@@ -334,8 +334,8 @@ export default function IncidentSidebar() {
 						<div className="p-4 space-y-6">
 							{/* Casualty statistics */}
 							<div>
-								<div className="grid grid-cols-2 gap-3 bg-transparent border border-muted-foreground/30 p-4 rounded-2xl backdrop-blur-md shadow-2xl">
-									<Card className="scale-[1.2] -translate-x-4 -translate-y-4 rounded-2xl shadow-lg shadow-red-500/50 border border-muted-foreground/30 bg-secondary-foreground backdrop-blur-md">
+								<div className="grid grid-cols-2 gap-3 bg-transparent border border-muted-foreground/30 p-4 rounded-2xl backdrop-blur-md">
+									<Card className="scale-[1.21] -translate-x-4 -translate-y-4 rounded-2xl shadow-xl shadow-gray-700 border border-muted-foreground/30 bg-secondary-foreground backdrop-blur-md">
 										<CardContent className="p-3">
 											<div className="text-2xl font-bold text-red-600 ">
 												{totals['Death'] || 0}
@@ -346,7 +346,7 @@ export default function IncidentSidebar() {
 										</CardContent>
 									</Card>
 
-									<Card className="rounded-2xl shadow-lg shadow-orange-500/20 border border-muted-foreground/30 bg-secondary">
+									<Card className="rounded-2xl  border border-muted-foreground/30 bg-secondary">
 										<CardContent className="p-3">
 											<div className="text-2xl font-bold text-orange-600">
 												{totals['Injury'] || 0}
@@ -357,7 +357,7 @@ export default function IncidentSidebar() {
 										</CardContent>
 									</Card>
 
-									<Card className="rounded-2xl shadow-lg shadow-purple-500/20 border border-muted-foreground/30 bg-secondary">
+									<Card className="rounded-2xl border border-muted-foreground/30 bg-secondary">
 										<CardContent className="p-3">
 											<div className="text-2xl font-bold text-purple-600">
 												{totals['Multiple Casualties'] || 0}
@@ -368,7 +368,7 @@ export default function IncidentSidebar() {
 										</CardContent>
 									</Card>
 
-									<Card className="rounded-2xl shadow-lg shadow-blue-500/20 border border-muted-foreground/30 bg-secondary">
+									<Card className="rounded-2xl border border-muted-foreground/30 bg-secondary">
 										<CardContent className="p-3">
 											<div className="text-2xl font-bold text-blue-600">
 												{totals['No Casualties'] || 0}
@@ -382,7 +382,7 @@ export default function IncidentSidebar() {
 							</div>
 
 							{/* Affected areas - dynamically generated from the current day's data */}
-							<div className="p-4 space-y-3 bg-transparent backdrop-blur-md border">
+							<div className="p-4 space-y-3 bg-transparent backdrop-blur-md border rounded-2xl">
 								<h3 className="font-medium">Affected Individuals</h3>
 								<div className="space-y-2">
 									{casualtyData
@@ -395,53 +395,44 @@ export default function IncidentSidebar() {
 											return (
 												<div
 													key={person.id}
-													className={`flex flex-col gap-2 p-3 rounded-md border hover:bg-muted cursor-pointer transition-colors ${
-														incomplete
-															? 'border-amber-200 dark:border-amber-800 bg-amber-50/30 dark:bg-amber-950/10'
-															: ''
-													}`}
+													className={`flex flex-col gap-2 p-4 rounded-md border hover:bg-muted cursor-pointer transition-colors`}
 													onClick={() =>
 														setSelectedIncident(person.id.toString())
 													}
 												>
 													<div className="flex items-center justify-between">
 														<div className="flex items-center gap-2">
-															<div
-																className={`w-2.5 h-2.5 rounded-full ${
-																	getBadgeColor(person.type)
-																		.replace('bg-', '')
-																		.split(' ')[0]
-																}`}
-															/>
 															<div className="font-medium text-sm flex items-center gap-1.5">
 																{person.name || 'Unknown'}
-																{incomplete && (
-																	<span className="inline-flex items-center rounded-full bg-amber-100 dark:bg-amber-900/50 px-1.5 py-0.5 text-xs font-medium text-amber-800 dark:text-amber-300">
-																		<Edit className="h-2.5 w-2.5 mr-0.5" /> Edit
-																		needed
-																	</span>
-																)}
 															</div>
 														</div>
+
 														<div className="text-xs font-medium text-muted-foreground">
 															{person.type || 'Unknown'}
 														</div>
 													</div>
 
-													<div className="text-xs text-muted-foreground flex justify-between">
+													<div className="text-xs text-muted-foreground flex flex-col justify-between">
 														<span>
-															{person.occupation || 'Unknown occupation'}
+															{person.occupation || 'Unknown occupation'}{' '}
 															{person.age ? `, ${person.age} years` : ''}
 														</span>
 														<span>{person.location || 'Unknown location'}</span>
 													</div>
 
 													{incomplete && (
-														<div className="w-full h-1 bg-muted rounded overflow-hidden">
-															<div
-																className="h-full bg-amber-500 transition-all"
-																style={{ width: `${completeness}%` }}
-															></div>
+														<div className="flex flex-col gap-2">
+															{' '}
+															<div className="w-full h-1 bg-muted rounded overflow-hidden">
+																<div
+																	className="h-full bg-primary transition-all"
+																	style={{ width: `${completeness}%` }}
+																></div>
+															</div>
+															<span className="w-fit inline-flex items-center rounded-full bg-amber-100 dark:bg-amber-900/50 px-1.5 py-0.5 text-xs font-medium text-amber-800 dark:text-amber-300 self-end">
+																<Edit className="h-2.5 w-2.5 mr-0.5" /> Edit
+																needed
+															</span>
 														</div>
 													)}
 												</div>

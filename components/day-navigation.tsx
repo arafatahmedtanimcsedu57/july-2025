@@ -16,7 +16,7 @@ export default function DayNavigation() {
 
 	return (
 		<div className="p-4">
-			<div className="flex items-center justify-between p-4 bg-transparent backdrop-blur-md shadow-2xl border border-muted-foreground/30 rounded-2xl">
+			<div className="flex items-center justify-between p-4 bg-transparent border border-muted-foreground/30 rounded-2xl">
 				<Button
 					variant="ghost"
 					size="sm"

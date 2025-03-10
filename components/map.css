@@ -24,6 +24,7 @@
 /* Keep the existing grayscale tiles style */
 .grayscale-tiles {
 	filter: grayscale(100%) !important;
+	border-radius: 100px;
 }
 
 /* Dark mode tiles - increase contrast in dark mode */
