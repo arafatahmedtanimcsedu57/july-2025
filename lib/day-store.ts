@@ -33,7 +33,9 @@ const extractAvailableDays = (): string[] => {
 const AVAILABLE_DAYS = extractAvailableDays();
 
 // Get the middle day as default
-const DEFAULT_DAY = AVAILABLE_DAYS[Math.floor(AVAILABLE_DAYS.length / 2)];
+// const DEFAULT_DAY = AVAILABLE_DAYS[Math.floor(AVAILABLE_DAYS.length / 2)];
+
+const DEFAULT_DAY = AVAILABLE_DAYS[AVAILABLE_DAYS.length - 1];
 
 export const useDayStore = create<DayState>((set) => ({
 	currentDay: DEFAULT_DAY,
