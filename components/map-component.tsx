@@ -4,26 +4,21 @@ import React from 'react';
 import { useEffect, useState, useRef, useCallback } from 'react';
 import L from 'leaflet';
 import { Loader2 } from 'lucide-react';
-import {
-	MapContainer,
-	useMap,
-	CircleMarker,
-	Popup,
-	Rectangle,
-	ZoomControl,
-} from 'react-leaflet';
-
-import { useTheme } from '@/components/theme-provider';
+import { MapContainer, useMap, CircleMarker, Popup } from 'react-leaflet';
 
 import { getCasualtyDataByDate } from '@/lib/data';
 import { useIncidentStore } from '@/lib/incident-store';
 import { useDayStore } from '@/lib/day-store';
 import { getUpdatedPersonData } from '@/lib/edit-store';
+import bangladeshData from '@/lib/bangladesh.json';
+
+import { GeoJsonObject } from 'geojson';
 
 import 'leaflet/dist/leaflet.css';
 import './map.css';
 
-// Define colors for different casualty types with a default fallback
+const bangladeshGeoJson = bangladeshData as GeoJsonObject;
+
 const markerColors: Record<string, { color: string; fillColor: string }> = {
 	Death: { color: '#ef4444', fillColor: '#ef4444' }, // red
 	Injury: { color: '#f97316', fillColor: '#f97316' }, // orange
@@ -32,7 +27,6 @@ const markerColors: Record<string, { color: string; fillColor: string }> = {
 	default: { color: '#6b7280', fillColor: '#6b7280' }, // gray as default
 };
 
-// Helper function to get marker color safely
 const getMarkerColor = (type: string | null) => {
 	if (!type || !(type in markerColors)) {
 		return markerColors['default'];
@@ -40,13 +34,11 @@ const getMarkerColor = (type: string | null) => {
 	return markerColors[type];
 };
 
-// Define Bangladesh bounds with a more specific type
 const bangladeshBounds: [[number, number], [number, number]] = [
 	[20.7, 88.0], // Southwest corner
 	[26.7, 92.7], // Northeast corner
 ];
 
-// Component to handle map zooming and bounds
 function MapController({
 	selectedPersonId,
 }: {
@@ -71,11 +63,8 @@ function MapController({
 		}
 	}, [selectedPersonId, casualtyData, map]);
 
-	// Reset zoom level when date changes
 	useEffect(() => {
-		// Only reset if the date actually changed
 		if (prevDayRef.current !== currentDay) {
-			// Reset to fit Bangladesh bounds
 			map.fitBounds(bangladeshBounds, {
 				animate: true,
 				duration: 1.5,
@@ -92,9 +81,7 @@ function ThemeTileLayer() {
 	const map = useMap();
 	const tileLayerRef = useRef<L.TileLayer | null>(null);
 
-	// Function to add the appropriate tile layer
 	const addTileLayer = useCallback(() => {
-		// Remove existing tile layer if it exists
 		if (tileLayerRef.current) {
 			map.removeLayer(tileLayerRef.current);
 			tileLayerRef.current = null;
@@ -109,17 +96,27 @@ function ThemeTileLayer() {
 				className: 'grayscale-tiles',
 			},
 		).addTo(map);
+
+		L.geoJSON(bangladeshGeoJson, {
+			style: (feature) => ({
+				color: '#2c2827', // Stroke (border) color
+				weight: 2, // Border thickness
+				fillColor: '#fffff', // Fill color
+				fillOpacity: 0.01, // Transparency of fill
+				shadowColor: '#000', // Shadow color (black)
+				shadowBlur: 5, // Shadow blur effect
+				shadowOffset: [3, 3], // Shadow offset (X, Y)
+				lineJoin: 'bevel',
+				className: 'filter-[10%]',
+			}),
+		}).addTo(map);
 	}, [map]);
 
-	// Add tile layer on initial mount and when theme changes
 	useEffect(() => {
 		addTileLayer();
 
-		// Cleanup function to remove tile layer when component unmounts
 		return () => {
-			if (tileLayerRef.current) {
-				map.removeLayer(tileLayerRef.current);
-			}
+			if (tileLayerRef.current) map.removeLayer(tileLayerRef.current);
 		};
 	}, [map, addTileLayer]);
 
@@ -130,22 +127,16 @@ export default function MapComponent() {
 	const [isLoading, setIsLoading] = useState(true);
 	const { selectedIncidentId, setSelectedIncident } = useIncidentStore();
 	const { currentDay } = useDayStore();
-	const { theme } = useTheme();
-	const isDarkMode = theme === 'dark';
 
-	// Get data for the current day
 	const casualtyData = getCasualtyDataByDate(currentDay);
 
-	// Center on Bangladesh
 	const bangladeshCenter: [number, number] = [23.8103, 90.4125]; // Dhaka coordinates
 
 	useEffect(() => {
-		// Reset selected incident when day changes
 		setSelectedIncident(null);
 	}, [currentDay, setSelectedIncident]);
 
 	useEffect(() => {
-		// Simulate loading the map data
 		const timer = setTimeout(() => {
 			setIsLoading(false);
 		}, 1000);
@@ -161,7 +152,6 @@ export default function MapComponent() {
 		);
 	}
 
-	// Filter out data points with null lat/lng
 	const validCasualtyData = casualtyData.filter(
 		(person) => person.lat != null && person.lng != null,
 	);
@@ -170,36 +160,19 @@ export default function MapComponent() {
 		<MapContainer
 			center={bangladeshCenter}
 			zoom={7}
-			zoomControl={true}
+			zoomControl={false}
 			minZoom={7}
-			dragging={true} // Ensure dragging is enabled
+			dragging={true}
 			doubleClickZoom={true}
 			scrollWheelZoom={true}
 			style={{ width: 'calc(100vw - 400px)', height: 'calc(100vh - 110px)' }}
 		>
-			<ZoomControl position="bottomleft" />
-			{/* Also use ThemeTileLayer to handle theme changes */}
 			<ThemeTileLayer />
-			{/* Bangladesh border outline */}
-			<Rectangle
-				bounds={bangladeshBounds}
-				pathOptions={{
-					color: isDarkMode ? '#666' : '#333',
-					weight: 2,
-					fill: false,
-					dashArray: '5, 5',
-					opacity: 1,
-				}}
-			/>
-			{/* Only show markers if not in location selection mode */}
-			{validCasualtyData.map((person) => {
-				// Get updated person data if it exists
-				const updatedPerson = getUpdatedPersonData(person);
 
-				// Get marker color safely
+			{validCasualtyData.map((person) => {
+				const updatedPerson = getUpdatedPersonData(person);
 				const markerColor = getMarkerColor(updatedPerson.type);
 
-				// Ensure lat and lng are not null before creating CircleMarker
 				if (updatedPerson.lat === null || updatedPerson.lng === null)
 					return null;
 
