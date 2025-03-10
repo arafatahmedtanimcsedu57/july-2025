@@ -49,7 +49,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 1,
 		date: 1722816000000,
-		name: 'ISLAM SHAHIDUL',
+		name: 'A K M SHAHIDUL ISLAM',
 		age: 40,
 		occupation: 'Private Employee',
 		type: 'Death',
@@ -61,7 +61,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 2,
 		date: 1722729600000,
-		name: 'MAHIN ABDULLAH ',
+		name: 'ABDULLAH AL MAHIN',
 		age: 16,
 		occupation: 'Student',
 		type: 'Death',
@@ -73,7 +73,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 3,
 		date: 1722816000000,
-		name: 'Raza',
+		name: 'Nazmul Islam Raju',
 		age: 39,
 		occupation: 'Tailor',
 		type: 'Death',
@@ -85,7 +85,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 4,
 		date: 1722816000000,
-		name: 'M. MANIK',
+		name: 'ABDUL KADIR MANIK',
 		age: 43,
 		occupation: 'Salesman',
 		type: 'Death',
@@ -97,7 +97,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 5,
 		date: 1721347200000,
-		name: 'ADOR',
+		name: 'ABDULLAH AL ABIR',
 		age: 24,
 		occupation: 'Private Employee',
 		type: 'Death',
@@ -109,7 +109,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 6,
 		date: 1722470400000,
-		name: 'JAHID HASAN',
+		name: 'ABDULLAH BIN JAHID',
 		age: 17,
 		occupation: 'Student',
 		type: 'Death',
@@ -121,7 +121,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 7,
 		date: 1721347200000,
-		name: 'MISIR ALI',
+		name: 'ABU HOSSEIN MIJI',
 		age: null,
 		occupation: 'Driver',
 		type: 'Death',
@@ -133,7 +133,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 8,
 		date: 1721347200000,
-		name: 'A. TANIM',
+		name: 'ABU TAHER MD TURAB',
 		age: null,
 		occupation: 'Journalist',
 		type: 'Death',
@@ -145,7 +145,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 9,
 		date: 1722816000000,
-		name: 'ARAFAT ALI',
+		name: 'AJMOT ALI',
 		age: null,
 		occupation: 'Fish Trader',
 		type: 'Death',
@@ -157,7 +157,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 10,
 		date: 1722816000000,
-		name: 'SABBIR AHMED',
+		name: 'AMINUL ISLAM SABBIR',
 		age: 14,
 		occupation: 'Student',
 		type: 'Death',
@@ -169,7 +169,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 11,
 		date: 1722816000000,
-		name: 'AS ALI',
+		name: 'AS SABUR',
 		age: 14,
 		occupation: 'Student',
 		type: 'Death',
@@ -181,7 +181,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 12,
 		date: 1721347200000,
-		name: 'NAFIS IQBAL',
+		name: 'ASIF IQBAL',
 		age: 29,
 		occupation: 'Private Employee',
 		type: 'Death',
@@ -193,7 +193,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 13,
 		date: 1722729600000,
-		name: 'HOSEN MAHMUD',
+		name: 'EMON HOSEN AKASH',
 		age: 24,
 		occupation: 'Student',
 		type: 'Death',
@@ -205,7 +205,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 14,
 		date: 1721347200000,
-		name: 'EMON',
+		name: 'EMTIAZ AHAMMAD ZABIR',
 		age: 20,
 		occupation: 'Student',
 		type: 'Death',
@@ -217,7 +217,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 15,
 		date: 1721260800000,
-		name: 'ARIF',
+		name: 'FARHANA FAYAZ RATUL',
 		age: 17,
 		occupation: 'Student',
 		type: 'Death',
@@ -229,7 +229,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 16,
 		date: 1722729600000,
-		name: 'TANVIR',
+		name: 'GOLAM NAFIS',
 		age: 17,
 		occupation: 'Student',
 		type: 'Death',
@@ -241,7 +241,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 17,
 		date: 1722816000000,
-		name: 'GOLAM',
+		name: 'HAFIZUR RAHMAN SUMON',
 		age: null,
 		occupation: 'Driver',
 		type: 'Death',
@@ -253,7 +253,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 18,
 		date: 1721260800000,
-		name: 'SAFI',
+		name: 'HRIDOY CHANDRA TORUA',
 		age: 22,
 		occupation: 'Student',
 		type: 'Death',
@@ -265,7 +265,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 19,
 		date: 1722729600000,
-		name: 'HRIDOY',
+		name: 'ISMAIL HOSSAIN RABBI',
 		age: 17,
 		occupation: 'Student',
 		type: 'Death',
@@ -277,7 +277,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 20,
 		date: 1722816000000,
-		name: 'CHANDRA',
+		name: 'JABIR IBRAHIM',
 		age: 6,
 		occupation: 'Student',
 		type: 'Death',
@@ -289,7 +289,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 21,
 		date: 1722729600000,
-		name: 'TORUA',
+		name: 'JAHIRUL ISLAM',
 		age: 24,
 		occupation: 'Private Employee',
 		type: 'Death',
@@ -301,7 +301,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 22,
 		date: 1722816000000,
-		name: 'JWEL',
+		name: 'JAKIRHUSAN RANA',
 		age: 33,
 		occupation: 'Garment Worker',
 		type: 'Death',
@@ -313,7 +313,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 23,
 		date: 1722297600000,
-		name: 'JAKIRHUSAN',
+		name: 'JULFIKAR AHMED SHAKIL',
 		age: 23,
 		occupation: 'Student',
 		type: 'Death',
@@ -325,7 +325,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 24,
 		date: 1721347200000,
-		name: 'RANA',
+		name: 'KAMAL MIA',
 		age: 29,
 		occupation: 'Rickshaw Puller',
 		type: 'Death',
@@ -337,7 +337,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 25,
 		date: 1722729600000,
-		name: 'KAMAL',
+		name: 'KAMRUZZAMAN',
 		age: 30,
 		occupation: 'Private Car Driver',
 		type: 'Death',
@@ -349,7 +349,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 26,
 		date: 1722816000000,
-		name: 'MIA',
+		name: 'KARIMUL ISLAM',
 		age: 20,
 		occupation: 'Businessman',
 		type: 'Death',
@@ -361,7 +361,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 27,
 		date: 1722729600000,
-		name: 'KAMRUZZAMAN',
+		name: 'KAWSAR MAHMUD',
 		age: 22,
 		occupation: 'Student',
 		type: 'Death',
@@ -373,7 +373,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 28,
 		date: 1722816000000,
-		name: 'KAWSAR',
+		name: 'MANIK MIAH SHARIK CHOWDHURY',
 		age: 26,
 		occupation: 'Politician',
 		type: 'Death',
@@ -385,7 +385,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 29,
 		date: 1722816000000,
-		name: 'MAHMUD',
+		name: 'MARUF MIAH',
 		age: 15,
 		occupation: 'Student',
 		type: 'Death',
@@ -397,7 +397,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 30,
 		date: 1722729600000,
-		name: ' MANIK',
+		name: 'MD ABDUL MANNAN SARKER',
 		age: 65,
 		occupation: 'Rickshaw Puller',
 		type: 'Death',
@@ -409,7 +409,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 31,
 		date: 1721088000000,
-		name: ' MIAH',
+		name: 'MD FAISAL AHMED SHANTO',
 		age: null,
 		occupation: 'Student',
 		type: 'Death',
@@ -421,7 +421,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 32,
 		date: 1721347200000,
-		name: 'SHARIK',
+		name: 'JAHANGIR HOSSAIN MRIDHA',
 		age: 51,
 		occupation: 'Van Driver',
 		type: 'Death',
@@ -433,7 +433,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 33,
 		date: 1722816000000,
-		name: 'CHOWDHURY',
+		name: 'MD JULKER NAIN',
 		age: 17,
 		occupation: 'Student',
 		type: 'Death',
@@ -445,7 +445,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 34,
 		date: 1722816000000,
-		name: 'MARUF',
+		name: 'MD JUNAID ISLAM RATUL',
 		age: 13,
 		occupation: 'Student',
 		type: 'Death',
@@ -457,7 +457,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 35,
 		date: 1722816000000,
-		name: 'MIAH',
+		name: 'MD LABLU MIA',
 		age: 41,
 		occupation: 'Private Employee',
 		type: 'Death',
@@ -469,7 +469,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 36,
 		date: 1722816000000,
-		name: 'MD',
+		name: 'MD LABU Mia',
 		age: 40,
 		occupation: 'Rickshaw Puller',
 		type: 'Death',
@@ -481,7 +481,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 37,
 		date: 1721260800000,
-		name: 'LABU',
+		name: 'MD LITON',
 		age: 30,
 		occupation: 'Mechanic',
 		type: 'Death',
@@ -493,7 +493,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 38,
 		date: 1722816000000,
-		name: 'Mia',
+		name: 'MD MAMUN KHANDOKER',
 		age: 45,
 		occupation: 'Politician',
 		type: 'Death',
@@ -505,7 +505,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 39,
 		date: 1721347200000,
-		name: 'MD',
+		name: 'MD MARUF HOSEN',
 		age: 21,
 		occupation: 'Student',
 		type: 'Death',
@@ -517,7 +517,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 40,
 		date: 1721347200000,
-		name: 'ABDUL',
+		name: 'MD MASUD',
 		age: null,
 		occupation: null,
 		type: 'Death',
@@ -529,7 +529,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 41,
 		date: 1722816000000,
-		name: 'MANNAN',
+		name: 'MD MASUM BILLAH',
 		age: 24,
 		occupation: 'Construction Worker',
 		type: 'Death',
@@ -926,7 +926,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 74,
 		date: 1721260800000,
-		name: 'NAIN',
+		name: 'MIR MAHFUZUR RAHMAN MUGDHO',
 		age: null,
 		occupation: 'Student',
 		type: 'Death',
@@ -1910,7 +1910,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 156,
 		date: 1722729600000,
-		name: 'JULKER',
+		name: 'SHIMUL MANDAL MATI',
 		age: 44,
 		occupation: 'Tailor',
 		type: 'Death',
@@ -1922,7 +1922,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 157,
 		date: 1721433600000,
-		name: 'MD',
+		name: 'MOHAMMAD HRIDOY',
 		age: 27,
 		occupation: 'Worker',
 		type: 'Death',
@@ -1934,7 +1934,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 158,
 		date: 1722816000000,
-		name: 'MRIDHA',
+		name: 'ABDUL QAIYUM',
 		age: null,
 		occupation: 'Student',
 		type: 'Death',
@@ -1946,7 +1946,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 159,
 		date: 1721433600000,
-		name: 'HOSSAIN',
+		name: 'MD EMDADUL HAQUE',
 		age: null,
 		occupation: null,
 		type: 'Death',
@@ -1982,7 +1982,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 162,
 		date: 1721260800000,
-		name: 'JAHANGIR',
+		name: 'Uttam',
 		age: null,
 		occupation: 'Law Enforcer',
 		type: 'Multiple Casualties',
@@ -2006,7 +2006,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 165,
 		date: 1721088000000,
-		name: 'SHANTO',
+		name: 'Abu Sayeed',
 		age: 23,
 		occupation: 'Student',
 		type: 'Death',
@@ -2246,7 +2246,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 187,
 		date: 1721347200000,
-		name: 'AHMED',
+		name: 'Mahburur Rahman Sabuj',
 		age: null,
 		occupation: null,
 		type: 'Injury',
@@ -2282,7 +2282,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 190,
 		date: 1722816000000,
-		name: 'FAISAL',
+		name: 'Kazol Miya',
 		age: null,
 		occupation: 'Student',
 		type: 'Injury',
@@ -2330,7 +2330,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 194,
 		date: 1721347200000,
-		name: 'MD',
+		name: 'Amir Hossain',
 		age: 18,
 		occupation: 'Shopkeeper',
 		type: 'Injury',
@@ -2342,7 +2342,7 @@ export const allCasualtyData: CasualtyPerson[] = [
 	{
 		id: 195,
 		date: 1722816000000,
-		name: 'SARKER',
+		name: 'Khokon Chandra Barman',
 		age: 23,
 		occupation: 'Car Driver',
 		type: 'Injury',
