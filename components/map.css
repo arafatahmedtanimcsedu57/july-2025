@@ -23,13 +23,12 @@
 
 /* Keep the existing grayscale tiles style */
 .grayscale-tiles {
-	/* filter: grayscale(100%) !important;
-	border-radius: 100px; */
+	filter: grayscale(100%) !important;
 }
 
 /* Dark mode tiles - increase contrast in dark mode */
 .dark .grayscale-tiles {
-	/* filter: grayscale(100%) brightness(0.8) contrast(1.2) !important; */
+	filter: grayscale(100%) brightness(0.8) contrast(1.2) !important;
 }
 
 /* Make sure the map container is visible */
