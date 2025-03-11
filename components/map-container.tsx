@@ -2,8 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
-
-import { useTheme } from '@/components/theme-provider';
+import Navbar from './navbar';
 
 const MapComponent = dynamic(() => import('@/components/map-component'), {
 	ssr: false,
@@ -19,8 +18,6 @@ const MapComponent = dynamic(() => import('@/components/map-component'), {
 
 export default function MapContainer() {
 	const [isMounted, setIsMounted] = useState(false);
-	const { theme } = useTheme();
-	const isDarkMode = theme === 'dark';
 
 	useEffect(() => {
 		setIsMounted(true);
@@ -48,6 +45,7 @@ export default function MapContainer() {
 						Honoring those who lost their lives during the Bangladesh protests
 					</p>
 				</div>
+				<Navbar />
 			</div>
 
 			<div className="w-50 h-50 rounded-r-2xl overflow-hidden">

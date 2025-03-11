@@ -20,6 +20,8 @@ import { useIncidentStore } from '@/lib/incident-store';
 import { useSidebarStore } from '@/lib/sidebar-store';
 import { getCasualtyDataByDate } from '@/lib/data';
 import { useEditStore, getUpdatedPersonData } from '@/lib/edit-store';
+import { FilterControls } from './filter-controls';
+import { useFilteredData } from '@/hooks/use-filtered-data';
 
 // Helper function to get badge color based on casualty type
 const getBadgeColor = (type: string | null) => {
@@ -80,9 +82,9 @@ export default function IncidentSidebar() {
 	const { isEditing, startEditing, cancelEditing } = useEditStore();
 	const [showAllCasualties, setShowAllCasualties] = useState(false);
 
-	// Get data for the current day
-	const casualtyData = getCasualtyDataByDate(currentDay);
-	let selectedPerson = casualtyData.find(
+	const filteredData = useFilteredData();
+
+	let selectedPerson = filteredData.find(
 		(p) => p.id.toString() === selectedIncidentId,
 	);
 
@@ -92,7 +94,7 @@ export default function IncidentSidebar() {
 	}
 
 	// Calculate totals for the current day
-	const totals = casualtyData.reduce(
+	const totals = filteredData.reduce(
 		(acc, person) => {
 			if (person.type) {
 				acc[person.type]++;
@@ -132,11 +134,9 @@ export default function IncidentSidebar() {
 	}, [setSelectedIncident, selectedIncidentId, isEditing, cancelEditing]);
 
 	return (
-		<div className="w-full md:w-96 bg-transparent z-40 transition-all duration-300 ease-in-out max-h-[calc(100vh-110px)] overflow-auto">
+		<div className="w-full md:w-[100px] bg-transparent z-40 transition-all duration-300 ease-in-out overflow-hidden">
 			{selectedPerson ? (
-				// Person Details View
-				<div className="flex flex-col h-full">
-					<DayNavigation />
+				<div className="flex flex-col h-[calc(100vh-100px)] absolute">
 					<div className="flex items-center justify-between p-4 border-b">
 						<div>
 							<h2 className="text-lg font-semibold">Person Details</h2>
@@ -182,7 +182,6 @@ export default function IncidentSidebar() {
 								/>
 							) : (
 								<div className="space-y-6">
-									{/* Incomplete data alert and progress bar */}
 									{hasIncompleteData(selectedPerson) && (
 										<div className="space-y-3">
 											<Alert className="bg-amber-50 text-amber-800 border-amber-200 dark:bg-amber-950/20 dark:text-amber-300 dark:border-amber-800">
@@ -210,14 +209,12 @@ export default function IncidentSidebar() {
 										</div>
 									)}
 
-									{/* Person type badge */}
 									<div>
 										<Badge className={getBadgeColor(selectedPerson.type)}>
 											{selectedPerson.type || 'Unknown'}
 										</Badge>
 									</div>
 
-									{/* Person information */}
 									<div className="space-y-4">
 										<div className="flex gap-4 items-start">
 											<div className="relative h-24 w-24 overflow-hidden rounded-md border shadow-sm">
@@ -253,7 +250,6 @@ export default function IncidentSidebar() {
 										)}
 									</div>
 
-									{/* Incident details */}
 									{selectedPerson.incidentDetails && (
 										<div className="space-y-2">
 											<h3 className="font-medium">Incident Details</h3>
@@ -271,7 +267,6 @@ export default function IncidentSidebar() {
 										</div>
 									)}
 
-									{/* News links */}
 									{selectedPerson.newsLinks &&
 										selectedPerson.newsLinks.length > 0 && (
 											<div className="space-y-2">
@@ -294,7 +289,6 @@ export default function IncidentSidebar() {
 											</div>
 										)}
 
-									{/* Missing fields section */}
 									{hasIncompleteData(selectedPerson) && (
 										<div className="space-y-2 mt-4 p-3 bg-muted rounded-md">
 											<h3 className="font-medium text-sm flex items-center gap-1.5">
@@ -326,13 +320,11 @@ export default function IncidentSidebar() {
 					</ScrollArea>
 				</div>
 			) : (
-				// Summary View for the current day
-				<div className="flex flex-col h-full">
-					<DayNavigation />
+				<div className="flex flex-col h-[calc(100vh-100px)] w-full md:w-[350px]  absolute">
+					<FilterControls />
 
 					<ScrollArea className="flex-1">
 						<div className="p-4 space-y-6">
-							{/* Casualty statistics */}
 							<div>
 								<div className="grid grid-cols-2 gap-3 bg-transparent border border-muted-foreground/30 p-4 rounded-2xl backdrop-blur-md">
 									<Card className="scale-[1.21] -translate-x-4 -translate-y-4 rounded-2xl shadow-xl shadow-gray-700 border border-muted-foreground/30 bg-secondary-foreground backdrop-blur-md">
@@ -381,12 +373,11 @@ export default function IncidentSidebar() {
 								</div>
 							</div>
 
-							{/* Affected areas - dynamically generated from the current day's data */}
 							<div className="p-4 space-y-3 bg-transparent backdrop-blur-md border rounded-2xl">
 								<h3 className="font-medium">Affected Individuals</h3>
 								<div className="space-y-2">
-									{casualtyData
-										.slice(0, showAllCasualties ? casualtyData.length : 5)
+									{filteredData
+										.slice(0, showAllCasualties ? filteredData.length : 5)
 										.map((person) => {
 											// Check if this person has incomplete data
 											const incomplete = hasIncompleteData(person);
@@ -439,7 +430,7 @@ export default function IncidentSidebar() {
 											);
 										})}
 
-									{casualtyData.length > 5 && (
+									{filteredData.length > 5 && (
 										<Button
 											variant="ghost"
 											size="sm"
@@ -448,15 +439,12 @@ export default function IncidentSidebar() {
 										>
 											{showAllCasualties
 												? 'Show fewer casualties'
-												: `View all ${casualtyData.length} casualties`}
+												: `View all ${filteredData.length} casualties`}
 										</Button>
 									)}
 								</div>
 							</div>
 
-							{/* Instructions */}
-
-							{/* News sources - could be day-specific */}
 							<div className="space-y-2">
 								<h3 className="font-medium">Major News Coverage</h3>
 								<ul className="space-y-1 bg-muted/50 p-3 rounded-md">

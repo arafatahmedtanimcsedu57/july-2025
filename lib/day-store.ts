@@ -11,9 +11,7 @@ interface DayState {
 	availableDays: string[];
 }
 
-// Extract all unique dates from the dataset and sort them chronologically
 const extractAvailableDays = (): string[] => {
-	// Get all unique dates from the data
 	const uniqueDates = new Set<string>();
 
 	allCasualtyData.forEach((person) => {
@@ -23,18 +21,12 @@ const extractAvailableDays = (): string[] => {
 		}
 	});
 
-	// Convert to array and sort chronologically
 	return Array.from(uniqueDates).sort((a, b) => {
 		return new Date(a).getTime() - new Date(b).getTime();
 	});
 };
 
-// Get available days from the dataset
 const AVAILABLE_DAYS = extractAvailableDays();
-
-// Get the middle day as default
-// const DEFAULT_DAY = AVAILABLE_DAYS[Math.floor(AVAILABLE_DAYS.length / 2)];
-
 const DEFAULT_DAY = AVAILABLE_DAYS[AVAILABLE_DAYS.length - 1];
 
 export const useDayStore = create<DayState>((set) => ({

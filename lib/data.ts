@@ -1,45 +1,12 @@
-// Enhanced casualty data for Bangladesh - Multiple days
-// Each pin represents a single person
+import type { CasualtyPerson } from '@/types/data';
 
-type CasualtyType =
-	| 'Injury'
-	| 'No Casualties'
-	| 'Multiple Casualties'
-	| 'Death';
-
-interface NewsLink {
-	title: string;
-	url: string;
-}
-
-export interface CasualtyPerson {
-	id: number;
-	date: number | null; // Epoch timestamp can be null
-	name: string | null;
-	age: number | null;
-	occupation: string | null;
-	type: CasualtyType | null;
-	location: string | null;
-	'Location Coordinates'?: string | null;
-	lat: number | null;
-	lng: number | null;
-	description?: string | null;
-	incidentDetails?: string | null;
-	extendedDetails?: string | null;
-	newsLinks?: NewsLink[] | null;
-	image?: string | null;
-}
-
-// Helper function to filter data by date
 export const getCasualtyDataByDate = (dateStr: string): CasualtyPerson[] => {
 	const targetDate = new Date(dateStr);
 
-	// Get the start and end of the day in epoch time
 	const startOfDay = new Date(targetDate.setHours(0, 0, 0, 0)).getTime();
 	const endOfDay = new Date(targetDate.setHours(23, 59, 59, 999)).getTime();
 
 	return allCasualtyData.filter((person) => {
-		// Handle null date values
 		if (person.date === null) return false;
 		return person.date >= startOfDay && person.date <= endOfDay;
 	});
@@ -2569,11 +2536,6 @@ export const allCasualtyData: CasualtyPerson[] = [
 	},
 ];
 
-// Helper function to convert epoch timestamp to date string
-const fromEpoch = (timestamp: number | null): string | null => {
-	if (timestamp === null) return null;
-	return new Date(timestamp).toISOString().split('T')[0];
-};
-
-// Export the default data for backward compatibility
-export const casualtyData = allCasualtyData;
+export const uniqueTypes = [
+	...new Set(allCasualtyData.map((item) => item.type)),
+];

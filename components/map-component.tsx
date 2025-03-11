@@ -4,7 +4,13 @@ import React from 'react';
 import { useEffect, useState, useRef, useCallback } from 'react';
 import L from 'leaflet';
 import { Loader2 } from 'lucide-react';
-import { MapContainer, useMap, CircleMarker, Popup } from 'react-leaflet';
+import {
+	MapContainer,
+	useMap,
+	Popup,
+	CircleMarker,
+	Circle,
+} from 'react-leaflet';
 
 import { getCasualtyDataByDate } from '@/lib/data';
 import { useIncidentStore } from '@/lib/incident-store';
@@ -16,6 +22,7 @@ import { GeoJsonObject } from 'geojson';
 
 import 'leaflet/dist/leaflet.css';
 import './map.css';
+import { useFilteredData } from '@/hooks/use-filtered-data';
 
 const bangladeshGeoJson = bangladeshData as GeoJsonObject;
 
@@ -125,10 +132,12 @@ function ThemeTileLayer() {
 
 export default function MapComponent() {
 	const [isLoading, setIsLoading] = useState(true);
+
 	const { selectedIncidentId, setSelectedIncident } = useIncidentStore();
 	const { currentDay } = useDayStore();
 
 	const casualtyData = getCasualtyDataByDate(currentDay);
+	const filteredData = useFilteredData();
 
 	const bangladeshCenter: [number, number] = [23.8103, 90.4125]; // Dhaka coordinates
 
@@ -152,7 +161,7 @@ export default function MapComponent() {
 		);
 	}
 
-	const validCasualtyData = casualtyData.filter(
+	const validCasualtyData = filteredData.filter(
 		(person) => person.lat != null && person.lng != null,
 	);
 
@@ -165,7 +174,7 @@ export default function MapComponent() {
 			dragging={true}
 			doubleClickZoom={true}
 			scrollWheelZoom={true}
-			style={{ width: 'calc(100vw - 400px)', height: 'calc(100vh - 110px)' }}
+			style={{ width: 'calc(100vw)', height: 'calc(100vh - 34px)' }}
 		>
 			<ThemeTileLayer />
 
@@ -184,7 +193,7 @@ export default function MapComponent() {
 						pathOptions={{
 							color: markerColor.color,
 							fillColor: markerColor.fillColor,
-							fillOpacity: 1,
+							fillOpacity: 0.5,
 							weight: 0,
 						}}
 						eventHandlers={{
