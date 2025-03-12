@@ -1,15 +1,25 @@
 import MapContainer from '@/components/map-container';
 import IncidentSidebar from '@/components/incident-sidebar';
 import Sidebar from '@/components/sidebar';
+import Navbar from '@/components/navbar';
+import { Button } from '@/components/ui/button';
+import { CASUALTY_TYPES } from '@/constant/casualty-types';
 
 export default function Home() {
 	return (
-		<main className="min-h-screen flex flex-col bg-muted-foreground/20">
-			<div className="m-4 flex overflow-hidden bg-background rounded-2xl shadow-2xl border border-muted-foreground/20">
-				<IncidentSidebar />
-				<div className="hidden md:block">
-					<MapContainer />
+		<main className="border-grid flex flex-1 flex-col">
+			<Navbar />
+
+			<div className="m-auto container border-dashed border-x h-[calc(100vh-61px)] flex">
+				<div className="min-w-[50px] border-r border-dashed flex flex-col justify-center items-center h-full">
+					{CASUALTY_TYPES.map((c_type) => (
+						<Button variant="ghost" key={c_type.name}>
+							<c_type.icon />
+						</Button>
+					))}
 				</div>
+				<IncidentSidebar />
+				<MapContainer />
 				<Sidebar />
 			</div>
 		</main>

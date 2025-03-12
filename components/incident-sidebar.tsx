@@ -5,22 +5,21 @@ import Image from 'next/image';
 import { format } from 'date-fns';
 import { X, ExternalLink, AlertTriangle, Edit, FileEdit } from 'lucide-react';
 
-import PersonEditForm from './person-edit-form';
-
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Card, CardContent } from '@/components/ui/card';
-import DayNavigation from '@/components/day-navigation';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Progress } from '@/components/ui/progress';
+
+import PersonEditForm from './person-edit-form';
+import { FilterControls } from './filter-controls';
 
 import { useDayStore } from '@/lib/day-store';
 import { useIncidentStore } from '@/lib/incident-store';
 import { useSidebarStore } from '@/lib/sidebar-store';
-import { getCasualtyDataByDate } from '@/lib/data';
 import { useEditStore, getUpdatedPersonData } from '@/lib/edit-store';
-import { FilterControls } from './filter-controls';
+
 import { useFilteredData } from '@/hooks/use-filtered-data';
 
 // Helper function to get badge color based on casualty type
@@ -88,12 +87,8 @@ export default function IncidentSidebar() {
 		(p) => p.id.toString() === selectedIncidentId,
 	);
 
-	// Get updated person data if it exists
-	if (selectedPerson) {
-		selectedPerson = getUpdatedPersonData(selectedPerson);
-	}
+	if (selectedPerson) selectedPerson = getUpdatedPersonData(selectedPerson);
 
-	// Calculate totals for the current day
 	const totals = filteredData.reduce(
 		(acc, person) => {
 			if (person.type) {
@@ -111,7 +106,6 @@ export default function IncidentSidebar() {
 		} as Record<string, number>,
 	);
 
-	// Close sidebar when escape key is pressed (only if an incident is selected)
 	useEffect(() => {
 		const handleEscapeKey = (e: KeyboardEvent) => {
 			if (e.key === 'Escape') {
@@ -123,7 +117,6 @@ export default function IncidentSidebar() {
 			}
 		};
 
-		// Close right sidebar when incident sidebar is opened
 		if (selectedIncidentId) {
 			const { close } = useSidebarStore.getState();
 			close();
@@ -134,9 +127,9 @@ export default function IncidentSidebar() {
 	}, [setSelectedIncident, selectedIncidentId, isEditing, cancelEditing]);
 
 	return (
-		<div className="w-full md:w-[100px] bg-transparent z-40 transition-all duration-300 ease-in-out overflow-hidden">
+		<div className="transition-all duration-300 ease-in-out overflow-hidden border-r border-dashed w-[450px]">
 			{selectedPerson ? (
-				<div className="flex flex-col h-[calc(100vh-100px)] absolute">
+				<div className="flex flex-col h-[calc(100vh-60px)]">
 					<div className="flex items-center justify-between p-4 border-b">
 						<div>
 							<h2 className="text-lg font-semibold">Person Details</h2>
@@ -320,250 +313,227 @@ export default function IncidentSidebar() {
 					</ScrollArea>
 				</div>
 			) : (
-				<div className="flex flex-col h-[calc(100vh-100px)] w-full md:w-[350px]  absolute">
+				<div className="flex flex-col h-[calc(100vh-61px)]">
 					<FilterControls />
 
 					<ScrollArea className="flex-1">
-						<div className="p-4 space-y-6">
-							<div>
-								<div className="grid grid-cols-2 gap-3 bg-transparent border border-muted-foreground/30 p-4 rounded-2xl backdrop-blur-md">
-									<Card className="scale-[1.21] -translate-x-4 -translate-y-4 rounded-2xl shadow-xl shadow-gray-700 border border-muted-foreground/30 bg-secondary-foreground backdrop-blur-md">
-										<CardContent className="p-3">
-											<div className="text-2xl font-bold text-red-600 ">
-												{totals['Death'] || 0}
-											</div>
-											<div className="text-xs text-muted-foreground">
-												Deaths
-											</div>
-										</CardContent>
-									</Card>
+						<div className="grid grid-cols-2 gap-3 bg-transparent p-4 border-b border-dashed">
+							<Card className="border">
+								<CardContent className="p-4">
+									<div className="text-2xl font-bold text-red-600 ">
+										{totals['Death'] || 0}
+									</div>
+									<div className="text-xs">Deaths</div>
+								</CardContent>
+							</Card>
 
-									<Card className="rounded-2xl  border border-muted-foreground/30 bg-secondary">
-										<CardContent className="p-3">
-											<div className="text-2xl font-bold text-orange-600">
-												{totals['Injury'] || 0}
-											</div>
-											<div className="text-xs text-muted-foreground">
-												Injuries
-											</div>
-										</CardContent>
-									</Card>
+							<Card className="border bg-secondary">
+								<CardContent className="p-4">
+									<div className="text-2xl font-bold text-orange-600">
+										{totals['Injury'] || 0}
+									</div>
+									<div className="text-xs ">Injuries</div>
+								</CardContent>
+							</Card>
 
-									<Card className="rounded-2xl border border-muted-foreground/30 bg-secondary">
-										<CardContent className="p-3">
-											<div className="text-2xl font-bold text-purple-600">
-												{totals['Multiple Casualties'] || 0}
-											</div>
-											<div className="text-xs text-muted-foreground">
-												Multiple Casualties
-											</div>
-										</CardContent>
-									</Card>
+							<Card className="border bg-secondary">
+								<CardContent className="p-4">
+									<div className="text-2xl font-bold text-purple-600">
+										{totals['Multiple Casualties'] || 0}
+									</div>
+									<div className="text-xs">Multiple Casualties</div>
+								</CardContent>
+							</Card>
 
-									<Card className="rounded-2xl border border-muted-foreground/30 bg-secondary">
-										<CardContent className="p-3">
-											<div className="text-2xl font-bold text-blue-600">
-												{totals['No Casualties'] || 0}
-											</div>
-											<div className="text-xs text-muted-foreground">
-												No Casualties
-											</div>
-										</CardContent>
-									</Card>
-								</div>
-							</div>
+							<Card className="border bg-secondary">
+								<CardContent className="p-4">
+									<div className="text-2xl font-bold text-blue-600">
+										{totals['No Casualties'] || 0}
+									</div>
+									<div className="text-xs">No Casualties</div>
+								</CardContent>
+							</Card>
+						</div>
 
-							<div className="p-4 space-y-3 bg-transparent backdrop-blur-md border rounded-2xl">
-								<h3 className="font-medium">Affected Individuals</h3>
-								<div className="space-y-2">
-									{filteredData
-										.slice(0, showAllCasualties ? filteredData.length : 5)
-										.map((person) => {
-											// Check if this person has incomplete data
-											const incomplete = hasIncompleteData(person);
-											const completeness = calculateCompleteness(person);
+						<div className="p-4">
+							<h3 className="text-sm font-medium mb-4">Affected Individuals</h3>
+							<div className="flex flex-col gap-2">
+								{filteredData
+									.slice(0, showAllCasualties ? filteredData.length : 5)
+									.map((person) => {
+										const incomplete = hasIncompleteData(person);
+										const completeness = calculateCompleteness(person);
 
-											return (
-												<div
-													key={person.id}
-													className={`flex flex-col gap-2 p-4 rounded-md border hover:bg-muted cursor-pointer transition-colors`}
-													onClick={() =>
-														setSelectedIncident(person.id.toString())
-													}
-												>
-													<div className="flex items-center justify-between">
-														<div className="flex items-center gap-2">
-															<div className="font-medium text-sm flex items-center gap-1.5">
-																{person.name || 'Unknown'}
-															</div>
-														</div>
-
-														<div className="text-xs font-medium text-muted-foreground">
-															{person.type || 'Unknown'}
+										return (
+											<div
+												key={person.id}
+												className={`flex flex-col gap-2 p-4 rounded-md border hover:bg-muted cursor-pointer transition-colors`}
+												onClick={() =>
+													setSelectedIncident(person.id.toString())
+												}
+											>
+												<div className="flex gap-4 flex-wrap items-center justify-between">
+													<div className="flex items-center gap-2">
+														<div className="font-medium text-sm flex items-center gap-1.5">
+															{person.name || 'Unknown'}
 														</div>
 													</div>
 
-													<div className="text-xs text-muted-foreground flex flex-col justify-between">
-														<span>
-															{person.occupation || 'Unknown occupation'}{' '}
-															{person.age ? `, ${person.age} years` : ''}
-														</span>
-														<span>{person.location || 'Unknown location'}</span>
+													<div className="text-xs font-medium text-muted-foreground">
+														{person.type || 'Unknown'}
 													</div>
-
-													{incomplete && (
-														<div className="flex flex-col gap-2">
-															{' '}
-															<div className="w-full h-1 bg-muted rounded overflow-hidden">
-																<div
-																	className="h-full bg-primary transition-all"
-																	style={{ width: `${completeness}%` }}
-																></div>
-															</div>
-															<span className="w-fit inline-flex items-center rounded-full bg-amber-100 dark:bg-amber-900/50 px-1.5 py-0.5 text-xs font-medium text-amber-800 dark:text-amber-300 self-end">
-																<Edit className="h-2.5 w-2.5 mr-0.5" /> Edit
-																needed
-															</span>
-														</div>
-													)}
 												</div>
-											);
-										})}
 
-									{filteredData.length > 5 && (
-										<Button
-											variant="ghost"
-											size="sm"
-											className="w-full text-xs text-muted-foreground"
-											onClick={() => setShowAllCasualties(!showAllCasualties)}
-										>
-											{showAllCasualties
-												? 'Show fewer casualties'
-												: `View all ${filteredData.length} casualties`}
-										</Button>
-									)}
-								</div>
+												<div className="text-xs text-muted-foreground flex flex-col justify-between">
+													<span>
+														{person.occupation || 'Unknown occupation'}{' '}
+														{person.age ? `, ${person.age} years` : ''}
+													</span>
+													<span>{person.location || 'Unknown location'}</span>
+												</div>
+
+												{incomplete && (
+													<div className="flex flex-col gap-2">
+														{' '}
+														<div className="w-full h-1 bg-muted rounded overflow-hidden">
+															<div
+																className="h-full bg-primary transition-all"
+																style={{ width: `${completeness}%` }}
+															></div>
+														</div>
+														<span className="w-fit inline-flex items-center rounded-full bg-amber-100 dark:bg-amber-900/50 px-1.5 py-0.5 text-xs font-medium text-amber-800 dark:text-amber-300 self-end">
+															<Edit className="h-2.5 w-2.5 mr-0.5" /> Edit
+															needed
+														</span>
+													</div>
+												)}
+											</div>
+										);
+									})}
+
+								{filteredData.length > 5 && (
+									<Button
+										variant="ghost"
+										size="sm"
+										className="w-full text-xs text-muted-foreground"
+										onClick={() => setShowAllCasualties(!showAllCasualties)}
+									>
+										{showAllCasualties
+											? 'Show fewer casualties'
+											: `View all ${filteredData.length} casualties`}
+									</Button>
+								)}
 							</div>
+						</div>
 
-							<div className="space-y-2">
-								<h3 className="font-medium">Major News Coverage</h3>
-								<ul className="space-y-1 bg-muted/50 p-3 rounded-md">
-									<li>
-										<a
-											href="https://www.bbc.com/news"
-											target="_blank"
-											rel="noopener noreferrer"
-											className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
-										>
-											BBC: Protests begin at Bangladesh universities{' '}
-											<ExternalLink className="h-3 w-3" />
-										</a>
-									</li>
-									<li>
-										<a
-											href="https://www.thedailystar.net"
-											target="_blank"
-											rel="noopener noreferrer"
-											className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
-										>
-											Daily Star: Students begin protests in Dhaka{' '}
-											<ExternalLink className="h-3 w-3" />
-										</a>
-									</li>
+						<div className="p-4">
+							<h3 className="text-sm font-medium mb-4">Major News Coverage</h3>
+							<ul className="bg-muted/50 p-4 rounded-md flex flex-col gap-2">
+								<li>
+									<a
+										href="https://www.bbc.com/news"
+										target="_blank"
+										rel="noopener noreferrer"
+										className="text-sm text-blue-600 dark:text-blue-400 hover:underline "
+									>
+										BBC: Protests begin at Bangladesh universities{' '}
+									</a>
+								</li>
+								<li>
+									<a
+										href="https://www.thedailystar.net"
+										target="_blank"
+										rel="noopener noreferrer"
+										className="text-sm text-blue-600 dark:text-blue-400 hover:underline "
+									>
+										Daily Star: Students begin protests in Dhaka{' '}
+									</a>
+								</li>
 
-									<li>
-										<a
-											href="https://www.aljazeera.com"
-											target="_blank"
-											rel="noopener noreferrer"
-											className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
-										>
-											Al Jazeera: First death reported in Bangladesh protests{' '}
-											<ExternalLink className="h-3 w-3" />
-										</a>
-									</li>
-									<li>
-										<a
-											href="https://www.reuters.com"
-											target="_blank"
-											rel="noopener noreferrer"
-											className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
-										>
-											Reuters: Protests spread to Bangladesh's port city{' '}
-											<ExternalLink className="h-3 w-3" />
-										</a>
-									</li>
+								<li>
+									<a
+										href="https://www.aljazeera.com"
+										target="_blank"
+										rel="noopener noreferrer"
+										className="text-sm text-blue-600 dark:text-blue-400 hover:underline "
+									>
+										Al Jazeera: First death reported in Bangladesh protests{' '}
+									</a>
+								</li>
+								<li>
+									<a
+										href="https://www.reuters.com"
+										target="_blank"
+										rel="noopener noreferrer"
+										className="text-sm text-blue-600 dark:text-blue-400 hover:underline "
+									>
+										Reuters: Protests spread to Bangladesh's port city{' '}
+									</a>
+								</li>
 
-									<li>
-										<a
-											href="https://www.bbc.com/news"
-											target="_blank"
-											rel="noopener noreferrer"
-											className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
-										>
-											BBC: Violence erupts in Bangladesh protests{' '}
-											<ExternalLink className="h-3 w-3" />
-										</a>
-									</li>
-									<li>
-										<a
-											href="https://www.aljazeera.com"
-											target="_blank"
-											rel="noopener noreferrer"
-											className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
-										>
-											Al Jazeera: Deadly clashes in Bangladesh{' '}
-											<ExternalLink className="h-3 w-3" />
-										</a>
-									</li>
+								<li>
+									<a
+										href="https://www.bbc.com/news"
+										target="_blank"
+										rel="noopener noreferrer"
+										className="text-sm text-blue-600 dark:text-blue-400 hover:underline "
+									>
+										BBC: Violence erupts in Bangladesh protests{' '}
+									</a>
+								</li>
+								<li>
+									<a
+										href="https://www.aljazeera.com"
+										target="_blank"
+										rel="noopener noreferrer"
+										className="text-sm text-blue-600 dark:text-blue-400 hover:underline "
+									>
+										Al Jazeera: Deadly clashes in Bangladesh{' '}
+									</a>
+								</li>
 
-									<li>
-										<a
-											href="https://www.cnn.com"
-											target="_blank"
-											rel="noopener noreferrer"
-											className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
-										>
-											CNN: Protests continue for second day{' '}
-											<ExternalLink className="h-3 w-3" />
-										</a>
-									</li>
-									<li>
-										<a
-											href="https://www.reuters.com"
-											target="_blank"
-											rel="noopener noreferrer"
-											className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
-										>
-											Reuters: Vehicle drives through protesters in Dhaka{' '}
-											<ExternalLink className="h-3 w-3" />
-										</a>
-									</li>
+								<li>
+									<a
+										href="https://www.cnn.com"
+										target="_blank"
+										rel="noopener noreferrer"
+										className="text-sm text-blue-600 dark:text-blue-400 hover:underline "
+									>
+										CNN: Protests continue for second day{' '}
+									</a>
+								</li>
+								<li>
+									<a
+										href="https://www.reuters.com"
+										target="_blank"
+										rel="noopener noreferrer"
+										className="text-sm text-blue-600 dark:text-blue-400 hover:underline "
+									>
+										Reuters: Vehicle drives through protesters in Dhaka{' '}
+									</a>
+								</li>
 
-									<li>
-										<a
-											href="https://www.theguardian.com"
-											target="_blank"
-											rel="noopener noreferrer"
-											className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
-										>
-											The Guardian: University campus stormed by security forces{' '}
-											<ExternalLink className="h-3 w-3" />
-										</a>
-									</li>
-									<li>
-										<a
-											href="https://www.nytimes.com"
-											target="_blank"
-											rel="noopener noreferrer"
-											className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
-										>
-											New York Times: Port workers join Bangladesh protests{' '}
-											<ExternalLink className="h-3 w-3" />
-										</a>
-									</li>
-								</ul>
-							</div>
+								<li>
+									<a
+										href="https://www.theguardian.com"
+										target="_blank"
+										rel="noopener noreferrer"
+										className="text-sm text-blue-600 dark:text-blue-400 hover:underline "
+									>
+										The Guardian: University campus stormed by security forces{' '}
+									</a>
+								</li>
+								<li>
+									<a
+										href="https://www.nytimes.com"
+										target="_blank"
+										rel="noopener noreferrer"
+										className="text-sm text-blue-600 dark:text-blue-400 hover:underline "
+									>
+										New York Times: Port workers join Bangladesh protests{' '}
+									</a>
+								</li>
+							</ul>
 						</div>
 					</ScrollArea>
 				</div>

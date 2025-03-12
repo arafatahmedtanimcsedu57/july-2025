@@ -106,15 +106,14 @@ function ThemeTileLayer() {
 
 		L.geoJSON(bangladeshGeoJson, {
 			style: (feature) => ({
-				color: '#2c2827', // Stroke (border) color
-				weight: 2, // Border thickness
+				color: '#000000', // Stroke (border) color
+				weight: 1, // Border thickness
 				fillColor: '#fffff', // Fill color
-				fillOpacity: 0.01, // Transparency of fill
+				fillOpacity: 0.0, // Transparency of fill
 				shadowColor: '#000', // Shadow color (black)
 				shadowBlur: 5, // Shadow blur effect
 				shadowOffset: [3, 3], // Shadow offset (X, Y)
 				lineJoin: 'bevel',
-				className: 'filter-[10%]',
 			}),
 		}).addTo(map);
 	}, [map]);
@@ -131,39 +130,19 @@ function ThemeTileLayer() {
 }
 
 export default function MapComponent() {
-	const [isLoading, setIsLoading] = useState(true);
+	const bangladeshCenter: [number, number] = [23.8103, 90.4125]; // Dhaka coordinates
 
 	const { selectedIncidentId, setSelectedIncident } = useIncidentStore();
 	const { currentDay } = useDayStore();
 
-	const casualtyData = getCasualtyDataByDate(currentDay);
 	const filteredData = useFilteredData();
-
-	const bangladeshCenter: [number, number] = [23.8103, 90.4125]; // Dhaka coordinates
+	const validCasualtyData = filteredData.filter(
+		(person) => person.lat != null && person.lng != null,
+	);
 
 	useEffect(() => {
 		setSelectedIncident(null);
 	}, [currentDay, setSelectedIncident]);
-
-	useEffect(() => {
-		const timer = setTimeout(() => {
-			setIsLoading(false);
-		}, 1000);
-
-		return () => clearTimeout(timer);
-	}, []);
-
-	if (isLoading) {
-		return (
-			<div className="flex items-center justify-center w-full h-full bg-muted">
-				<Loader2 className="w-8 h-8 animate-spin text-primary" />
-			</div>
-		);
-	}
-
-	const validCasualtyData = filteredData.filter(
-		(person) => person.lat != null && person.lng != null,
-	);
 
 	return (
 		<MapContainer
@@ -174,7 +153,7 @@ export default function MapComponent() {
 			dragging={true}
 			doubleClickZoom={true}
 			scrollWheelZoom={true}
-			style={{ width: 'calc(100vw)', height: 'calc(100vh - 34px)' }}
+			style={{ height: 'calc(100vh - 61px)' }}
 		>
 			<ThemeTileLayer />
 
@@ -193,7 +172,7 @@ export default function MapComponent() {
 						pathOptions={{
 							color: markerColor.color,
 							fillColor: markerColor.fillColor,
-							fillOpacity: 0.5,
+							fillOpacity: 1,
 							weight: 0,
 						}}
 						eventHandlers={{
@@ -201,6 +180,7 @@ export default function MapComponent() {
 								setSelectedIncident(person.id.toString());
 							},
 						}}
+						className="drop-shadow-[0_0_0.1rem_crimson]"
 					>
 						<Popup closeButton={false}>
 							<div className="p-1 flex items-center gap-2">

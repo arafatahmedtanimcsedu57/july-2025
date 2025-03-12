@@ -1,9 +1,11 @@
 'use client';
 
 import { Menu, X, MapPin, FileEdit } from 'lucide-react';
+
 import { Button } from '@/components/ui/button';
 import { useSidebarStore } from '@/lib/sidebar-store';
 import { ThemeToggle } from '@/components/theme-toggle';
+
 import { useEditStore } from '@/lib/edit-store';
 
 export default function Navbar() {
@@ -12,20 +14,15 @@ export default function Navbar() {
 	const editedCount = Object.keys(editedData).length;
 
 	return (
-		<header className="sticky top-0 z-50 w-full ">
-			<div className="m-auto container flex items-center justify-between">
-				<div className="flex gap-2 items-center py-4 px-2">
-					<div className="relative">
-						<MapPin className="h-9 w-9" />
-						{editedCount > 0 && (
-							<span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">
-								{editedCount}
-							</span>
-						)}
+		<header className="sticky top-0 z-50 border-dashed border-b w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+			<div className="border-dashed border-x m-auto container flex items-center justify-between">
+				<div className="flex items-center">
+					<div className="relative border-r border-dashed w-[50px] h-[60px] flex items-center justify-center">
+						<MapPin className="h-[36px] w-6" />
 					</div>
-					<div className="flex flex-col">
-						<h5 className="text-lg font-bold">July Memorial Map</h5>
-						<p className="text-xs text-muted-foreground">
+					<div className="flex items-center gap-4 flex-wrap p-4">
+						<h5 className="text-lg font-bold">July Memorial</h5>
+						<p className="hidden md:block text-xs font-light">
 							Remembering July 2024
 						</p>
 					</div>
@@ -43,7 +40,7 @@ export default function Navbar() {
 					<ThemeToggle />
 					<Button
 						variant="ghost"
-						size="icon"
+						size="sm"
 						onClick={toggle}
 						aria-label={isOpen ? 'Close sidebar' : 'Open sidebar'}
 					>
