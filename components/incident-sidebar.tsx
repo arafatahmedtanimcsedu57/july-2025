@@ -21,6 +21,8 @@ import { useSidebarStore } from '@/lib/sidebar-store';
 import { useEditStore, getUpdatedPersonData } from '@/lib/edit-store';
 
 import { useFilteredData } from '@/hooks/use-filtered-data';
+import { useFilterStore } from '@/lib/filter-store';
+import { CASUALTY_TYPES } from '@/constant/casualty-types';
 
 // Helper function to get badge color based on casualty type
 const getBadgeColor = (type: string | null) => {
@@ -77,7 +79,8 @@ const calculateCompleteness = (person: any): number => {
 
 export default function IncidentSidebar() {
 	const { selectedIncidentId, setSelectedIncident } = useIncidentStore();
-	const { currentDay } = useDayStore();
+	const { casualtyTypeFilter } = useFilterStore();
+
 	const { isEditing, startEditing, cancelEditing } = useEditStore();
 	const [showAllCasualties, setShowAllCasualties] = useState(false);
 
@@ -318,41 +321,36 @@ export default function IncidentSidebar() {
 
 					<ScrollArea className="flex-1">
 						<div className="grid grid-cols-2 gap-3 bg-transparent p-4 border-b border-dashed">
-							<Card className="border">
-								<CardContent className="p-4">
-									<div className="text-2xl font-bold text-red-600 ">
-										{totals['Death'] || 0}
-									</div>
-									<div className="text-xs">Deaths</div>
-								</CardContent>
-							</Card>
+							{!(casualtyTypeFilter === CASUALTY_TYPES.MULTIPLE) ? (
+								<>
+									<Card className="border">
+										<CardContent className="p-4">
+											<div className="text-2xl font-bold text-red-600 ">
+												{totals['Death'] || 0}
+											</div>
+											<div className="text-xs">Deaths</div>
+										</CardContent>
+									</Card>
 
-							<Card className="border bg-secondary">
-								<CardContent className="p-4">
-									<div className="text-2xl font-bold text-orange-600">
-										{totals['Injury'] || 0}
-									</div>
-									<div className="text-xs ">Injuries</div>
-								</CardContent>
-							</Card>
-
-							<Card className="border bg-secondary">
-								<CardContent className="p-4">
-									<div className="text-2xl font-bold text-purple-600">
-										{totals['Multiple Casualties'] || 0}
-									</div>
-									<div className="text-xs">Multiple Casualties</div>
-								</CardContent>
-							</Card>
-
-							<Card className="border bg-secondary">
-								<CardContent className="p-4">
-									<div className="text-2xl font-bold text-blue-600">
-										{totals['No Casualties'] || 0}
-									</div>
-									<div className="text-xs">No Casualties</div>
-								</CardContent>
-							</Card>
+									<Card className="border bg-secondary">
+										<CardContent className="p-4">
+											<div className="text-2xl font-bold text-orange-600">
+												{totals['Injury'] || 0}
+											</div>
+											<div className="text-xs ">Injuries</div>
+										</CardContent>
+									</Card>
+								</>
+							) : (
+								<Card className="border bg-secondary">
+									<CardContent className="p-4">
+										<div className="text-2xl font-bold text-purple-600">
+											{totals['Multiple Casualties'] || 0}
+										</div>
+										<div className="text-xs">Multiple Casualties</div>
+									</CardContent>
+								</Card>
+							)}
 						</div>
 
 						<div className="p-4">

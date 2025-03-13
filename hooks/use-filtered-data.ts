@@ -6,13 +6,35 @@ import { allCasualtyData } from '@/lib/data';
 import { useFilterStore } from '@/lib/filter-store';
 
 import type { CasualtyPerson } from '@/types/data';
+import { CASUALTY_TYPES } from '@/constant/casualty-types';
 
 export function useFilteredData(): CasualtyPerson[] {
-	const { dateFilter, minAgeFilter, maxAgeFilter, typeFilter } =
-		useFilterStore();
+	const {
+		dateFilter,
+		minAgeFilter,
+		maxAgeFilter,
+		typeFilter,
+		casualtyTypeFilter,
+	} = useFilterStore();
 
 	return useMemo(() => {
 		return allCasualtyData.filter((item) => {
+			if (casualtyTypeFilter && item.type) {
+				const _type = item.type ? item.type.toLocaleUpperCase() : '';
+
+				if (casualtyTypeFilter === CASUALTY_TYPES.MULTIPLE) {
+					if (!_type.includes(CASUALTY_TYPES.MULTIPLE)) {
+						return false;
+					}
+				}
+
+				if (casualtyTypeFilter !== CASUALTY_TYPES.MULTIPLE) {
+					if (_type.includes(CASUALTY_TYPES.MULTIPLE)) {
+						return false;
+					}
+				}
+			}
+
 			// Date filter
 			if (dateFilter && item.date) {
 				const itemDate = new Date(item.date);
@@ -52,5 +74,5 @@ export function useFilteredData(): CasualtyPerson[] {
 
 			return true;
 		});
-	}, [dateFilter, minAgeFilter, maxAgeFilter, typeFilter]);
+	}, [dateFilter, minAgeFilter, maxAgeFilter, typeFilter, casualtyTypeFilter]);
 }
