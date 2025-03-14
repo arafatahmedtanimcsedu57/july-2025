@@ -1,9 +1,11 @@
 "use client"
 
-import React from "react"
-import { useEffect, useRef, useCallback } from "react"
-import L from "leaflet"
+import React, { useEffect, useRef, useCallback } from "react"
 import { MapContainer, useMap, Popup, CircleMarker } from "react-leaflet"
+import L from "leaflet"
+
+import { CASUALTY_TYPES } from "@/constant/casualty-types"
+import { MARKER_COLORS } from "@/constant/marker-colors"
 
 import { getCasualtyDataByDate } from "@/lib/data"
 import { useIncidentStore } from "@/lib/incident-store"
@@ -18,33 +20,17 @@ import type { GeoJsonObject } from "geojson"
 
 import "leaflet/dist/leaflet.css"
 import "./map.css"
-import { CASUALTY_TYPES } from "@/constant/casualty-types"
 
 const bangladeshGeoJson = bangladeshData as GeoJsonObject
 
-const markerColors: Record<string, { color: string; fillColor: string }> = {
-  Death: { color: "#ef4444", fillColor: "#ef4444" }, // red
-  Injury: { color: "#efc985", fillColor: "#efc985" }, // orange
-  "Multiple Casualties": { color: "#ef4444", fillColor: "#ef4444" }, // purple
-  "No Casualties": { color: "#e7700d00", fillColor: "#e7700d00" }, // blue
-  default: { color: "#6b7280", fillColor: "#6b7280" }, // gray as default
-}
-
 const getMarkerColor = (type: string | null) => {
-  if (!type || !(type in markerColors)) {
-    return markerColors["default"]
+  if (!type || !(type in MARKER_COLORS)) {
+    return MARKER_COLORS["default"]
   }
-  return markerColors[type]
+  return MARKER_COLORS[type]
 }
-
-const bangladeshBounds: [[number, number], [number, number]] = [
-  [20.7, 88.0], // Southwest corner
-  [26.7, 92.7], // Northeast corner
-]
 
 const bangladeshCenter: [number, number] = [23.8103, 90.4125] // Dhaka coordinates
-
-// Create a context to share marker refs between components
 const MarkerRefsContext = React.createContext<Map<string, L.CircleMarker> | null>(null)
 
 function MapController({
@@ -68,14 +54,13 @@ function MapController({
           duration: 2,
         })
 
-        // Open the popup for the selected marker
         if (markerRefs && markerRefs.has(selectedPersonId)) {
           setTimeout(() => {
             const marker = markerRefs.get(selectedPersonId)
             if (marker) {
               marker.openPopup()
             }
-          }, 2100) // Slight delay to ensure the flyTo animation completes
+          }, 2100)
         }
       }
     }else{
@@ -87,20 +72,10 @@ function MapController({
 
   }, [selectedPersonId, casualtyData, map, markerRefs])
 
-  useEffect(() => {
-    if (prevDayRef.current !== currentDay) {
-      map.fitBounds(bangladeshBounds, {
-        animate: true,
-        duration: 1.5,
-      })
-      prevDayRef.current = currentDay
-    }
-  }, [currentDay, map])
 
   return null
 }
 
-// Component to handle tile layers based on theme
 function ThemeTileLayer() {
   const map = useMap()
   const tileLayerRef = useRef<L.TileLayer | null>(null)

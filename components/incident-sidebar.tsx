@@ -78,18 +78,16 @@ const calculateCompleteness = (person: any): number => {
 };
 
 export default function IncidentSidebar() {
+	const [showAllCasualties, setShowAllCasualties] = useState(false);
+	
 	const { selectedIncidentId, setSelectedIncident } = useIncidentStore();
 	const { casualtyTypeFilter } = useFilterStore();
-
 	const { isEditing, startEditing, cancelEditing } = useEditStore();
-	const [showAllCasualties, setShowAllCasualties] = useState(false);
 
 	const filteredData = useFilteredData();
-
 	let selectedPerson = filteredData.find(
 		(p) => p.id.toString() === selectedIncidentId,
 	);
-
 	if (selectedPerson) selectedPerson = getUpdatedPersonData(selectedPerson);
 
 	const totals = filteredData.reduce(

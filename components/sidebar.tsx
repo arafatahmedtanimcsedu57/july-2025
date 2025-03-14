@@ -1,20 +1,20 @@
 'use client';
 
 import { useEffect } from 'react';
+import { Move, BoxIcon as Box3d, HelpCircle, MapPin } from 'lucide-react';
+
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+
 import { useSidebarStore } from '@/lib/sidebar-store';
 import { useDayStore } from '@/lib/day-store';
 import { getCasualtyDataByDate } from '@/lib/data';
-import { Move, BoxIcon as Box3d, HelpCircle, MapPin } from 'lucide-react';
 
 export default function Sidebar() {
 	const { isOpen, close } = useSidebarStore();
-	const { currentDay } = useDayStore();
+	const { currentDay, availableDays } = useDayStore();
 
-	// Get data for the current day
 	const casualtyData = getCasualtyDataByDate(currentDay);
 
-	// Update the totals calculation
 	const totals = casualtyData.reduce(
 		(acc, person) => {
 			if (person.type) {
@@ -30,7 +30,6 @@ export default function Sidebar() {
 		} as Record<string, number>,
 	);
 
-	// Close sidebar when escape key is pressed
 	useEffect(() => {
 		const handleEscapeKey = (e: KeyboardEvent) => {
 			if (e.key === 'Escape') {
@@ -42,7 +41,6 @@ export default function Sidebar() {
 		return () => window.removeEventListener('keydown', handleEscapeKey);
 	}, [close]);
 
-	// Close sidebar on window resize (mobile to desktop)
 	useEffect(() => {
 		const handleResize = () => {
 			if (window.innerWidth < 768) {
@@ -54,7 +52,6 @@ export default function Sidebar() {
 		return () => window.removeEventListener('resize', handleResize);
 	}, [close]);
 
-	// Get unique locations, filtering out null values
 	const uniqueLocations = Array.from(
 		new Set(casualtyData.map((p) => p.location).filter(Boolean)),
 	);
