@@ -24,9 +24,9 @@ const bangladeshGeoJson = bangladeshData as GeoJsonObject
 
 const markerColors: Record<string, { color: string; fillColor: string }> = {
   Death: { color: "#ef4444", fillColor: "#ef4444" }, // red
-  Injury: { color: "#f97316", fillColor: "#f97316" }, // orange
+  Injury: { color: "#efc985", fillColor: "#efc985" }, // orange
   "Multiple Casualties": { color: "#ef4444", fillColor: "#ef4444" }, // purple
-  "No Casualties": { color: "#3b82f6", fillColor: "#3b82f6" }, // blue
+  "No Casualties": { color: "#e7700d00", fillColor: "#e7700d00" }, // blue
   default: { color: "#6b7280", fillColor: "#6b7280" }, // gray as default
 }
 
