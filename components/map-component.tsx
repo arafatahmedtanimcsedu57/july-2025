@@ -10,19 +10,22 @@ import { useIncidentStore } from "@/lib/incident-store"
 import { useDayStore } from "@/lib/day-store"
 import { getUpdatedPersonData } from "@/lib/edit-store"
 import bangladeshData from "@/lib/bangladesh.json"
+import { useFilterStore } from "@/lib/filter-store"
+
+import { useFilteredData } from "@/hooks/use-filtered-data"
 
 import type { GeoJsonObject } from "geojson"
 
 import "leaflet/dist/leaflet.css"
 import "./map.css"
-import { useFilteredData } from "@/hooks/use-filtered-data"
+import { CASUALTY_TYPES } from "@/constant/casualty-types"
 
 const bangladeshGeoJson = bangladeshData as GeoJsonObject
 
 const markerColors: Record<string, { color: string; fillColor: string }> = {
   Death: { color: "#ef4444", fillColor: "#ef4444" }, // red
   Injury: { color: "#f97316", fillColor: "#f97316" }, // orange
-  "Multiple Casualties": { color: "#8b5cf6", fillColor: "#8b5cf6" }, // purple
+  "Multiple Casualties": { color: "#ef4444", fillColor: "#ef4444" }, // purple
   "No Casualties": { color: "#3b82f6", fillColor: "#3b82f6" }, // blue
   default: { color: "#6b7280", fillColor: "#6b7280" }, // gray as default
 }
@@ -51,6 +54,7 @@ function MapController({
 }) {
   const map = useMap()
   const { currentDay } = useDayStore()
+
   const casualtyData = getCasualtyDataByDate(currentDay)
   const prevDayRef = React.useRef(currentDay)
   const markerRefs = React.useContext(MarkerRefsContext)
@@ -141,12 +145,10 @@ function ThemeTileLayer() {
 export default function MapComponent() {
 
   const { selectedIncidentId, setSelectedIncident } = useIncidentStore()
-
-  console.log(selectedIncidentId);
-
   const { currentDay } = useDayStore()
 
   const filteredData = useFilteredData()
+  const {casualtyTypeFilter} = useFilterStore()
   const validCasualtyData = filteredData.filter((person) => person.lat != null && person.lng != null)
 
   // Create a ref to store all marker references
@@ -180,11 +182,11 @@ export default function MapComponent() {
             <CircleMarker
               key={person.id}
               center={[updatedPerson.lat, updatedPerson.lng] as [number, number]}
-              radius={4}
+              radius={casualtyTypeFilter===CASUALTY_TYPES.INDIVIDUAL? 4 : 12}
               pathOptions={{
                 color: markerColor.color,
                 fillColor: markerColor.fillColor,
-                fillOpacity: 1,
+                fillOpacity: casualtyTypeFilter===CASUALTY_TYPES.INDIVIDUAL? 1: .35,
                 weight: 0,
               }}
               eventHandlers={{
