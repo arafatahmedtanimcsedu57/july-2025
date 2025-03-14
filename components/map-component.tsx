@@ -39,6 +39,8 @@ const bangladeshBounds: [[number, number], [number, number]] = [
   [26.7, 92.7], // Northeast corner
 ]
 
+const bangladeshCenter: [number, number] = [23.8103, 90.4125] // Dhaka coordinates
+
 // Create a context to share marker refs between components
 const MarkerRefsContext = React.createContext<Map<string, L.CircleMarker> | null>(null)
 
@@ -72,7 +74,13 @@ function MapController({
           }, 2100) // Slight delay to ensure the flyTo animation completes
         }
       }
-    }
+    }else{
+		map.flyTo(bangladeshCenter, 7, {
+			animate: true,
+			duration: 2,
+		  })
+	}
+
   }, [selectedPersonId, casualtyData, map, markerRefs])
 
   useEffect(() => {
@@ -131,9 +139,11 @@ function ThemeTileLayer() {
 }
 
 export default function MapComponent() {
-  const bangladeshCenter: [number, number] = [23.8103, 90.4125] // Dhaka coordinates
 
   const { selectedIncidentId, setSelectedIncident } = useIncidentStore()
+
+  console.log(selectedIncidentId);
+
   const { currentDay } = useDayStore()
 
   const filteredData = useFilteredData()
