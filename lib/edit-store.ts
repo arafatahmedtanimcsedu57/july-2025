@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { CasualtyPerson } from '@/lib/data';
+import type { CasualtyPerson } from '@/types/data';
 
 interface EditState {
 	isEditing: boolean;

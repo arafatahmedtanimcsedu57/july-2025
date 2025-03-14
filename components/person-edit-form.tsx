@@ -1,6 +1,7 @@
 'use client';
 
 import type React from 'react';
+import { Save, X } from 'lucide-react';
 
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
@@ -14,8 +15,6 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from '@/components/ui/select';
-import type { CasualtyPerson } from '@/lib/data';
-import { useEditStore } from '@/lib/edit-store';
 import {
 	Card,
 	CardContent,
@@ -23,7 +22,9 @@ import {
 	CardHeader,
 	CardTitle,
 } from '@/components/ui/card';
-import { Save, X } from 'lucide-react';
+
+import type { CasualtyPerson } from '@/types/data';
+import { useEditStore } from '@/lib/edit-store';
 
 interface PersonEditFormProps {
 	person: CasualtyPerson;
