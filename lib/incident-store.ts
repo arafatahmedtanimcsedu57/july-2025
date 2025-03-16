@@ -1,14 +1,14 @@
-"use client"
+'use client';
 
-import { create } from "zustand"
+import type { CasualtyPerson } from '@/types/data';
+import { create } from 'zustand';
 
 interface IncidentState {
-  selectedIncidentId: string | null
-  setSelectedIncident: (id: string | null) => void
+	selectedIncident: CasualtyPerson | null;
+	setSelectedIncident: (incident: CasualtyPerson | null) => void;
 }
 
 export const useIncidentStore = create<IncidentState>((set) => ({
-  selectedIncidentId: null,
-  setSelectedIncident: (id) => set({ selectedIncidentId: id }),
-}))
-
+	selectedIncident: null,
+	setSelectedIncident: (incident) => set({ selectedIncident: incident }),
+}));

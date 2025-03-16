@@ -17,6 +17,7 @@ import { CASUALTY_TYPES } from '@/constant/casualty-types';
 import { MARKER_COLORS } from '@/constant/marker-colors';
 
 import type { GeoJsonObject } from 'geojson';
+import type { CasualtyPerson } from '@/types/data';
 
 import 'leaflet/dist/leaflet.css';
 import './map.css';
@@ -37,9 +38,9 @@ const MarkerRefsContext = React.createContext<Map<
 > | null>(null);
 
 function MapController({
-	selectedPersonId,
+	selectedPerson,
 }: {
-	selectedPersonId: string | null;
+	selectedPerson: CasualtyPerson | null;
 }) {
 	const map = useMap();
 	const { currentDay } = useDayStore();
@@ -48,20 +49,16 @@ function MapController({
 	const markerRefs = React.useContext(MarkerRefsContext);
 
 	useEffect(() => {
-		if (selectedPersonId) {
-			const person = casualtyData.find(
-				(p) => p.id.toString() === selectedPersonId,
-			);
-
-			if (person && person.lat != null && person.lng != null) {
-				map.flyTo([person.lat, person.lng], 18, {
+		if (selectedPerson) {
+			if (selectedPerson.lat != null && selectedPerson.lng != null) {
+				map.flyTo([selectedPerson.lat, selectedPerson.lng], 18, {
 					animate: true,
 					duration: 2,
 				});
 
-				if (markerRefs && markerRefs.has(selectedPersonId)) {
+				if (markerRefs && markerRefs.has(String(selectedPerson.id))) {
 					setTimeout(() => {
-						const marker = markerRefs.get(selectedPersonId);
+						const marker = markerRefs.get(String(selectedPerson.id));
 						if (marker) {
 							marker.openPopup();
 						}
@@ -74,7 +71,7 @@ function MapController({
 				duration: 2,
 			});
 		}
-	}, [selectedPersonId, casualtyData, map, markerRefs]);
+	}, [selectedPerson, casualtyData, map, markerRefs]);
 
 	return null;
 }
@@ -125,7 +122,7 @@ function ThemeTileLayer() {
 }
 
 export default function MapComponent() {
-	const { selectedIncidentId, setSelectedIncident } = useIncidentStore();
+	const { selectedIncident, setSelectedIncident } = useIncidentStore();
 	const { currentDay } = useDayStore();
 
 	const filteredData = useFilteredData();
@@ -177,7 +174,7 @@ export default function MapComponent() {
 							}}
 							eventHandlers={{
 								click: () => {
-									setSelectedIncident(person.id.toString());
+									setSelectedIncident(person);
 								},
 								add: (e) => {
 									markerRefsMap.current.set(person.id.toString(), e.target);
@@ -198,7 +195,7 @@ export default function MapComponent() {
 						</CircleMarker>
 					);
 				})}
-				<MapController selectedPersonId={selectedIncidentId} />
+				<MapController selectedPerson={selectedIncident} />
 			</MapContainer>
 		</MarkerRefsContext.Provider>
 	);

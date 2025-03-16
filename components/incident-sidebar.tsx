@@ -80,14 +80,12 @@ const calculateCompleteness = (person: any): number => {
 export default function IncidentSidebar() {
 	const [showAllCasualties, setShowAllCasualties] = useState(false);
 
-	const { selectedIncidentId, setSelectedIncident } = useIncidentStore();
+	const { selectedIncident, setSelectedIncident } = useIncidentStore();
 	const { casualtyTypeFilter } = useFilterStore();
 	const { isEditing, startEditing, cancelEditing } = useEditStore();
 
 	const filteredData = useFilteredData();
-	let selectedPerson = filteredData.find(
-		(p) => p.id.toString() === selectedIncidentId,
-	);
+	let selectedPerson = selectedIncident;
 	if (selectedPerson) selectedPerson = getUpdatedPersonData(selectedPerson);
 
 	const totals = filteredData.reduce(
@@ -112,20 +110,20 @@ export default function IncidentSidebar() {
 			if (e.key === 'Escape') {
 				if (isEditing) {
 					cancelEditing();
-				} else if (selectedIncidentId) {
+				} else if (selectedIncident) {
 					setSelectedIncident(null);
 				}
 			}
 		};
 
-		if (selectedIncidentId) {
+		if (selectedIncident) {
 			const { close } = useSidebarStore.getState();
 			close();
 		}
 
 		window.addEventListener('keydown', handleEscapeKey);
 		return () => window.removeEventListener('keydown', handleEscapeKey);
-	}, [setSelectedIncident, selectedIncidentId, isEditing, cancelEditing]);
+	}, [setSelectedIncident, selectedIncident, isEditing, cancelEditing]);
 
 	return (
 		<div className="transition-all duration-300 ease-in-out overflow-hidden border-r border-dashed w-[450px]">
@@ -369,8 +367,7 @@ export default function IncidentSidebar() {
 												key={person.id}
 												className={`flex flex-col gap-2 p-4 rounded-md border hover:bg-muted cursor-pointer transition-colors`}
 												onClick={() => {
-													if (!(casualtyTypeFilter === CASUALTY_TYPES.MULTIPLE))
-														setSelectedIncident(person.id.toString());
+													setSelectedIncident(person);
 												}}
 											>
 												{!(casualtyTypeFilter === CASUALTY_TYPES.MULTIPLE) ? (
