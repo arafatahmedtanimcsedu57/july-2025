@@ -1,7 +1,7 @@
 'use client';
 
 import MapContainer from '@/components/map-container';
-import IncidentSidebar from '@/components/incident-sidebar';
+import IncidentSidebar from '@/components/incidentSidebar';
 import Sidebar from '@/components/sidebar';
 import Navbar from '@/components/navbar';
 import { Button } from '@/components/ui/button';
