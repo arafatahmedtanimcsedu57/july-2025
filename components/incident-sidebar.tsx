@@ -352,7 +352,11 @@ export default function IncidentSidebar() {
 						</div>
 
 						<div className="p-4">
-							<h3 className="text-sm font-medium mb-4">Affected Individuals</h3>
+							<h3 className="text-sm font-medium mb-4">
+								{casualtyTypeFilter === CASUALTY_TYPES.MULTIPLE
+									? 'Multiple Casualties'
+									: 'Affected Individuals'}
+							</h3>
 							<div className="flex flex-col gap-2">
 								{filteredData
 									.slice(0, showAllCasualties ? filteredData.length : 5)
@@ -365,30 +369,40 @@ export default function IncidentSidebar() {
 												key={person.id}
 												className={`flex flex-col gap-2 p-4 rounded-md border hover:bg-muted cursor-pointer transition-colors`}
 												onClick={() => {
-													setSelectedIncident(person.id.toString());
+													if (!(casualtyTypeFilter === CASUALTY_TYPES.MULTIPLE))
+														setSelectedIncident(person.id.toString());
 												}}
 											>
-												<div className="flex gap-4 flex-wrap items-center justify-between">
-													<div className="flex items-center gap-2">
-														<div className="font-medium text-sm flex items-center gap-1.5">
-															{person.name || 'Unknown'}
+												{!(casualtyTypeFilter === CASUALTY_TYPES.MULTIPLE) ? (
+													<div className="flex gap-4 flex-wrap items-center justify-between">
+														<div className="flex items-center gap-2">
+															<div className="font-medium text-sm flex items-center gap-1.5">
+																{person.name || 'Unknown'}
+															</div>
+														</div>
+
+														<div className="text-xs font-medium text-muted-foreground">
+															{person.type || 'Unknown'}
 														</div>
 													</div>
-
-													<div className="text-xs font-medium text-muted-foreground">
-														{person.type || 'Unknown'}
-													</div>
-												</div>
+												) : (
+													<></>
+												)}
 
 												<div className="text-xs text-muted-foreground flex flex-col justify-between">
-													<span>
-														{person.occupation || 'Unknown occupation'}{' '}
-														{person.age ? `, ${person.age} years` : ''}
-													</span>
+													{!(casualtyTypeFilter === CASUALTY_TYPES.MULTIPLE) ? (
+														<span>
+															{person.occupation || 'Unknown occupation'}{' '}
+															{person.age ? `, ${person.age} years` : ''}
+														</span>
+													) : (
+														<></>
+													)}
 													<span>{person.location || 'Unknown location'}</span>
 												</div>
 
-												{incomplete && (
+												{!(casualtyTypeFilter === CASUALTY_TYPES.MULTIPLE) &&
+												incomplete ? (
 													<div className="flex flex-col gap-2">
 														{' '}
 														<div className="w-full h-1 bg-muted rounded overflow-hidden">
@@ -402,6 +416,8 @@ export default function IncidentSidebar() {
 															needed
 														</span>
 													</div>
+												) : (
+													<></>
 												)}
 											</div>
 										);

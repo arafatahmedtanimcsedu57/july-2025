@@ -45,7 +45,6 @@ function MapController({
 	const { currentDay } = useDayStore();
 
 	const casualtyData = getCasualtyDataByDate(currentDay);
-	const prevDayRef = React.useRef(currentDay);
 	const markerRefs = React.useContext(MarkerRefsContext);
 
 	useEffect(() => {
