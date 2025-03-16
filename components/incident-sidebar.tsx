@@ -79,7 +79,7 @@ const calculateCompleteness = (person: any): number => {
 
 export default function IncidentSidebar() {
 	const [showAllCasualties, setShowAllCasualties] = useState(false);
-	
+
 	const { selectedIncidentId, setSelectedIncident } = useIncidentStore();
 	const { casualtyTypeFilter } = useFilterStore();
 	const { isEditing, startEditing, cancelEditing } = useEditStore();
@@ -364,9 +364,9 @@ export default function IncidentSidebar() {
 											<div
 												key={person.id}
 												className={`flex flex-col gap-2 p-4 rounded-md border hover:bg-muted cursor-pointer transition-colors`}
-												onClick={() =>
-													setSelectedIncident(person.id.toString())
-												}
+												onClick={() => {
+													setSelectedIncident(person.id.toString());
+												}}
 											>
 												<div className="flex gap-4 flex-wrap items-center justify-between">
 													<div className="flex items-center gap-2">

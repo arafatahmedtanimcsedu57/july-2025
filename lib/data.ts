@@ -1,6 +1,8 @@
 import type { CasualtyPerson } from '@/types/data';
 
 export const getCasualtyDataByDate = (dateStr: string): CasualtyPerson[] => {
+	if (!dateStr) return allCasualtyData;
+
 	const targetDate = new Date(dateStr);
 
 	const startOfDay = new Date(targetDate.setHours(0, 0, 0, 0)).getTime();
