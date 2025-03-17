@@ -109,11 +109,11 @@ const CasualtyMarker = memo(({ person, onMarkerRef }: CasualtyMarkerProps) => {
       <CircleMarker
         key={person.id}
         center={markerPosition}
-        radius={20}
+        radius={30}
         pathOptions={{
           color: "red",
           fillColor: "red",
-          fillOpacity: 0.1,
+          fillOpacity: 0.125,
           weight: 0,
           stroke: true,
         }}
@@ -129,7 +129,6 @@ const CasualtyMarker = memo(({ person, onMarkerRef }: CasualtyMarkerProps) => {
     );
   }
 
-  // Return just the marker for other types
   return markerComponent;
 });
 
