@@ -13,12 +13,11 @@ import { useIncidentStore } from '@/lib/incident-store';
 import { CASUALTY_TYPES } from '@/constant/casualty-types';
 
 const CasualtiesList = React.memo(() => {
-	const [showAll, setShowAll] = useState(false);
+	const [showAll, setShowAll] = useState(true);
 	const filteredData = useFilteredData();
 	const { casualtyTypeFilter } = useFilterStore();
 	const { selectedIncident, setSelectedIncident } = useIncidentStore();
 
-	// Create a map of refs for each casualty item
 	const casualtyRefs = useRef<Record<string | number, HTMLDivElement | null>>(
 		{},
 	);
