@@ -35,7 +35,6 @@ export default function MapController({
       });
 
       if (markerRefs && markerRefs.has(String(selectedPerson.id))) {
-        // Wait for the flyTo animation to complete before opening popup
         const popupTimeout = setTimeout(() => {
           const marker = markerRefs.get(String(selectedPerson.id));
           if (marker) {

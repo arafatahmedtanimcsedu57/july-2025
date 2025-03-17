@@ -127,15 +127,15 @@ export default function MapComponent() {
         <div className="absolute bottom-4 right-4 bg-white dark:bg-gray-800 p-4 rounded shadow-lg z-[1000]">
           <div className="flex items-center gap-2 text-xs">
             <div className="flex items-center gap-1">
-              <div className="w-3 h-3 rounded-full bg-red-500"></div>
+              <div className="w-1 h-1 rounded-full bg-red-500"></div>
               <span>Death</span>
             </div>
             <div className="flex items-center gap-1">
-              <div className="w-3 h-3 rounded-full bg-orange-500"></div>
+              <div className="w-1 h-1 rounded-full bg-orange-500"></div>
               <span>Injury</span>
             </div>
             <div className="flex items-center gap-1">
-              <div className="w-3 h-3 rounded-full bg-purple-500"></div>
+              <div className="w-1 h-1 rounded-full bg-purple-500"></div>
               <span>Multiple</span>
             </div>
           </div>

@@ -8,7 +8,7 @@ import { useIncidentStore } from "@/lib/incident-store";
 import { useFilterStore } from "@/lib/filter-store";
 
 import { MapIcons } from "./map-icons";
-import { CASUALTY_TYPES } from "@/constant/casualty-types";
+import { CASUALTY_ITEMS, CASUALTY_TYPES } from "@/constant/casualty-types";
 import type { CasualtyPerson } from "@/types/data";
 
 interface CasualtyMarkerProps {
@@ -39,7 +39,8 @@ const CasualtyMarker = memo(({ person, onMarkerRef }: CasualtyMarkerProps) => {
 
   const isMultipleCasualties = casualtyTypeFilter === CASUALTY_TYPES.MULTIPLE;
 
-  if (type === "No Casualties" || lat === null || lng === null) return null;
+  if (type === CASUALTY_ITEMS.NO_CASUALTIES || lat === null || lng === null)
+    return null;
 
   const markerPosition = [lat, lng] as [number, number];
 
