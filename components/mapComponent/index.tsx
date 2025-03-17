@@ -1,155 +1,147 @@
 "use client";
 
-import React, { useEffect, useRef, useCallback } from "react";
-import { MapContainer, useMap, Popup, CircleMarker } from "react-leaflet";
-import L from "leaflet";
+import { useEffect, useRef, useMemo, useCallback, useState } from "react";
+import { MapContainer } from "react-leaflet";
+import type L from "leaflet";
 
 import { ThemeTileLayer } from "./theme-tile-layer";
+import MapController from "./map-controller";
+import CasualtyMarker from "./casualty-marker";
+import { Skeleton } from "@/components/ui/skeleton";
 
-import { getCasualtyDataByDate } from "@/lib/data";
 import { useIncidentStore } from "@/lib/incident-store";
 import { useDayStore } from "@/lib/day-store";
 import { getUpdatedPersonData } from "@/lib/edit-store";
-import { useFilterStore } from "@/lib/filter-store";
 
 import { useFilteredData } from "@/hooks/use-filtered-data";
 
-import { CASUALTY_TYPES } from "@/constant/casualty-types";
-import { MARKER_COLORS } from "@/constant/marker-colors";
-
-import type { CasualtyPerson } from "@/types/data";
-
+import {
+  BANGLADESH_CENTER,
+  MAP_CONTAINER,
+} from "@/constant/map-container-config";
 import "leaflet/dist/leaflet.css";
 import "./map.css";
-
-const getMarkerColor = (type: string | null) => {
-  if (!type || !(type in MARKER_COLORS)) {
-    return MARKER_COLORS["default"];
-  }
-  return MARKER_COLORS[type];
-};
-
-const bangladeshCenter: [number, number] = [23.8103, 90.4125]; // Dhaka coordinates
-const MarkerRefsContext = React.createContext<Map<
-  string,
-  L.CircleMarker
-> | null>(null);
-
-function MapController({
-  selectedPerson,
-}: {
-  selectedPerson: CasualtyPerson | null;
-}) {
-  const map = useMap();
-  const { currentDay } = useDayStore();
-
-  const casualtyData = getCasualtyDataByDate(currentDay);
-  const markerRefs = React.useContext(MarkerRefsContext);
-
-  useEffect(() => {
-    if (selectedPerson) {
-      if (selectedPerson.lat != null && selectedPerson.lng != null) {
-        map.flyTo([selectedPerson.lat, selectedPerson.lng], 18, {
-          animate: true,
-          duration: 2,
-        });
-
-        if (markerRefs && markerRefs.has(String(selectedPerson.id))) {
-          setTimeout(() => {
-            const marker = markerRefs.get(String(selectedPerson.id));
-            if (marker) {
-              marker.openPopup();
-            }
-          }, 2100);
-        }
-      }
-    } else {
-      map.flyTo(bangladeshCenter, 7, {
-        animate: true,
-        duration: 2,
-      });
-    }
-  }, [selectedPerson, casualtyData, map, markerRefs]);
-
-  return null;
-}
 
 export default function MapComponent() {
   const { selectedIncident, setSelectedIncident } = useIncidentStore();
   const { currentDay } = useDayStore();
-
   const filteredData = useFilteredData();
-  const { casualtyTypeFilter } = useFilterStore();
-  const validCasualtyData = filteredData.filter(
-    (person) => person.lat != null && person.lng != null
+
+  const [isMapLoaded, setIsMapLoaded] = useState(false);
+  const [mapError, setMapError] = useState<string | null>(null);
+
+  const validCasualtyData = useMemo(
+    () =>
+      filteredData.filter((person) => person.lat != null && person.lng != null),
+    [filteredData]
   );
 
-  const markerRefsMap = useRef<Map<string, L.CircleMarker>>(new Map());
+  const markerRefsMap = useRef<Map<string, L.Marker>>(new Map());
 
   useEffect(() => {
     setSelectedIncident(null);
   }, [currentDay, setSelectedIncident]);
 
+  const handleMarkerRef = useCallback((id: string, marker: L.Marker) => {
+    markerRefsMap.current.set(id, marker);
+    return () => {
+      markerRefsMap.current.delete(id);
+    };
+  }, []);
+
+  const handleMapLoad = useCallback(() => {
+    setIsMapLoaded(true);
+  }, []);
+
+  if (mapError) {
+    return (
+      <div className="flex items-center justify-center h-full bg-red-50 rounded-lg p-4">
+        <div className="text-center">
+          <p className="text-red-600 mb-2">{mapError}</p>
+          <button
+            onClick={() => window.location.reload()}
+            className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90"
+          >
+            Reload
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <MarkerRefsContext.Provider value={markerRefsMap.current}>
-      <MapContainer
-        center={bangladeshCenter}
-        zoom={7}
-        zoomControl={false}
-        minZoom={7}
-        dragging={true}
-        doubleClickZoom={true}
-        scrollWheelZoom={true}
-        style={{ height: "calc(100vh - 61px)" }}
+    <div className="relative h-full w-full">
+      {!isMapLoaded && (
+        <div className="absolute inset-0 z-10 flex items-center justify-center bg-background/50">
+          <div className="space-y-2 w-[80%]">
+            <Skeleton className="h-[300px] w-full rounded-lg" />
+            <div className="flex items-center space-x-4">
+              <Skeleton className="h-4 w-[30%]" />
+              <Skeleton className="h-4 w-[30%]" />
+              <Skeleton className="h-4 w-[30%]" />
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div
+        className="h-full w-full"
+        role="region"
+        aria-label="Interactive map showing casualty locations"
       >
-        <ThemeTileLayer />
+        <MapContainer
+          center={BANGLADESH_CENTER}
+          zoom={MAP_CONTAINER.zoom}
+          zoomControl={MAP_CONTAINER.zoomControl}
+          minZoom={MAP_CONTAINER.minZoom}
+          dragging={MAP_CONTAINER.dragging}
+          doubleClickZoom={MAP_CONTAINER.doubleClickZoom}
+          scrollWheelZoom={MAP_CONTAINER.scrollWheelZoom}
+          style={{ ...MAP_CONTAINER.style }}
+          whenReady={handleMapLoad}
+        >
+          <ThemeTileLayer />
 
-        {validCasualtyData.map((person) => {
-          const updatedPerson = getUpdatedPersonData(person);
-          const markerColor = getMarkerColor(updatedPerson.type);
+          {validCasualtyData.map((person) => {
+            const updatedPerson = getUpdatedPersonData(person);
+            return (
+              <CasualtyMarker
+                key={person.id}
+                person={updatedPerson}
+                onMarkerRef={handleMarkerRef}
+              />
+            );
+          })}
 
-          if (updatedPerson.lat === null || updatedPerson.lng === null)
-            return null;
+          <MapController
+            selectedPerson={selectedIncident}
+            markerRefs={markerRefsMap.current}
+            flyToDuration={2}
+            flyToZoom={18}
+            defaultZoom={7}
+          />
+        </MapContainer>
+      </div>
 
-          return (
-            <CircleMarker
-              key={person.id}
-              center={
-                [updatedPerson.lat, updatedPerson.lng] as [number, number]
-              }
-              radius={casualtyTypeFilter === CASUALTY_TYPES.INDIVIDUAL ? 4 : 12}
-              pathOptions={{
-                color: markerColor.color,
-                fillColor: markerColor.fillColor,
-                fillOpacity:
-                  casualtyTypeFilter === CASUALTY_TYPES.INDIVIDUAL ? 1 : 0.35,
-                weight: 0,
-              }}
-              eventHandlers={{
-                click: () => {
-                  setSelectedIncident(person);
-                },
-                add: (e) => {
-                  markerRefsMap.current.set(person.id.toString(), e.target);
-                },
-                remove: () => {
-                  markerRefsMap.current.delete(person.id.toString());
-                },
-              }}
-              className="drop-shadow-[0_0_0.1rem_crimson]"
-            >
-              <Popup closeButton={false} autoPan={false}>
-                <div className="p-1 flex items-center gap-2">
-                  <span className="font-medium text-sm">
-                    {updatedPerson.name || "Unknown"}
-                  </span>
-                </div>
-              </Popup>
-            </CircleMarker>
-          );
-        })}
-        <MapController selectedPerson={selectedIncident} />
-      </MapContainer>
-    </MarkerRefsContext.Provider>
+      {isMapLoaded && (
+        <div className="absolute bottom-4 right-4 bg-white dark:bg-gray-800 p-2 rounded-md shadow-md z-[1000]">
+          <h3 className="text-sm font-medium mb-1">Legend</h3>
+          <div className="flex items-center gap-2 text-xs">
+            <div className="flex items-center gap-1">
+              <div className="w-3 h-3 rounded-full bg-red-500"></div>
+              <span>Death</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <div className="w-3 h-3 rounded-full bg-orange-500"></div>
+              <span>Injury</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <div className="w-3 h-3 rounded-full bg-purple-500"></div>
+              <span>Multiple</span>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
