@@ -124,8 +124,7 @@ export default function MapComponent() {
       </div>
 
       {isMapLoaded && (
-        <div className="absolute bottom-4 right-4 bg-white dark:bg-gray-800 p-2 rounded-md shadow-md z-[1000]">
-          <h3 className="text-sm font-medium mb-1">Legend</h3>
+        <div className="absolute bottom-4 right-4 bg-white dark:bg-gray-800 p-4 rounded shadow-lg z-[1000]">
           <div className="flex items-center gap-2 text-xs">
             <div className="flex items-center gap-1">
               <div className="w-3 h-3 rounded-full bg-red-500"></div>

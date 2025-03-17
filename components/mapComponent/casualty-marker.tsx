@@ -5,11 +5,11 @@ import type L from "leaflet";
 import { CircleMarker, Marker, Popup } from "react-leaflet";
 
 import { useIncidentStore } from "@/lib/incident-store";
+import { useFilterStore } from "@/lib/filter-store";
 
 import { MapIcons } from "./map-icons";
-import type { CasualtyPerson } from "@/types/data";
 import { CASUALTY_TYPES } from "@/constant/casualty-types";
-import { useFilterStore } from "@/lib/filter-store";
+import type { CasualtyPerson } from "@/types/data";
 
 interface CasualtyMarkerProps {
   person: CasualtyPerson;
