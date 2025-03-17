@@ -18,13 +18,12 @@ export default function MapController({
 	selectedPerson,
 	markerRefs,
 	flyToDuration = 2,
-	flyToZoom = 18,
+	flyToZoom = 14,
 	defaultZoom = 7,
 }: MapControllerProps) {
 	const map = useMap();
 
 	useEffect(() => {
-		console.log(selectedPerson, selectedPerson?.lat, selectedPerson?.lng);
 		if (
 			selectedPerson &&
 			selectedPerson.lat != null &&

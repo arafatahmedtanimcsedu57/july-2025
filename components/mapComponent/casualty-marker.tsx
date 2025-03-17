@@ -1,17 +1,21 @@
 'use client';
 
 import { memo, useMemo } from 'react';
-import type L from 'leaflet';
+import { formatDate } from 'date-fns';
 import { CircleMarker, Marker, Popup } from 'react-leaflet';
+import type L from 'leaflet';
+import { Calendar1Icon, MapPinIcon } from 'lucide-react';
 
 import { useIncidentStore } from '@/lib/incident-store';
 import { useFilterStore } from '@/lib/filter-store';
 
 import { MapIcons } from './map-icons';
-import { CASUALTY_ITEMS, CASUALTY_TYPES } from '@/constant/casualty-types';
+import {
+	CASUALTY_ITEMS,
+	CASUALTY_ITEMS_COLORS,
+	CASUALTY_TYPES,
+} from '@/constant/casualty-types';
 import type { CasualtyPerson } from '@/types/data';
-import { formatDate } from 'date-fns';
-import { Calendar1Icon, MapIcon, MapPinIcon } from 'lucide-react';
 
 interface CasualtyMarkerProps {
 	person: CasualtyPerson;
@@ -21,7 +25,7 @@ interface CasualtyMarkerProps {
 const CasualtyMarker = memo(({ person, onMarkerRef }: CasualtyMarkerProps) => {
 	const { id, name, type, lat, lng, age, occupation, location, date } = person;
 
-	const { selectedIncident, setSelectedIncident } = useIncidentStore();
+	const { setSelectedIncident } = useIncidentStore();
 	const { casualtyTypeFilter } = useFilterStore();
 
 	const icon =
@@ -71,23 +75,9 @@ const CasualtyMarker = memo(({ person, onMarkerRef }: CasualtyMarkerProps) => {
 							{name || 'Unknown'}
 						</div>
 
-						{person.type === CASUALTY_ITEMS.DEATH ? (
-							<div className="w-1 h-1 rounded-full bg-red-500"></div>
-						) : (
-							<></>
-						)}
-
-						{person.type === CASUALTY_ITEMS.INJURY ? (
-							<div className="w-1 h-1 rounded-full bg-orange-500"></div>
-						) : (
-							<></>
-						)}
-
-						{person.type === CASUALTY_ITEMS.MULTIPLE_CASUALTIES ? (
-							<div className="w-1 h-1 rounded-full bg-purple-500"></div>
-						) : (
-							<></>
-						)}
+						{person.type && CASUALTY_ITEMS_COLORS[person.type]
+							? CASUALTY_ITEMS_COLORS[person.type]()
+							: null}
 					</div>
 
 					<div className="text-xs text-muted-foreground flex flex-col">

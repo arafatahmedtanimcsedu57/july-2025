@@ -42,6 +42,7 @@
 
 .leaflet-popup-content-wrapper {
 	box-shadow: none !important;
+	border-radius: 8px !important;
 }
 
 .pin-marker {
