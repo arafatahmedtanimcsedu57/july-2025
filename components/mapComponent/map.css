@@ -34,10 +34,19 @@
 	cursor: grab !important; /* Always show grab cursor to indicate panning */
 }
 
+.leaflet-popup-pane {
+	z-index: 400 !important;
+}
+
 /* Adjust popup positioning for tilted view */
 .leaflet-popup {
 	transform: rotateX(-30deg);
 	transform-origin: bottom center;
+	bottom: -30px !important;
+}
+
+.leaflet-popup-content-wrapper {
+	box-shadow: none !important;
 }
 
 /* 3D Pin Marker Styles */

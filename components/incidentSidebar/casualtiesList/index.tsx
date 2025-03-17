@@ -28,14 +28,13 @@ const CasualtiesList = React.memo(() => {
 
 	const isMultipleCasualties = casualtyTypeFilter === CASUALTY_TYPES.MULTIPLE;
 
-	// Scroll to selected incident when it changes
 	useEffect(() => {
 		if (selectedIncident && casualtyRefs.current[selectedIncident.id]) {
-			// Use a small timeout to ensure the DOM has updated
 			setTimeout(() => {
 				casualtyRefs.current[selectedIncident.id]?.scrollIntoView({
 					behavior: 'smooth',
-					block: 'nearest',
+					block: 'center',
+					inline: 'center',
 				});
 			}, 100);
 		}
