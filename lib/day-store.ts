@@ -3,27 +3,32 @@
 import { create } from 'zustand';
 
 import { allCasualtyData } from './data';
+import { CASUALTY_ITEMS } from '@/constant/casualty-types';
 
 interface DayState {
 	currentDay: string;
 	setDay: (day: string) => void;
 	availableDays: {
 		date: string;
-		hasDeath: boolean;
-		hasInjury: boolean;
-		hasMultipleCasualties: boolean;
+		[CASUALTY_ITEMS.DEATH]: boolean;
+		[CASUALTY_ITEMS.INJURY]: boolean;
+		[CASUALTY_ITEMS.MULTIPLE_CASUALTIES]: boolean;
 	}[];
 }
 
 const extractAvailableDays = (): {
 	date: string;
-	hasDeath: boolean;
-	hasInjury: boolean;
-	hasMultipleCasualties: boolean;
+	[CASUALTY_ITEMS.DEATH]: boolean;
+	[CASUALTY_ITEMS.INJURY]: boolean;
+	[CASUALTY_ITEMS.MULTIPLE_CASUALTIES]: boolean;
 }[] => {
 	const dateMap = new Map<
 		string,
-		{ hasDeath: boolean; hasInjury: boolean; hasMultipleCasualties: boolean }
+		{
+			[CASUALTY_ITEMS.DEATH]: boolean;
+			[CASUALTY_ITEMS.INJURY]: boolean;
+			[CASUALTY_ITEMS.MULTIPLE_CASUALTIES]: boolean;
+		}
 	>();
 
 	allCasualtyData.forEach((person) => {
@@ -33,18 +38,20 @@ const extractAvailableDays = (): {
 
 			if (!dateMap.has(dateStr)) {
 				dateMap.set(dateStr, {
-					hasDeath: false,
-					hasInjury: false,
-					hasMultipleCasualties: false,
+					[CASUALTY_ITEMS.DEATH]: false,
+					[CASUALTY_ITEMS.INJURY]: false,
+					[CASUALTY_ITEMS.MULTIPLE_CASUALTIES]: false,
 				});
 			}
 
 			// Get the existing entry and update flags
 			const entry = dateMap.get(dateStr)!;
-			if (person.type === 'Death') entry.hasDeath = true;
-			if (person.type === 'Injury') entry.hasInjury = true;
-			if (person.type === 'Multiple Casualties')
-				entry.hasMultipleCasualties = true;
+			if (person.type === CASUALTY_ITEMS.DEATH)
+				entry[CASUALTY_ITEMS.DEATH] = true;
+			if (person.type === CASUALTY_ITEMS.INJURY)
+				entry[CASUALTY_ITEMS.INJURY] = true;
+			if (person.type === CASUALTY_ITEMS.MULTIPLE_CASUALTIES)
+				entry[CASUALTY_ITEMS.MULTIPLE_CASUALTIES] = true;
 		}
 	});
 
