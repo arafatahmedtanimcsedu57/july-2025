@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useMemo, useCallback, useState } from 'react';
-import { MapContainer } from 'react-leaflet';
+import { MapContainer, ZoomControl } from 'react-leaflet';
 import type L from 'leaflet';
 
 import { ThemeTileLayer } from './theme-tile-layer';
@@ -104,6 +104,8 @@ export default function MapComponent() {
 					style={{ ...MAP_CONTAINER.style }}
 					whenReady={handleMapLoad}
 				>
+					<ZoomControl position="bottomleft" />
+
 					<ThemeTileLayer />
 
 					{validCasualtyData.map((person) => {

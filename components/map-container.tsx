@@ -1,6 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
+import { FilterControls } from './filter-controls';
 
 const MapComponent = dynamic(() => import('@/components/mapComponent'), {
 	ssr: false,
@@ -17,6 +18,8 @@ const MapComponent = dynamic(() => import('@/components/mapComponent'), {
 export default function MapContainer() {
 	return (
 		<div className="container">
+			<FilterControls />
+
 			<MapComponent />
 		</div>
 	);

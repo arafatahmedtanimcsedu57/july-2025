@@ -1,6 +1,6 @@
 'use client';
 
-import { Menu, X, MapPin, FileEdit } from 'lucide-react';
+import { X, MapPin, FileEdit, Filter } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { useSidebarStore } from '@/lib/sidebar-store';
@@ -44,7 +44,14 @@ export default function Navbar() {
 						onClick={toggle}
 						aria-label={isOpen ? 'Close sidebar' : 'Open sidebar'}
 					>
-						{isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+						{isOpen ? (
+							<X className="h-5 w-5" />
+						) : (
+							<>
+								<Filter className="mr-2 h-5 w-5" />
+								Filters
+							</>
+						)}
 					</Button>
 				</div>
 			</div>

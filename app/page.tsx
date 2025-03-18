@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/tooltip';
 
 import { useFilterStore } from '@/lib/filter-store';
+import { FilterControls } from '@/components/filter-controls';
 
 export default function Home() {
 	const { casualtyTypeFilter, setCasualtyTypeFilter } = useFilterStore();
@@ -46,6 +47,7 @@ export default function Home() {
 					))}
 				</div>
 				<IncidentSidebar />
+
 				<MapContainer />
 				<Sidebar />
 			</div>
