@@ -14,10 +14,18 @@ import {
 } from '@/components/ui/tooltip';
 
 import { useFilterStore } from '@/lib/filter-store';
-import { FilterControls } from '@/components/filter-controls';
+import { useIncidentStore } from '@/lib/incident-store';
 
 export default function Home() {
 	const { casualtyTypeFilter, setCasualtyTypeFilter } = useFilterStore();
+	const { setSelectedIncident } = useIncidentStore();
+
+	const handleCasualtyTypeFilter = (casualtyType: string) => {
+		if (casualtyTypeFilter !== casualtyType) {
+			setSelectedIncident(null);
+			setCasualtyTypeFilter(casualtyType);
+		}
+	};
 
 	return (
 		<main className="border-grid flex flex-1 flex-col">
@@ -32,7 +40,7 @@ export default function Home() {
 									<Button
 										variant="ghost"
 										key={casualty.name}
-										onClick={() => setCasualtyTypeFilter(casualty.value)}
+										onClick={() => handleCasualtyTypeFilter(casualty.value)}
 										className={`${
 											casualtyTypeFilter === casualty.value ? 'bg-muted' : ''
 										}`}
