@@ -28,10 +28,10 @@ import { uniqueTypes } from '@/lib/data';
 import { useDayStore } from '@/lib/day-store';
 import { ScrollArea, ScrollBar } from './ui/scroll-area';
 
-import { MARKER_COLORS } from '@/constant/marker-colors';
 import {
 	CASUALTY_ITEMS,
 	CASUALTY_ITEMS_COLORS,
+	CASUALTY_TYPES,
 } from '@/constant/casualty-types';
 
 export function FilterControls() {
@@ -42,6 +42,7 @@ export function FilterControls() {
 		minAgeFilter,
 		maxAgeFilter,
 		typeFilter,
+		casualtyTypeFilter,
 		setDateFilter,
 		setMinAgeFilter,
 		setMaxAgeFilter,
@@ -52,6 +53,8 @@ export function FilterControls() {
 	const handleDateSelect = (date: Date | undefined) => {
 		setDateFilter(date || null);
 	};
+
+	const isMultipleCasualties = casualtyTypeFilter === CASUALTY_TYPES.MULTIPLE;
 
 	return (
 		<div className="border-b border-dashed p-4 flex flex-col gap-4">
@@ -130,45 +133,63 @@ export function FilterControls() {
 									</Popover>
 								</div>
 
-								<div className="grid grid-cols-3 items-center gap-4">
-									<Label>Age Range</Label>
-									<div className="col-span-2 space-y-4">
-										<Slider
-											defaultValue={[
-												minAgeFilter ? Number.parseInt(minAgeFilter) : 0,
-												maxAgeFilter ? Number.parseInt(maxAgeFilter) : 100,
-											]}
-											max={100}
-											step={1}
-											onValueChange={(values) => {
-												setMinAgeFilter(values[0].toString());
-												setMaxAgeFilter(values[1].toString());
-											}}
-											className="my-2"
-										/>
-										<div className="flex justify-between text-xs text-muted-foreground">
-											<span>{minAgeFilter || '0'}</span>
-											<span>{maxAgeFilter || '100'}</span>
+								{!isMultipleCasualties ? (
+									<>
+										<div className="grid grid-cols-3 items-center gap-4">
+											<Label>Age Range</Label>
+											<div className="col-span-2 space-y-4">
+												<Slider
+													defaultValue={[
+														minAgeFilter ? Number.parseInt(minAgeFilter) : 0,
+														maxAgeFilter ? Number.parseInt(maxAgeFilter) : 100,
+													]}
+													max={100}
+													step={1}
+													onValueChange={(values) => {
+														setMinAgeFilter(values[0].toString());
+														setMaxAgeFilter(values[1].toString());
+													}}
+													className="my-2"
+												/>
+												<div className="flex justify-between text-xs text-muted-foreground">
+													<span>{minAgeFilter || '0'}</span>
+													<span>{maxAgeFilter || '100'}</span>
+												</div>
+											</div>
 										</div>
-									</div>
-								</div>
 
-								<div className="grid grid-cols-3 items-center gap-4">
-									<Label htmlFor="type-filter">Type</Label>
-									<Select value={typeFilter} onValueChange={setTypeFilter}>
-										<SelectTrigger className="col-span-2 h-8" id="type-filter">
-											<SelectValue placeholder="Select type" />
-										</SelectTrigger>
-										<SelectContent>
-											<SelectItem value="all">All Types</SelectItem>
-											{uniqueTypes.map((type) => (
-												<SelectItem key={type} value={type || ''}>
-													{type}
-												</SelectItem>
-											))}
-										</SelectContent>
-									</Select>
-								</div>
+										<div className="grid grid-cols-3 items-center gap-4">
+											<Label htmlFor="type-filter">Type</Label>
+											<Select value={typeFilter} onValueChange={setTypeFilter}>
+												<SelectTrigger
+													className="col-span-2 h-8"
+													id="type-filter"
+												>
+													<SelectValue placeholder="Select type" />
+												</SelectTrigger>
+												<SelectContent>
+													<SelectItem value="all">All Types</SelectItem>
+
+													<SelectItem
+														key={CASUALTY_ITEMS.DEATH}
+														value={CASUALTY_ITEMS.DEATH}
+													>
+														{CASUALTY_ITEMS.DEATH}
+													</SelectItem>
+
+													<SelectItem
+														key={CASUALTY_ITEMS.INJURY}
+														value={CASUALTY_ITEMS.INJURY}
+													>
+														{CASUALTY_ITEMS.INJURY}
+													</SelectItem>
+												</SelectContent>
+											</Select>
+										</div>
+									</>
+								) : (
+									<></>
+								)}
 							</div>
 						</div>
 					</PopoverContent>
