@@ -3,25 +3,27 @@
 import { useEffect } from 'react';
 import { getDate, format } from 'date-fns';
 
-import { useSidebarStore } from '@/lib/sidebar-store';
-import { useDayStore } from '@/lib/day-store';
-import { getCasualtyDataByDate } from '@/lib/data';
-import { useFilterStore } from '@/lib/filter-store';
-
-import {
-	CASUALTY_ITEMS,
-	CASUALTY_ITEMS_COLORS,
-	CASUALTY_TYPES,
-} from '@/constant/casualty-types';
-import { Label } from './ui/label';
-import { Slider } from './ui/slider';
+import { Label } from '@/components/ui/label';
+import { Slider } from '@/components/ui/slider';
 import {
 	Select,
 	SelectContent,
 	SelectItem,
 	SelectTrigger,
 	SelectValue,
-} from './ui/select';
+} from '@/components/ui/select';
+
+import { useSidebarStore } from '@/lib/sidebar-store';
+import { useDayStore } from '@/lib/day-store';
+import { getCasualtyDataByDate } from '@/lib/data';
+import { useFilterStore } from '@/lib/filter-store';
+import { useIncidentStore } from '@/lib/incident-store';
+
+import {
+	CASUALTY_ITEMS,
+	CASUALTY_ITEMS_COLORS,
+	CASUALTY_TYPES,
+} from '@/constant/casualty-types';
 
 export default function Sidebar() {
 	const { isOpen, close } = useSidebarStore();
@@ -39,6 +41,7 @@ export default function Sidebar() {
 	} = useFilterStore();
 
 	const { currentDay, availableDays } = useDayStore();
+	const { setSelectedIncident } = useIncidentStore();
 
 	const casualtyData = getCasualtyDataByDate(currentDay);
 
@@ -58,8 +61,20 @@ export default function Sidebar() {
 	);
 
 	const handleDateSelect = (date: Date | undefined) => {
+		setSelectedIncident(null);
 		setDateFilter(date || null);
 	};
+
+	const handleAgeChange = (values: number[]) =>  {
+		setSelectedIncident(null);
+		setMinAgeFilter(values[0].toString());
+		setMaxAgeFilter(values[1].toString());
+	}
+
+	const handleTypeFilter = (type: string) => {
+		setSelectedIncident(null);
+		setTypeFilter(type)
+	}
 
 	const isMultipleCasualties = casualtyTypeFilter === CASUALTY_TYPES.MULTIPLE;
 
@@ -101,7 +116,7 @@ export default function Sidebar() {
 
 							return (
 								<div
-									className="p-4 border rounded flex flex-col items-center justify-center"
+									className="p-4 border cursor-pointer rounded flex flex-col items-center justify-center"
 									key={day.date}
 									onClick={() => handleDateSelect(new Date(day.date))}
 								>
@@ -142,10 +157,7 @@ export default function Sidebar() {
 									]}
 									max={100}
 									step={1}
-									onValueChange={(values) => {
-										setMinAgeFilter(values[0].toString());
-										setMaxAgeFilter(values[1].toString());
-									}}
+									onValueChange={(values) => handleAgeChange(values)}
 									className="my-2"
 								/>
 								<div className="flex justify-between text-xs text-muted-foreground">
@@ -157,7 +169,7 @@ export default function Sidebar() {
 
 						<div className="grid grid-cols-1 items-center gap-4 p-4 border-b border-dashed">
 							<Label htmlFor="type-filter">Casualty Type</Label>
-							<Select value={typeFilter} onValueChange={setTypeFilter}>
+							<Select value={typeFilter} onValueChange={(e)=> handleTypeFilter(e)}>
 								<SelectTrigger className="col-span-2 h-8" id="type-filter">
 									<SelectValue placeholder="Select type" />
 								</SelectTrigger>
