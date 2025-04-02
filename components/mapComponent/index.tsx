@@ -22,6 +22,7 @@ import {
 import {
 	BANGLADESH_CENTER,
 	MAP_CONTAINER,
+	MAP_ZOOM,
 } from '@/constant/map-container-config';
 import 'leaflet/dist/leaflet.css';
 import './map.css';
@@ -123,8 +124,8 @@ export default function MapComponent() {
 						selectedPerson={selectedIncident}
 						markerRefs={markerRefsMap.current}
 						flyToDuration={2}
-						flyToZoom={18}
-						defaultZoom={7}
+						flyToZoom={MAP_ZOOM.MAX}
+						defaultZoom={MAP_ZOOM.DEFAULT}
 					/>
 				</MapContainer>
 			</div>

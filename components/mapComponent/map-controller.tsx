@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { useMap } from 'react-leaflet';
 import type { CasualtyPerson } from '@/types/data';
-import { BANGLADESH_CENTER } from '@/constant/map-container-config';
+import { BANGLADESH_CENTER, MAP_ZOOM } from '@/constant/map-container-config';
 import type L from 'leaflet';
 
 interface MapControllerProps {
@@ -18,8 +18,8 @@ export default function MapController({
 	selectedPerson,
 	markerRefs,
 	flyToDuration = 2,
-	flyToZoom = 14,
-	defaultZoom = 7,
+	flyToZoom = MAP_ZOOM.MAX,
+	defaultZoom = MAP_ZOOM.DEFAULT
 }: MapControllerProps) {
 	const map = useMap();
 
