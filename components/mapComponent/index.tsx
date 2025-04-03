@@ -3,6 +3,7 @@
 import { useEffect, useRef, useMemo, useCallback, useState } from 'react';
 import { MapContainer, ZoomControl } from 'react-leaflet';
 import type L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 
 import { ThemeTileLayer } from './theme-tile-layer';
 import MapController from './map-controller';
@@ -24,7 +25,6 @@ import {
 	MAP_CONTAINER,
 	MAP_ZOOM,
 } from '@/constant/map-container-config';
-import 'leaflet/dist/leaflet.css';
 import './map.css';
 
 export default function MapComponent() {
