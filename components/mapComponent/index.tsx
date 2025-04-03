@@ -132,7 +132,7 @@ export default function MapComponent() {
 
 			{isMapLoaded && (
 				<div className="absolute bottom-4 left-4 bg-white dark:bg-gray-800 p-4 rounded shadow-lg z-[100]">
-					<div className="flex items-center gap-2 text-xs">
+					<div className="flex flex-col gap-2 text-xs">
 						{Object.entries(CASUALTY_ITEMS).map(([key, value]) => (
 							<div key={key} className="flex items-center gap-1">
 								{CASUALTY_ITEMS_COLORS[value]?.()}
