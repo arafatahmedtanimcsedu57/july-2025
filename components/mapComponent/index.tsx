@@ -105,7 +105,7 @@ export default function MapComponent() {
 					style={{ ...MAP_CONTAINER.style }}
 					whenReady={handleMapLoad}
 				>
-					<ZoomControl position="bottomleft" />
+					<ZoomControl position="topright" />
 
 					<ThemeTileLayer />
 
@@ -131,7 +131,7 @@ export default function MapComponent() {
 			</div>
 
 			{isMapLoaded && (
-				<div className="absolute bottom-4 right-4 bg-white dark:bg-gray-800 p-4 rounded shadow-lg z-[1000]">
+				<div className="absolute bottom-4 left-4 bg-white dark:bg-gray-800 p-4 rounded shadow-lg z-[100]">
 					<div className="flex items-center gap-2 text-xs">
 						{Object.entries(CASUALTY_ITEMS).map(([key, value]) => (
 							<div key={key} className="flex items-center gap-1">

@@ -12,6 +12,7 @@ import {
 	TooltipProvider,
 	TooltipTrigger,
 } from '@/components/ui/tooltip';
+import { Toaster } from '@/components/ui/toaster';
 
 import { useFilterStore } from '@/lib/filter-store';
 import { useIncidentStore } from '@/lib/incident-store';
@@ -59,6 +60,7 @@ export default function Home() {
 				<MapContainer />
 				<Sidebar />
 			</div>
+			<Toaster />
 		</main>
 	);
 }

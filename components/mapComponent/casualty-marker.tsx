@@ -23,7 +23,7 @@ interface CasualtyMarkerProps {
 }
 
 const CasualtyMarker = memo(({ person, onMarkerRef }: CasualtyMarkerProps) => {
-	const { id, name, type, lat, lng, age, occupation, location, date } = person;
+	const { id, name, type, lat, lng } = person;
 
 	const { setSelectedIncident } = useIncidentStore();
 	const { casualtyTypeFilter } = useFilterStore();
@@ -67,44 +67,7 @@ const CasualtyMarker = memo(({ person, onMarkerRef }: CasualtyMarkerProps) => {
 			}}
 			keyboard={true}
 			aria-label={`${type} marker for ${name || 'Unknown person'}`}
-		>
-			<Popup closeButton={false} autoPan={false}>
-				<>
-					<div className="flex gap-4 items-center justify-between">
-						<div className="flex items-center gap-2 font-medium text-xs">
-							{name || 'Unknown'}
-						</div>
-
-						{person.type && CASUALTY_ITEMS_COLORS[person.type]
-							? CASUALTY_ITEMS_COLORS[person.type]()
-							: null}
-					</div>
-
-					<div className="text-xs text-muted-foreground flex flex-col">
-						{occupation ? <span>{occupation}</span> : <></>}
-						{age ? <span>{age} years</span> : <></>}
-					</div>
-
-					<div className="text-xs text-muted-foreground flex flex-col">
-						{location ? (
-							<span className="text-xs text-blue-500 flex items-center gap-2">
-								<MapPinIcon size={12} /> {location}
-							</span>
-						) : (
-							<></>
-						)}
-						{date ? (
-							<span className="text-xs text-slate-900 flex items-center gap-2">
-								<Calendar1Icon size={12} />
-								{formatDate(new Date(date), 'do LLL')}
-							</span>
-						) : (
-							<></>
-						)}
-					</div>
-				</>
-			</Popup>
-		</Marker>
+		/>
 	);
 
 	if (isMultipleCasualties) {
