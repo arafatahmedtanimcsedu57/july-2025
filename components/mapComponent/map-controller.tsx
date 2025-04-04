@@ -1,10 +1,11 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { useMap } from 'react-leaflet';
+import { useMap, ZoomControl } from 'react-leaflet';
 import type L from 'leaflet';
 import type { CasualtyPerson } from '@/types/data';
 import { BANGLADESH_CENTER, MAP_ZOOM } from '@/constant/map-container-config';
+import { useFullScreenStore } from '@/lib/full-screen-store';
 
 interface MapControllerProps {
 	selectedPerson: CasualtyPerson | null;
@@ -23,6 +24,7 @@ export default function MapController({
 }: MapControllerProps) {
 	const map = useMap();
 	const flyingRef = useRef(false);
+	const { toggle } = useFullScreenStore();
 
 	useEffect(() => {
 		if (
@@ -102,5 +104,9 @@ export default function MapController({
 		}
 	}, [selectedPerson, map, markerRefs, flyToDuration, flyToZoom, defaultZoom]);
 
-	return null;
+	return (
+		<>
+			<ZoomControl position="topright" />
+		</>
+	);
 }

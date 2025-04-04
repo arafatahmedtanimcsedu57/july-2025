@@ -16,9 +16,12 @@ import { Toaster } from '@/components/ui/toaster';
 
 import { useFilterStore } from '@/lib/filter-store';
 import { useIncidentStore } from '@/lib/incident-store';
+import { useFullScreenStore } from '@/lib/full-screen-store';
+import { cn } from '@/lib/utils';
 
 export default function Home() {
 	const { casualtyTypeFilter, setCasualtyTypeFilter } = useFilterStore();
+	const { isFullScreen } = useFullScreenStore();
 	const { setSelectedIncident } = useIncidentStore();
 
 	const handleCasualtyTypeFilter = (casualtyType: string) => {
@@ -32,7 +35,12 @@ export default function Home() {
 		<main className="border-grid flex flex-1 flex-col">
 			<Navbar />
 
-			<div className="m-auto container border-dashed border-x h-[calc(100vh-61px)] flex">
+			<div
+				className={cn(
+					'border-dashed border-x h-[calc(100vh-61px)] flex',
+					!isFullScreen ? 'container mx-auto' : '',
+				)}
+			>
 				<div className="min-w-[50px] border-r border-dashed flex flex-col justify-center items-center h-full">
 					{CASUALTY.map((casualty) => (
 						<TooltipProvider key={casualty.name}>
@@ -55,7 +63,7 @@ export default function Home() {
 						</TooltipProvider>
 					))}
 				</div>
-				<IncidentSidebar />
+				{!isFullScreen ? <IncidentSidebar /> : <></>}
 
 				<MapContainer />
 				<Sidebar />

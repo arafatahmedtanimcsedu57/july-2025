@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect } from 'react';
 
 import { SingleCasualty } from './single-casualty';
 import { MultipleCasualty } from './multiple-casualties';
-import { CasualtyToast } from './casualty-toast';
+import { CasualtyToast } from '../../mapComponent/casualty-toast';
 import { Button } from '@/components/ui/button';
 
 import { useToast } from '@/hooks/use-toast';
@@ -17,9 +17,7 @@ import { SCROLL_CONFIG } from '@/constant/scroll-config';
 
 const CasualtiesList = React.memo(() => {
 	const [showAll, setShowAll] = useState(true);
-	const [activeToastId, setActiveToastId] = useState<string | null>(null);
 
-	const { toast, dismiss } = useToast();
 	const filteredData = useFilteredData();
 	const { casualtyTypeFilter } = useFilterStore();
 	const { selectedIncident, setSelectedIncident } = useIncidentStore();
@@ -33,18 +31,6 @@ const CasualtiesList = React.memo(() => {
 
 	const isMultipleCasualties = casualtyTypeFilter === CASUALTY_TYPES.MULTIPLE;
 
-	const resetToast = () => {
-		if (activeToastId) {
-			dismiss(activeToastId);
-			setActiveToastId(null);
-		}
-	};
-
-	const handleCloseToast = () => {
-		resetToast();
-		setSelectedIncident(null);
-	};
-
 	useEffect(() => {
 		if (selectedIncident && casualtyRefs.current[selectedIncident.id]) {
 			setTimeout(() => {
@@ -53,29 +39,7 @@ const CasualtiesList = React.memo(() => {
 				});
 			}, 100);
 		}
-
-		if (!selectedIncident) {
-			resetToast();
-		} else {
-			resetToast();
-			const { id } = toast({
-				description: (
-					<CasualtyToast
-						casualty={selectedIncident}
-						isMultipleCasualties={isMultipleCasualties}
-						onClose={handleCloseToast}
-						onSwipeEnd={() => setSelectedIncident(null)}
-					/>
-				),
-				duration: 500000, // Long duration
-				onSwipeEnd: () => {
-					setSelectedIncident(null);
-				},
-			});
-
-			setActiveToastId(id);
-		}
-	}, [selectedIncident, isMultipleCasualties]);
+	}, [selectedIncident]);
 
 	return (
 		<div className="p-4">

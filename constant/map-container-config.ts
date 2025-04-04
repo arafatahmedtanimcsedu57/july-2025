@@ -4,7 +4,7 @@ export const BANGLADESH_CENTER: LatLngExpression = [23.8103, 90.4125];
 
 export const MAP_ZOOM = {
 	DEFAULT: 7,
-	MAX: 7,
+	MAX: 12,
 	MIN: 7,
 };
 export const MAP_CONTAINER = {

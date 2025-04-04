@@ -3,19 +3,28 @@
 import { X, MapPin, FileEdit, Filter } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
-import { useSidebarStore } from '@/lib/sidebar-store';
 import { ThemeToggle } from '@/components/theme-toggle';
 
+import { useSidebarStore } from '@/lib/sidebar-store';
 import { useEditStore } from '@/lib/edit-store';
+import { useFullScreenStore } from '@/lib/full-screen-store';
+import { cn } from '@/lib/utils';
 
 export default function Navbar() {
+	const { isFullScreen } = useFullScreenStore();
+
 	const { isOpen, toggle } = useSidebarStore();
 	const { editedData } = useEditStore();
 	const editedCount = Object.keys(editedData).length;
 
 	return (
 		<header className="sticky top-0 z-50 border-dashed border-b w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-			<div className="border-dashed border-x m-auto container flex items-center justify-between">
+			<div
+				className={cn(
+					'border-dashed border-x flex items-center justify-between',
+					!isFullScreen ? 'm-auto container' : '',
+				)}
+			>
 				<div className="flex items-center">
 					<div className="relative border-r border-dashed w-[50px] h-[60px] flex items-center justify-center">
 						<MapPin className="h-[36px] w-6" />

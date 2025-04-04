@@ -1,8 +1,7 @@
 'use client';
 
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { getDate, format } from 'date-fns';
-import React from 'react';
 
 import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
@@ -29,7 +28,6 @@ import {
 export default function Sidebar() {
 	const { isOpen, close } = useSidebarStore();
 	const {
-		dateFilter,
 		minAgeFilter,
 		maxAgeFilter,
 		typeFilter,
@@ -38,28 +36,12 @@ export default function Sidebar() {
 		setMinAgeFilter,
 		setMaxAgeFilter,
 		setTypeFilter,
-		resetFilters,
 	} = useFilterStore();
 
 	const { currentDay, availableDays } = useDayStore();
 	const { setSelectedIncident } = useIncidentStore();
 
 	const casualtyData = getCasualtyDataByDate(currentDay);
-
-	const totals = casualtyData.reduce(
-		(acc, person) => {
-			if (person.type) {
-				acc[person.type]++;
-			}
-			return acc;
-		},
-		{
-			[CASUALTY_ITEMS.DEATH]: 0,
-			[CASUALTY_ITEMS.INJURY]: 0,
-			[CASUALTY_ITEMS.MULTIPLE_CASUALTIES]: 0,
-			[CASUALTY_ITEMS.NO_CASUALTIES]: 0,
-		} as Record<string, number>,
-	);
 
 	const handleDateSelect = (date: Date | undefined) => {
 		setSelectedIncident(null);

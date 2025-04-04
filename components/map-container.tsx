@@ -17,7 +17,7 @@ const MapComponent = dynamic(() => import('@/components/mapComponent'), {
 
 export default function MapContainer() {
 	return (
-		<div className="container">
+		<div className="w-full">
 			<FilterControls />
 
 			<MapComponent />

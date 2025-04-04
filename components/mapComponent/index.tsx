@@ -1,24 +1,27 @@
 'use client';
 
 import { useEffect, useRef, useMemo, useCallback, useState } from 'react';
-import { MapContainer, ZoomControl } from 'react-leaflet';
+import { MapContainer } from 'react-leaflet';
 import type L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 import { ThemeTileLayer } from './theme-tile-layer';
 import MapController from './map-controller';
 import CasualtyMarker from './casualty-marker';
+import { CasualtyToast } from './casualty-toast';
 import { Skeleton } from '@/components/ui/skeleton';
 
+import { useFilteredData } from '@/hooks/use-filtered-data';
+import { useToast } from '@/hooks/use-toast';
 import { useIncidentStore } from '@/lib/incident-store';
 import { useDayStore } from '@/lib/day-store';
 import { getUpdatedPersonData } from '@/lib/edit-store';
-
-import { useFilteredData } from '@/hooks/use-filtered-data';
+import { useFilterStore } from '@/lib/filter-store';
 
 import {
 	CASUALTY_ITEMS,
 	CASUALTY_ITEMS_COLOR_ELEMENTS,
+	CASUALTY_TYPES,
 } from '@/constant/casualty-types';
 import {
 	BANGLADESH_CENTER,
@@ -28,12 +31,15 @@ import {
 import './map.css';
 
 export default function MapComponent() {
-	const { selectedIncident, setSelectedIncident } = useIncidentStore();
-	const { currentDay } = useDayStore();
-	const filteredData = useFilteredData();
-
+	const [activeToastId, setActiveToastId] = useState<string | null>(null);
 	const [isMapLoaded, setIsMapLoaded] = useState(false);
 	const [mapError, setMapError] = useState<string | null>(null);
+
+	const { toast, dismiss } = useToast();
+	const { selectedIncident, setSelectedIncident } = useIncidentStore();
+	const { currentDay } = useDayStore();
+	const { casualtyTypeFilter } = useFilterStore();
+	const filteredData = useFilteredData();
 
 	const validCasualtyData = useMemo(
 		() =>
@@ -42,6 +48,43 @@ export default function MapComponent() {
 	);
 
 	const markerRefsMap = useRef<Map<string, L.Marker>>(new Map());
+	const isMultipleCasualties = casualtyTypeFilter === CASUALTY_TYPES.MULTIPLE;
+
+	const resetToast = () => {
+		if (activeToastId) {
+			dismiss(activeToastId);
+			setActiveToastId(null);
+		}
+	};
+
+	const handleCloseToast = () => {
+		resetToast();
+		setSelectedIncident(null);
+	};
+
+	useEffect(() => {
+		if (!selectedIncident) {
+			resetToast();
+		} else {
+			resetToast();
+			const { id } = toast({
+				description: (
+					<CasualtyToast
+						casualty={selectedIncident}
+						isMultipleCasualties={isMultipleCasualties}
+						onClose={handleCloseToast}
+						onSwipeEnd={() => setSelectedIncident(null)}
+					/>
+				),
+				duration: 500000,
+				onSwipeEnd: () => {
+					setSelectedIncident(null);
+				},
+			});
+
+			setActiveToastId(id);
+		}
+	}, [selectedIncident, isMultipleCasualties]);
 
 	useEffect(() => {
 		setSelectedIncident(null);
@@ -89,11 +132,7 @@ export default function MapComponent() {
 				</div>
 			)}
 
-			<div
-				className="h-full w-full"
-				role="region"
-				aria-label="Interactive map showing casualty locations"
-			>
+			<div className="h-full w-full">
 				<MapContainer
 					center={BANGLADESH_CENTER}
 					zoom={MAP_CONTAINER.zoom}
@@ -105,8 +144,6 @@ export default function MapComponent() {
 					style={{ ...MAP_CONTAINER.style }}
 					whenReady={handleMapLoad}
 				>
-					<ZoomControl position="topright" />
-
 					<ThemeTileLayer />
 
 					{validCasualtyData.map((person) => {
