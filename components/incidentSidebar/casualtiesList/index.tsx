@@ -1,32 +1,25 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { formatDate } from 'date-fns';
-import { Calendar1Icon, MapPinIcon } from 'lucide-react';
-import Image, { type StaticImageData } from 'next/image';
 
 import { SingleCasualty } from './single-casualty';
 import { MultipleCasualty } from './multiple-casualties';
+import { CasualtyToast } from './casualty-toast';
 import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
 
 import { useToast } from '@/hooks/use-toast';
 import { useFilteredData } from '@/hooks/use-filtered-data';
 import { useFilterStore } from '@/lib/filter-store';
 import { useIncidentStore } from '@/lib/incident-store';
 
-import {
-	CASUALTY_ITEMS_COLOR_ELEMENTS,
-	CASUALTY_TYPES,
-} from '@/constant/casualty-types';
-
-import MaleIcon from '@/public/male.png';
-import FemaleIcon from '@/public/female.png';
+import { CASUALTY_TYPES } from '@/constant/casualty-types';
+import { SCROLL_CONFIG } from '@/constant/scroll-config';
 
 const CasualtiesList = React.memo(() => {
-	const { toast } = useToast();
-
 	const [showAll, setShowAll] = useState(true);
+	const [activeToastId, setActiveToastId] = useState<string | null>(null);
+
+	const { toast, dismiss } = useToast();
 	const filteredData = useFilteredData();
 	const { casualtyTypeFilter } = useFilterStore();
 	const { selectedIncident, setSelectedIncident } = useIncidentStore();
@@ -40,91 +33,49 @@ const CasualtiesList = React.memo(() => {
 
 	const isMultipleCasualties = casualtyTypeFilter === CASUALTY_TYPES.MULTIPLE;
 
+	const resetToast = () => {
+		if (activeToastId) {
+			dismiss(activeToastId);
+			setActiveToastId(null);
+		}
+	};
+
+	const handleCloseToast = () => {
+		resetToast();
+		setSelectedIncident(null);
+	};
+
 	useEffect(() => {
 		if (selectedIncident && casualtyRefs.current[selectedIncident.id]) {
 			setTimeout(() => {
 				casualtyRefs.current[selectedIncident.id]?.scrollIntoView({
-					behavior: 'smooth',
-					block: 'center',
-					inline: 'center',
+					...SCROLL_CONFIG,
 				});
 			}, 100);
 		}
 
-		if (selectedIncident) {
-			const { name, type, occupation, age, location, date, gender } =
-				selectedIncident;
-			let genderIcon: StaticImageData | string = '';
-
-			if (gender && gender.toLowerCase() === 'male') genderIcon = MaleIcon;
-			if (gender && gender.toLowerCase() === 'female') genderIcon = FemaleIcon;
-			toast({
+		if (!selectedIncident) {
+			resetToast();
+		} else {
+			resetToast();
+			const { id } = toast({
 				description: (
-					<div className="">
-						<div className="flex items-center flex-row gap-2">
-							{genderIcon ? (
-								<div>
-									<Image
-										src={genderIcon}
-										alt="male"
-										width={32}
-										height={32}
-										className="rounded border"
-									/>
-								</div>
-							) : (
-								<></>
-							)}
-							<div className="flex flex-col">
-								<div className="flex gap-4 items-center ">
-									<div className="flex items-center gap-2 font-medium text-sm">
-										{name || 'Unknown'}
-									</div>
-
-									{type && CASUALTY_ITEMS_COLOR_ELEMENTS[type]
-										? CASUALTY_ITEMS_COLOR_ELEMENTS[type]()
-										: null}
-								</div>
-
-								<div className="text-xs text-muted-foreground flex flex-row gap-2">
-									{occupation ? (
-										<div>
-											<span>{occupation}</span> <span>,</span>{' '}
-										</div>
-									) : (
-										<></>
-									)}
-
-									{age ? <span>{age} years</span> : <></>}
-								</div>
-							</div>
-						</div>
-
-						<Separator className="my-4" />
-
-						<div className="text-xs  flex flex-col">
-							{location ? (
-								<span className="text-xs text-blue-500 flex items-center gap-2">
-									<MapPinIcon size={12} /> {location}
-								</span>
-							) : (
-								<></>
-							)}
-							{date ? (
-								<span className="text-xs  flex items-center gap-2">
-									<Calendar1Icon size={12} />
-									{formatDate(new Date(date), 'do LLL')}
-								</span>
-							) : (
-								<></>
-							)}
-						</div>
-					</div>
+					<CasualtyToast
+						casualty={selectedIncident}
+						isMultipleCasualties={isMultipleCasualties}
+						onClose={handleCloseToast}
+						onSwipeEnd={() => setSelectedIncident(null)}
+					/>
 				),
-				duration: 500000,
+				duration: 500000, // Long duration
+				onSwipeEnd: () => {
+					setSelectedIncident(null);
+				},
 			});
+
+			setActiveToastId(id);
 		}
-	}, [selectedIncident]);
+	}, [selectedIncident, isMultipleCasualties]);
 
 	return (
 		<div className="p-4">
