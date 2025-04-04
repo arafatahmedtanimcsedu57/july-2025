@@ -18,7 +18,7 @@ import { useFilteredData } from '@/hooks/use-filtered-data';
 
 import {
 	CASUALTY_ITEMS,
-	CASUALTY_ITEMS_COLORS,
+	CASUALTY_ITEMS_COLOR_ELEMENTS,
 } from '@/constant/casualty-types';
 import {
 	BANGLADESH_CENTER,
@@ -135,7 +135,7 @@ export default function MapComponent() {
 					<div className="flex flex-col gap-2 text-xs">
 						{Object.entries(CASUALTY_ITEMS).map(([key, value]) => (
 							<div key={key} className="flex items-center gap-1">
-								{CASUALTY_ITEMS_COLORS[value]?.()}
+								{CASUALTY_ITEMS_COLOR_ELEMENTS[value]?.()}
 								<span>{value}</span>
 							</div>
 						))}

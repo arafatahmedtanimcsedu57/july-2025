@@ -1,10 +1,8 @@
 'use client';
 
 import { memo, useMemo } from 'react';
-import { formatDate } from 'date-fns';
-import { CircleMarker, Marker, Popup } from 'react-leaflet';
+import { CircleMarker, Marker } from 'react-leaflet';
 import type L from 'leaflet';
-import { Calendar1Icon, MapPinIcon } from 'lucide-react';
 
 import { useIncidentStore } from '@/lib/incident-store';
 import { useFilterStore } from '@/lib/filter-store';
@@ -25,7 +23,7 @@ interface CasualtyMarkerProps {
 const CasualtyMarker = memo(({ person, onMarkerRef }: CasualtyMarkerProps) => {
 	const { id, name, type, lat, lng } = person;
 
-	const { setSelectedIncident } = useIncidentStore();
+	const { setSelectedIncident, selectedIncident } = useIncidentStore();
 	const { casualtyTypeFilter } = useFilterStore();
 
 	const icon =
@@ -50,7 +48,7 @@ const CasualtyMarker = memo(({ person, onMarkerRef }: CasualtyMarkerProps) => {
 
 	const markerPosition = [lat, lng] as [number, number];
 
-	const markerComponent = (
+	const markerPin = (
 		<Marker
 			icon={icon}
 			position={markerPosition}
@@ -70,6 +68,35 @@ const CasualtyMarker = memo(({ person, onMarkerRef }: CasualtyMarkerProps) => {
 		/>
 	);
 
+	const markerComponent = (
+		<CircleMarker
+			key={person.id}
+			center={markerPosition}
+			radius={5}
+			pathOptions={{
+				color:
+					person.type && CASUALTY_ITEMS_COLORS[person.type]
+						? CASUALTY_ITEMS_COLORS[person.type]()
+						: '',
+				fillColor:
+					person.type && CASUALTY_ITEMS_COLORS[person.type]
+						? CASUALTY_ITEMS_COLORS[person.type]()
+						: '',
+				fillOpacity: 0.5,
+				weight: 0,
+				stroke: true,
+			}}
+			eventHandlers={{
+				click: () => {
+					setSelectedIncident(person);
+				},
+			}}
+			className="drop-shadow-[0_0_0.1rem_crimson]"
+		>
+			{selectedIncident?.id === person.id && markerPin}
+		</CircleMarker>
+	);
+
 	if (isMultipleCasualties) {
 		return (
 			<CircleMarker
@@ -77,8 +104,14 @@ const CasualtyMarker = memo(({ person, onMarkerRef }: CasualtyMarkerProps) => {
 				center={markerPosition}
 				radius={30}
 				pathOptions={{
-					color: 'red',
-					fillColor: 'red',
+					color:
+						person.type && CASUALTY_ITEMS_COLORS[person.type]
+							? CASUALTY_ITEMS_COLORS[person.type]()
+							: '',
+					fillColor:
+						person.type && CASUALTY_ITEMS_COLORS[person.type]
+							? CASUALTY_ITEMS_COLORS[person.type]()
+							: '',
 					fillOpacity: 0.125,
 					weight: 0,
 					stroke: true,
@@ -88,7 +121,6 @@ const CasualtyMarker = memo(({ person, onMarkerRef }: CasualtyMarkerProps) => {
 						setSelectedIncident(person);
 					},
 				}}
-				className="drop-shadow-[0_0_0.1rem_crimson]"
 			>
 				{markerComponent}
 			</CircleMarker>

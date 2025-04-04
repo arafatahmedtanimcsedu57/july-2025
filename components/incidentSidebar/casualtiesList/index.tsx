@@ -16,7 +16,7 @@ import { useFilterStore } from '@/lib/filter-store';
 import { useIncidentStore } from '@/lib/incident-store';
 
 import {
-	CASUALTY_ITEMS_COLORS,
+	CASUALTY_ITEMS_COLOR_ELEMENTS,
 	CASUALTY_TYPES,
 } from '@/constant/casualty-types';
 
@@ -81,8 +81,8 @@ const CasualtiesList = React.memo(() => {
 										{name || 'Unknown'}
 									</div>
 
-									{type && CASUALTY_ITEMS_COLORS[type]
-										? CASUALTY_ITEMS_COLORS[type]()
+									{type && CASUALTY_ITEMS_COLOR_ELEMENTS[type]
+										? CASUALTY_ITEMS_COLOR_ELEMENTS[type]()
 										: null}
 								</div>
 

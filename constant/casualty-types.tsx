@@ -25,7 +25,7 @@ export const CASUALTY_ITEMS = {
 	NO_CASUALTIES: 'No Casualties',
 };
 
-export const CASUALTY_ITEMS_COLORS = {
+export const CASUALTY_ITEMS_COLOR_ELEMENTS = {
 	[CASUALTY_ITEMS.DEATH]: () => (
 		<div className="w-1 h-1 rounded-full bg-red-500"></div>
 	),
@@ -38,4 +38,11 @@ export const CASUALTY_ITEMS_COLORS = {
 	[CASUALTY_ITEMS.NO_CASUALTIES]: () => (
 		<div className="w-1 h-1 rounded-full bg-slate-500"></div>
 	),
+};
+
+export const CASUALTY_ITEMS_COLORS = {
+	[CASUALTY_ITEMS.DEATH]: () => 'red',
+	[CASUALTY_ITEMS.INJURY]: () => 'orange',
+	[CASUALTY_ITEMS.MULTIPLE_CASUALTIES]: () => 'purple',
+	[CASUALTY_ITEMS.NO_CASUALTIES]: () => 'slate',
 };

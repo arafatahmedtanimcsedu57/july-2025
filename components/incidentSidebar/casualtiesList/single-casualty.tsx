@@ -1,7 +1,7 @@
 import React from 'react';
 
 import type { CasualtyPerson } from '@/types/data';
-import { CASUALTY_ITEMS_COLORS } from '../../../constant/casualty-types';
+import { CASUALTY_ITEMS_COLOR_ELEMENTS } from '../../../constant/casualty-types';
 
 const Casualty = ({ person }: { person: CasualtyPerson }) => {
 	return (
@@ -11,8 +11,8 @@ const Casualty = ({ person }: { person: CasualtyPerson }) => {
 					{person.name || 'Unknown'}
 				</div>
 
-				{person.type && CASUALTY_ITEMS_COLORS[person.type]
-					? CASUALTY_ITEMS_COLORS[person.type]()
+				{person.type && CASUALTY_ITEMS_COLOR_ELEMENTS[person.type]
+					? CASUALTY_ITEMS_COLOR_ELEMENTS[person.type]()
 					: null}
 			</div>
 
