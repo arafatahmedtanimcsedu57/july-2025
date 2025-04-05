@@ -32,9 +32,16 @@ const CasualtiesList = React.memo(() => {
 	const isMultipleCasualties = casualtyTypeFilter === CASUALTY_TYPES.MULTIPLE;
 
 	useEffect(() => {
-		if (selectedIncident && casualtyRefs.current[selectedIncident.id]) {
+		if (
+			selectedIncident &&
+			casualtyRefs.current[
+				selectedIncident?.id || selectedIncident?.district || '0'
+			]
+		) {
 			setTimeout(() => {
-				casualtyRefs.current[selectedIncident.id]?.scrollIntoView({
+				casualtyRefs.current[
+					selectedIncident?.id || selectedIncident?.district || '0'
+				]?.scrollIntoView({
 					...SCROLL_CONFIG,
 				});
 			}, 100);
@@ -52,12 +59,18 @@ const CasualtiesList = React.memo(() => {
 					.map((person) => {
 						return (
 							<div
-								key={person.id}
+								key={person.id || person.district || '0'}
 								ref={(el) => {
-									casualtyRefs.current[person.id] = el;
+									casualtyRefs.current[person?.id || person?.district || '0'] =
+										el;
 								}}
 								className={`flex flex-col gap-2 p-4 rounded-md border hover:bg-muted cursor-pointer transition-colors ${
-									selectedIncident?.id === person.id ? 'bg-muted' : ''
+									(selectedIncident?.id &&
+										selectedIncident?.id === person.id) ||
+									(selectedIncident?.district &&
+										selectedIncident?.district === person.district)
+										? 'bg-muted'
+										: ''
 								}`}
 								onClick={() => setSelectedIncident(person)}
 							>

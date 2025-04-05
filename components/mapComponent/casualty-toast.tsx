@@ -8,7 +8,12 @@ import Image, { type StaticImageData } from 'next/image';
 import { Separator } from '@/components/ui/separator';
 import { ToastClose } from '@/components/ui/toast';
 
-import { CASUALTY_ITEMS_COLOR_ELEMENTS } from '@/constant/casualty-types';
+import { useFilterStore } from '@/lib/filter-store';
+
+import {
+	CASUALTY_ITEMS_COLOR_ELEMENTS,
+	CASUALTY_TYPES,
+} from '@/constant/casualty-types';
 import { GENDERS } from '@/constant/gender-types';
 
 import type { CasualtyPerson } from '@/types/data';
@@ -17,19 +22,31 @@ import MaleIcon from '@/public/male.png';
 
 interface CasualtyToastProps {
 	casualty: CasualtyPerson;
-	isMultipleCasualties: boolean;
 	onClose: () => void;
 	onSwipeEnd: () => void;
 }
 
 export const CasualtyToast: React.FC<CasualtyToastProps> = ({
 	casualty,
-	isMultipleCasualties,
 	onClose,
 }) => {
 	if (!casualty) return null;
 
-	const { name, type, occupation, age, location, date, gender } = casualty;
+	const { casualtyTypeFilter } = useFilterStore();
+
+	const isMultipleCasualties = casualtyTypeFilter === CASUALTY_TYPES.MULTIPLE;
+	const {
+		name,
+		type,
+		occupation,
+		age,
+		location,
+		date,
+		gender,
+		district,
+		total_injuries,
+		total_deaths,
+	} = casualty;
 
 	let genderIcon: StaticImageData | string = '';
 	if (gender && gender.toLowerCase() === GENDERS.MALE) genderIcon = MaleIcon;
@@ -57,25 +74,44 @@ export const CasualtyToast: React.FC<CasualtyToastProps> = ({
 				<div className="flex flex-col">
 					<div className="flex gap-4 items-center ">
 						<div className="flex items-center gap-2 font-medium text-sm">
-							{isMultipleCasualties ? 'Multiple Casualties' : name || 'Unknown'}
+							{isMultipleCasualties ? district : name || 'Unknown'}
 						</div>
 
 						{type && CASUALTY_ITEMS_COLOR_ELEMENTS[type]
 							? CASUALTY_ITEMS_COLOR_ELEMENTS[type]()
 							: null}
 					</div>
+					{!isMultipleCasualties && (occupation || age) ? (
+						<div className="text-xs text-muted-foreground flex flex-row gap-2">
+							{occupation ? (
+								<div>
+									<span>{occupation}</span> <span>,</span>{' '}
+								</div>
+							) : (
+								<></>
+							)}
 
-					<div className="text-xs text-muted-foreground flex flex-row gap-2">
-						{occupation ? (
-							<div>
-								<span>{occupation}</span> <span>,</span>{' '}
-							</div>
-						) : (
-							<></>
-						)}
+							{age ? <span>{age} years</span> : <></>}
+						</div>
+					) : (
+						<></>
+					)}
 
-						{age ? <span>{age} years</span> : <></>}
-					</div>
+					{isMultipleCasualties && (total_injuries || total_deaths) ? (
+						<div className="text-xs text-muted-foreground flex flex-row gap-2">
+							{total_injuries ? (
+								<div>
+									<span>{total_injuries}</span> <span>,</span>{' '}
+								</div>
+							) : (
+								<></>
+							)}
+
+							{total_deaths ? <span>{total_deaths}</span> : <></>}
+						</div>
+					) : (
+						<></>
+					)}
 				</div>
 			</div>
 

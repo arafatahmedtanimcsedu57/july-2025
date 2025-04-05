@@ -72,7 +72,9 @@ const CasualtyMarker = memo(({ person, onMarkerRef }: CasualtyMarkerProps) => {
 		<CircleMarker
 			key={person.id}
 			center={markerPosition}
-			radius={5}
+			radius={
+				((person.verified_deaths || 0) / (person.total_cases || 1)) * 100 || 5
+			}
 			pathOptions={{
 				color:
 					person.type && CASUALTY_ITEMS_COLORS[person.type]
@@ -82,7 +84,7 @@ const CasualtyMarker = memo(({ person, onMarkerRef }: CasualtyMarkerProps) => {
 					person.type && CASUALTY_ITEMS_COLORS[person.type]
 						? CASUALTY_ITEMS_COLORS[person.type]()
 						: '',
-				fillOpacity: 0.5,
+				fillOpacity: 1,
 				weight: 0,
 				stroke: true,
 			}}
@@ -93,7 +95,10 @@ const CasualtyMarker = memo(({ person, onMarkerRef }: CasualtyMarkerProps) => {
 			}}
 			className="drop-shadow-[0_0_0.1rem_crimson]"
 		>
-			{selectedIncident?.id === person.id && markerPin}
+			{(selectedIncident?.id && selectedIncident?.id === person.id) ||
+				(selectedIncident?.district &&
+					selectedIncident?.district === person.district &&
+					markerPin)}
 		</CircleMarker>
 	);
 
@@ -102,18 +107,14 @@ const CasualtyMarker = memo(({ person, onMarkerRef }: CasualtyMarkerProps) => {
 			<CircleMarker
 				key={person.id}
 				center={markerPosition}
-				radius={30}
+				radius={
+					((person.verified_injuries || 0) / (person.total_cases || 1)) * 100
+				}
 				pathOptions={{
-					color:
-						person.type && CASUALTY_ITEMS_COLORS[person.type]
-							? CASUALTY_ITEMS_COLORS[person.type]()
-							: '',
-					fillColor:
-						person.type && CASUALTY_ITEMS_COLORS[person.type]
-							? CASUALTY_ITEMS_COLORS[person.type]()
-							: '',
-					fillOpacity: 0.125,
-					weight: 0,
+					color: '#eeca95',
+					fillColor: '#eeca95',
+					fillOpacity: 0.3,
+					weight: 1,
 					stroke: true,
 				}}
 				eventHandlers={{

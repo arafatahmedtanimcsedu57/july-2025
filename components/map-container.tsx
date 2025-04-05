@@ -3,6 +3,9 @@
 import dynamic from 'next/dynamic';
 import { FilterControls } from './filter-controls';
 
+import { useFilterStore } from '@/lib/filter-store';
+import { CASUALTY_TYPES } from '@/constant/casualty-types';
+
 const MapComponent = dynamic(() => import('@/components/mapComponent'), {
 	ssr: false,
 	loading: () => (
@@ -16,6 +19,10 @@ const MapComponent = dynamic(() => import('@/components/mapComponent'), {
 });
 
 export default function MapContainer() {
+	const { casualtyTypeFilter } = useFilterStore();
+
+	const isMultipleCasualties = casualtyTypeFilter === CASUALTY_TYPES.MULTIPLE;
+
 	return (
 		<div className="w-full">
 			<FilterControls />

@@ -71,7 +71,8 @@ export const useEditStore = create<EditState>((set, get) => ({
 // Helper function to get updated person data
 export function getUpdatedPersonData(person: CasualtyPerson): CasualtyPerson {
 	const { editedData } = useEditStore.getState();
-	const personEdits = editedData[person.id.toString()];
+	const personEdits =
+		editedData[(person.id || person.district || '0').toString()];
 
 	if (personEdits) {
 		return {

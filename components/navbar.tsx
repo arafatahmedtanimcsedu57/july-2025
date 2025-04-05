@@ -9,13 +9,18 @@ import { useSidebarStore } from '@/lib/sidebar-store';
 import { useEditStore } from '@/lib/edit-store';
 import { useFullScreenStore } from '@/lib/full-screen-store';
 import { cn } from '@/lib/utils';
+import { useFilterStore } from '@/lib/filter-store';
+
+import { CASUALTY_TYPES } from '@/constant/casualty-types';
 
 export default function Navbar() {
 	const { isFullScreen } = useFullScreenStore();
-
 	const { isOpen, toggle } = useSidebarStore();
 	const { editedData } = useEditStore();
+	const { casualtyTypeFilter } = useFilterStore();
+
 	const editedCount = Object.keys(editedData).length;
+	const isMultipleCasualties = casualtyTypeFilter === CASUALTY_TYPES.MULTIPLE;
 
 	return (
 		<header className="sticky top-0 z-50 border-dashed border-b w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -47,21 +52,25 @@ export default function Navbar() {
 						</div>
 					)}
 					<ThemeToggle />
-					<Button
-						variant="ghost"
-						size="sm"
-						onClick={toggle}
-						aria-label={isOpen ? 'Close sidebar' : 'Open sidebar'}
-					>
-						{isOpen ? (
-							<X className="h-5 w-5" />
-						) : (
-							<>
-								<Filter className="mr-2 h-5 w-5" />
-								Filters
-							</>
-						)}
-					</Button>
+					{!isMultipleCasualties ? (
+						<Button
+							variant="ghost"
+							size="sm"
+							onClick={toggle}
+							aria-label={isOpen ? 'Close sidebar' : 'Open sidebar'}
+						>
+							{isOpen ? (
+								<X className="h-5 w-5" />
+							) : (
+								<>
+									<Filter className="mr-2 h-5 w-5" />
+									Filters
+								</>
+							)}
+						</Button>
+					) : (
+						<></>
+					)}
 				</div>
 			</div>
 		</header>

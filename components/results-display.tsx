@@ -5,7 +5,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { useFilteredData } from '@/hooks/use-filtered-data';
-import { useFilterStatus } from '@/hooks/use-filter-status';
 
 import { useFilterStore } from '@/lib/filter-store';
 import { allCasualtyData } from '@/lib/data';
@@ -13,7 +12,6 @@ import { allCasualtyData } from '@/lib/data';
 export function ResultsDisplay() {
 	const filteredData = useFilteredData();
 	const { resetFilters } = useFilterStore();
-	const { hasActiveFilters } = useFilterStatus();
 
 	// Function to format date or handle null dates
 	const formatDate = (timestamp: number | null) => {

@@ -18,15 +18,20 @@ import { useFilterStore } from '@/lib/filter-store';
 import { useIncidentStore } from '@/lib/incident-store';
 import { useFullScreenStore } from '@/lib/full-screen-store';
 import { cn } from '@/lib/utils';
+import { useSidebarStore } from '@/lib/sidebar-store';
 
 export default function Home() {
-	const { casualtyTypeFilter, setCasualtyTypeFilter } = useFilterStore();
+	const { casualtyTypeFilter, setCasualtyTypeFilter, resetFilters } =
+		useFilterStore();
 	const { isFullScreen } = useFullScreenStore();
 	const { setSelectedIncident } = useIncidentStore();
+	const { close } = useSidebarStore();
 
 	const handleCasualtyTypeFilter = (casualtyType: string) => {
 		if (casualtyTypeFilter !== casualtyType) {
 			setSelectedIncident(null);
+			resetFilters();
+			close();
 			setCasualtyTypeFilter(casualtyType);
 		}
 	};
