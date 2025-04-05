@@ -32,12 +32,11 @@ export const CASUALTY_ITEMS_COLOR_ELEMENTS = {
 	[CASUALTY_ITEMS.INJURY]: () => (
 		<div className="w-1 h-1 rounded-full bg-orange-500"></div>
 	),
-	[CASUALTY_ITEMS.MULTIPLE_CASUALTIES]: () => (
-		<div className="w-1 h-1 rounded-full bg-purple-500"></div>
-	),
-	[CASUALTY_ITEMS.NO_CASUALTIES]: () => (
-		<div className="w-1 h-1 rounded-full bg-slate-500"></div>
-	),
+	[CASUALTY_ITEMS.MULTIPLE_CASUALTIES]: () =>
+		null,
+		// <div className="w-1 h-1 rounded-full bg-purple-500"></div>
+	[CASUALTY_ITEMS.NO_CASUALTIES]: () => null,
+	// <div className="w-1 h-1 rounded-full bg-slate-500"></div>
 };
 
 export const CASUALTY_ITEMS_COLORS = {

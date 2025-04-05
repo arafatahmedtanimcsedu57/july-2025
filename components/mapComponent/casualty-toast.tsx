@@ -99,19 +99,12 @@ export const CasualtyToast: React.FC<CasualtyToastProps> = ({
 					)}
 
 					{isMultipleCasualties && (total_injuries || total_deaths) ? (
-						<div className="text-xs text-muted-foreground flex flex-row gap-2">
-							{total_injuries ? (
+						<div className="text-xs flex flex-row gap-2">
+							{total_cases ? (
 								<div>
-									<span>{total_injuries}</span> <span>,</span>{' '}
+									<span>Total Cases:</span>{' '}
+									<span className="text-muted-foreground">{total_cases}</span>
 								</div>
-							) : (
-								<></>
-							)}
-
-							{total_deaths ? (
-								<span>
-									{total_deaths} ,{total_cases}
-								</span>
 							) : (
 								<></>
 							)}
@@ -124,23 +117,51 @@ export const CasualtyToast: React.FC<CasualtyToastProps> = ({
 
 			<Separator className="my-4" />
 
-			<div className="text-xs flex flex-col">
-				{location ? (
-					<span className="text-xs text-blue-500 flex items-center gap-2">
-						<MapPinIcon size={12} /> {location}
-					</span>
-				) : (
-					<></>
-				)}
-				{date ? (
-					<span className="text-xs flex items-center gap-2">
-						<Calendar1Icon size={12} />
-						{formatDate(new Date(date), 'do LLL')}
-					</span>
-				) : (
-					<></>
-				)}
-			</div>
+			{!isMultipleCasualties ? (
+				<div className="text-xs flex flex-col">
+					{location ? (
+						<span className="text-xs text-blue-500 flex items-center gap-2">
+							<MapPinIcon size={12} /> {location}
+						</span>
+					) : (
+						<></>
+					)}
+					{date ? (
+						<span className="text-xs flex items-center gap-2">
+							<Calendar1Icon size={12} />
+							{formatDate(new Date(date), 'do LLL')}
+						</span>
+					) : (
+						<></>
+					)}
+				</div>
+			) : (
+				<></>
+			)}
+
+			{isMultipleCasualties && (total_injuries || total_deaths) ? (
+				<div className="text-xs flex flex-row gap-2">
+					{total_injuries ? (
+						<div>
+							<span>Injuries:</span>{' '}
+							<span className="text-muted-foreground">{total_injuries}</span>
+						</div>
+					) : (
+						<></>
+					)}
+
+					{total_deaths ? (
+						<div>
+							<span>Deaths:</span>{' '}
+							<span className="text-muted-foreground">{total_deaths}</span>
+						</div>
+					) : (
+						<></>
+					)}
+				</div>
+			) : (
+				<></>
+			)}
 		</div>
 	);
 };

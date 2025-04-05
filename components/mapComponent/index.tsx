@@ -119,12 +119,16 @@ export default function MapComponent() {
 
 			<div className="absolute bottom-4 left-4 bg-white dark:bg-gray-800 p-4 rounded shadow-lg z-[100]">
 				<div className="flex flex-col gap-2 text-xs">
-					{Object.entries(CASUALTY_ITEMS).map(([key, value]) => (
-						<div key={key} className="flex items-center gap-1">
-							{CASUALTY_ITEMS_COLOR_ELEMENTS[value]?.()}
-							<span>{value}</span>
-						</div>
-					))}
+					{Object.entries(CASUALTY_ITEMS).map(([key, value]) =>
+						CASUALTY_ITEMS_COLOR_ELEMENTS[value]?.() ? (
+							<div key={key} className="flex items-center gap-1">
+								{CASUALTY_ITEMS_COLOR_ELEMENTS[value]?.()}
+								<span>{value}</span>
+							</div>
+						) : (
+							<></>
+						),
+					)}
 				</div>
 			</div>
 		</div>
