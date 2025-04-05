@@ -1,7 +1,7 @@
 export const GEO_JSON_STYLE: L.PathOptions = {
-  color: "#000000",
-  weight: 1,
-  fillColor: "#fffff",
-  fillOpacity: 0.0,
-  lineJoin: "bevel",
+	color: '#000000',
+	weight: 0.75,
+	fillColor: '#ffffff',
+	fillOpacity: 0.1,
+	lineJoin: 'bevel',
 };

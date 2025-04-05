@@ -17,7 +17,7 @@ export const useFilterStore = create<FilterState & FilterActions>((set) => ({
 	minAgeFilter: '',
 	maxAgeFilter: '',
 	typeFilter: 'all',
-	casualtyTypeFilter: CASUALTY_TYPES.INDIVIDUAL,
+	casualtyTypeFilter: CASUALTY_TYPES.MULTIPLE,
 
 	setDateFilter: (date) => set({ dateFilter: date }),
 	setMinAgeFilter: (age) => set({ minAgeFilter: age }),

@@ -6,7 +6,6 @@ import type L from 'leaflet';
 
 import { useIncidentStore } from '@/lib/incident-store';
 import { useFilterStore } from '@/lib/filter-store';
-
 import { MapIcons } from './map-icons';
 import {
 	CASUALTY_ITEMS,
@@ -22,9 +21,18 @@ interface CasualtyMarkerProps {
 
 const CasualtyMarker = memo(({ person, onMarkerRef }: CasualtyMarkerProps) => {
 	const { id, name, type, lat, lng } = person;
-
 	const { setSelectedIncident, selectedIncident } = useIncidentStore();
 	const { casualtyTypeFilter } = useFilterStore();
+
+	if (type === CASUALTY_ITEMS.NO_CASUALTIES || lat === null || lng === null)
+		return null;
+
+	const markerPosition = [lat, lng] as [number, number];
+	const isMultipleCasualties = casualtyTypeFilter === CASUALTY_TYPES.MULTIPLE;
+	const isSelected =
+		(selectedIncident?.id && selectedIncident.id === person.id) ||
+		(selectedIncident?.district &&
+			selectedIncident.district === person.district);
 
 	const icon =
 		type === 'Death'
@@ -35,18 +43,11 @@ const CasualtyMarker = memo(({ person, onMarkerRef }: CasualtyMarkerProps) => {
 
 	const setMarkerRef = useMemo(() => {
 		return (marker: L.Marker | null) => {
-			if (marker) {
-				onMarkerRef(String(id), marker);
-			}
+			if (marker) onMarkerRef(String(id), marker);
 		};
 	}, [id, onMarkerRef]);
 
-	const isMultipleCasualties = casualtyTypeFilter === CASUALTY_TYPES.MULTIPLE;
-
-	if (type === CASUALTY_ITEMS.NO_CASUALTIES || lat === null || lng === null)
-		return null;
-
-	const markerPosition = [lat, lng] as [number, number];
+	const handleMarkerClick = () => setSelectedIncident(person);
 
 	const markerPin = (
 		<Marker
@@ -59,72 +60,58 @@ const CasualtyMarker = memo(({ person, onMarkerRef }: CasualtyMarkerProps) => {
 						(e.target as L.Marker).openPopup();
 					}
 				},
-				click: () => {
-					setSelectedIncident(person);
-				},
+				click: handleMarkerClick,
 			}}
 			keyboard={true}
 			aria-label={`${type} marker for ${name || 'Unknown person'}`}
 		/>
 	);
 
-	const markerComponent = (
+	const markerColor =
+		type && CASUALTY_ITEMS_COLORS[type] ? CASUALTY_ITEMS_COLORS[type]() : '';
+
+	const baseCircleMarker = (
 		<CircleMarker
-			key={person.id}
+			key={id}
 			center={markerPosition}
-			radius={isMultipleCasualties ? (person.verified_deaths || 0) / 50 : 5}
+			radius={isMultipleCasualties ? (person.verified_deaths || 0) / 5 : 5}
 			pathOptions={{
-				color:
-					person.type && CASUALTY_ITEMS_COLORS[person.type]
-						? CASUALTY_ITEMS_COLORS[person.type]()
-						: '',
-				fillColor:
-					person.type && CASUALTY_ITEMS_COLORS[person.type]
-						? CASUALTY_ITEMS_COLORS[person.type]()
-						: '',
+				color: markerColor,
+				fillColor: markerColor,
 				fillOpacity: 1,
 				weight: 0,
 				stroke: true,
 			}}
-			eventHandlers={{
-				click: () => {
-					setSelectedIncident(person);
-				},
-			}}
+			eventHandlers={{ click: handleMarkerClick }}
 			className="drop-shadow-[0_0_0.1rem_crimson]"
 		>
-			{(selectedIncident?.id && selectedIncident?.id === person.id) ||
-				(selectedIncident?.district &&
-					selectedIncident?.district === person.district &&
-					markerPin)}
+			{isSelected && markerPin}
 		</CircleMarker>
 	);
 
 	if (isMultipleCasualties) {
 		return (
 			<CircleMarker
-				key={person.id}
+				key={`${id}-outer`}
 				center={markerPosition}
-				radius={(person.total_cases || 1) / 50}
+				radius={
+					((person.verified_deaths || 0) + (person.verified_injuries || 0)) / 25
+				}
 				pathOptions={{
-					color: '#e9a30c',
+					color: '#ee7f01',
 					fillColor: '#e9a30c',
-					fillOpacity: 0.35,
-					weight: 1,
+					fillOpacity: 0.4,
+					weight: 0.75,
 					stroke: true,
 				}}
-				eventHandlers={{
-					click: () => {
-						setSelectedIncident(person);
-					},
-				}}
+				eventHandlers={{ click: handleMarkerClick }}
 			>
-				{markerComponent}
+				{baseCircleMarker}
 			</CircleMarker>
 		);
 	}
 
-	return markerComponent;
+	return baseCircleMarker;
 });
 
 CasualtyMarker.displayName = 'CasualtyMarker';
