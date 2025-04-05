@@ -22,7 +22,7 @@
 	right: 0;
 	bottom: 0;
 	pointer-events: none; /* Allows clicking through to the map */
-	box-shadow: inset 0px 0px 1000px 150px white;
+	box-shadow: inset 0px 0px 1000px 10vw white;
 
 	z-index: 400; /* Leaflet uses z-index values, so we need to be above them */
 }
@@ -35,7 +35,7 @@
 	right: 0;
 	bottom: 0;
 	pointer-events: none; /* Allows clicking through to the map */
-	box-shadow: inset 0px 0px 1000px 150px rgba(0, 0, 0, 5);
+	box-shadow: inset 0px 0px 1000px 10vw rgba(0, 0, 0, 5);
 
 	z-index: 400; /* Leaflet uses z-index values, so we need to be above them */
 }
