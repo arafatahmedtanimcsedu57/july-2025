@@ -46,6 +46,7 @@ export const CasualtyToast: React.FC<CasualtyToastProps> = ({
 		district,
 		total_injuries,
 		total_deaths,
+		total_cases,
 	} = casualty;
 
 	let genderIcon: StaticImageData | string = '';
@@ -107,7 +108,13 @@ export const CasualtyToast: React.FC<CasualtyToastProps> = ({
 								<></>
 							)}
 
-							{total_deaths ? <span>{total_deaths}</span> : <></>}
+							{total_deaths ? (
+								<span>
+									{total_deaths} ,{total_cases}
+								</span>
+							) : (
+								<></>
+							)}
 						</div>
 					) : (
 						<></>

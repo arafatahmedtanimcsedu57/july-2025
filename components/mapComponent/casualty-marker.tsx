@@ -72,9 +72,7 @@ const CasualtyMarker = memo(({ person, onMarkerRef }: CasualtyMarkerProps) => {
 		<CircleMarker
 			key={person.id}
 			center={markerPosition}
-			radius={
-				((person.verified_deaths || 0) / (person.total_cases || 1)) * 100 || 5
-			}
+			radius={isMultipleCasualties ? (person.verified_deaths || 0) / 50 : 5}
 			pathOptions={{
 				color:
 					person.type && CASUALTY_ITEMS_COLORS[person.type]
@@ -107,13 +105,11 @@ const CasualtyMarker = memo(({ person, onMarkerRef }: CasualtyMarkerProps) => {
 			<CircleMarker
 				key={person.id}
 				center={markerPosition}
-				radius={
-					((person.verified_injuries || 0) / (person.total_cases || 1)) * 100
-				}
+				radius={(person.total_cases || 1) / 50}
 				pathOptions={{
-					color: '#eeca95',
-					fillColor: '#eeca95',
-					fillOpacity: 0.3,
+					color: '#e9a30c',
+					fillColor: '#e9a30c',
+					fillOpacity: 0.35,
 					weight: 1,
 					stroke: true,
 				}}

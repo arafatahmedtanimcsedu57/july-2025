@@ -3,7 +3,8 @@
 }
 
 .dark .grayscale-tiles {
-	filter: grayscale(100%) brightness(0.8) contrast(1) !important;
+	filter: grayscale(100%) !important;
+	/* filter: grayscale(100%) brightness(0.8) contrast(1) !important; */
 }
 
 .leaflet-container {
