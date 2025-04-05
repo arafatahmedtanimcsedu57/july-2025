@@ -13,3 +13,29 @@
 	z-index: 0;
 	cursor: grab !important; /* Always show grab cursor to indicate panning */
 }
+
+.leaflet-container::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	pointer-events: none; /* Allows clicking through to the map */
+	box-shadow: inset 0px 0px 1000px 150px white;
+
+	z-index: 400; /* Leaflet uses z-index values, so we need to be above them */
+}
+
+.dark .leaflet-container::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	pointer-events: none; /* Allows clicking through to the map */
+	box-shadow: inset 0px 0px 1000px 150px rgba(0, 0, 0, 5);
+
+	z-index: 400; /* Leaflet uses z-index values, so we need to be above them */
+}
