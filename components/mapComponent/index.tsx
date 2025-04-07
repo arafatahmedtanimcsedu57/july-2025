@@ -16,10 +16,6 @@ import { useIncidentStore } from '@/lib/incident-store';
 import { getUpdatedPersonData } from '@/lib/edit-store';
 
 import {
-	CASUALTY_ITEMS,
-	CASUALTY_ITEMS_COLOR_ELEMENTS,
-} from '@/constant/casualty-types';
-import {
 	BANGLADESH_CENTER,
 	MAP_CONTAINER,
 	MAP_ZOOM,
@@ -115,21 +111,6 @@ export default function MapComponent() {
 						defaultZoom={MAP_ZOOM.DEFAULT}
 					/>
 				</MapContainer>
-			</div>
-
-			<div className="absolute bottom-4 left-4 bg-white dark:bg-gray-800 p-4 rounded shadow-lg z-[100]">
-				<div className="flex flex-col gap-2 text-xs">
-					{Object.entries(CASUALTY_ITEMS).map(([key, value]) =>
-						CASUALTY_ITEMS_COLOR_ELEMENTS[value]?.() ? (
-							<div key={key} className="flex items-center gap-1">
-								{CASUALTY_ITEMS_COLOR_ELEMENTS[value]?.()}
-								<span>{value}</span>
-							</div>
-						) : (
-							<></>
-						),
-					)}
-				</div>
 			</div>
 		</div>
 	);

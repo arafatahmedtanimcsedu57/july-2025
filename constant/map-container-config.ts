@@ -15,5 +15,5 @@ export const MAP_CONTAINER = {
 	dragging: true,
 	doubleClickZoom: true,
 	scrollWheelZoom: true,
-	style: { height: 'calc(100vh - 61px)' },
+	style: { height: 'calc(100vh)' },
 };

@@ -12,18 +12,14 @@ import {
 	TooltipProvider,
 	TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { Toaster } from '@/components/ui/toaster';
 
 import { useFilterStore } from '@/lib/filter-store';
 import { useIncidentStore } from '@/lib/incident-store';
-import { useFullScreenStore } from '@/lib/full-screen-store';
-import { cn } from '@/lib/utils';
 import { useSidebarStore } from '@/lib/sidebar-store';
 
 export default function Home() {
 	const { casualtyTypeFilter, setCasualtyTypeFilter, resetFilters } =
 		useFilterStore();
-	const { isFullScreen } = useFullScreenStore();
 	const { setSelectedIncident } = useIncidentStore();
 	const { close } = useSidebarStore();
 
@@ -37,16 +33,9 @@ export default function Home() {
 	};
 
 	return (
-		<main className="border-grid flex flex-1 flex-col">
-			<Navbar />
-
-			<div
-				className={cn(
-					'border-dashed border-x h-[calc(100vh-61px)] flex',
-					!isFullScreen ? 'container mx-auto' : '',
-				)}
-			>
-				<div className="min-w-[50px] border-r border-dashed flex flex-col justify-center items-center h-full">
+		<main className="flex flex-1 flex-col bg-background h-[100vh]">
+			<div className="flex h-full">
+				<div className="w-[50px] flex flex-col bg-foreground justify-center items-center shadow-2xl z-[100]">
 					{CASUALTY.map((casualty) => (
 						<TooltipProvider key={casualty.name}>
 							<Tooltip>
@@ -55,7 +44,7 @@ export default function Home() {
 										variant="ghost"
 										key={casualty.name}
 										onClick={() => handleCasualtyTypeFilter(casualty.value)}
-										className={`${
+										className={`text-slate-600 dark:text-white ${
 											casualtyTypeFilter === casualty.value ? 'bg-muted' : ''
 										}`}
 									>
@@ -68,12 +57,19 @@ export default function Home() {
 						</TooltipProvider>
 					))}
 				</div>
-				{!isFullScreen ? <IncidentSidebar /> : <></>}
 
-				<MapContainer />
-				<Sidebar />
+				<div className="hidden md:flex md:w-full">
+					<div className="text-slate-600 md:w-[50%] w-full">
+						<div className="flex flex-col  flex-wrap p-10">
+							<h5 className="text-2xl font-semibold">July Memorial</h5>
+							<p className="hidden md:block text-xs font-light">
+								Remembering July 2024
+							</p>
+						</div>
+					</div>
+					<MapContainer />
+				</div>
 			</div>
-			<Toaster />
 		</main>
 	);
 }
