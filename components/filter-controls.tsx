@@ -24,8 +24,6 @@ export function FilterControls() {
     setDistrictFilter,
   } = useFilterStore();
 
-  console.log(typeFilter, districtFilter);
-
   return hasActiveFilters ? (
     <div className="fixed z-10 top-[100px] w-full p-4 flex flex-col gap-4">
       <div className="flex flex-wrap gap-2">

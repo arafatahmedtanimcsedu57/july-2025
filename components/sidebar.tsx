@@ -24,6 +24,7 @@ import {
   CASUALTY_TYPES,
 } from "@/constant/casualty-types";
 import { DISTRICTS } from "@/constant/districts";
+import { getUniqueDistricts } from "@/lib/data";
 
 export default function Sidebar() {
   const { isOpen, close } = useSidebarStore();
@@ -201,9 +202,12 @@ export default function Sidebar() {
                 <SelectContent>
                   <SelectItem value="all">All Districts</SelectItem>
 
-                  {DISTRICTS.map((district) => (
-                    <SelectItem key={district.value} value={district.value}>
-                      {district.name}
+                  {getUniqueDistricts().map((district) => (
+                    <SelectItem
+                      key={district.value as string}
+                      value={district.value as string}
+                    >
+                      {district.name as string}
                     </SelectItem>
                   ))}
                 </SelectContent>

@@ -1,17 +1,37 @@
-import type { CasualtyPerson } from '@/types/data';
+import type { CasualtyPerson } from "@/types/data";
 
 export const getCasualtyDataByDate = (dateStr: string): CasualtyPerson[] => {
-	if (!dateStr) return allCasualtyData;
+  if (!dateStr) return allCasualtyData;
 
-	const targetDate = new Date(dateStr);
-	const startOfDay = new Date(targetDate.setHours(0, 0, 0, 0)).getTime();
-	const endOfDay = new Date(targetDate.setHours(23, 59, 59, 999)).getTime();
+  const targetDate = new Date(dateStr);
+  const startOfDay = new Date(targetDate.setHours(0, 0, 0, 0)).getTime();
+  const endOfDay = new Date(targetDate.setHours(23, 59, 59, 999)).getTime();
 
-	return allCasualtyData.filter((person) => {
-		const personDate = person?.date;
-		if (typeof personDate !== 'number') return false;
-		return personDate >= startOfDay && personDate <= endOfDay;
-	});
+  return allCasualtyData.filter((person) => {
+    const personDate = person?.date;
+    if (typeof personDate !== "number") return false;
+    return personDate >= startOfDay && personDate <= endOfDay;
+  });
+};
+
+export const getUniqueDistricts = () => {
+  // Use a Set to automatically handle uniqueness
+  const uniqueDistricts = new Set();
+
+  // Iterate through the data and add each district to the Set
+  allCasualtyData.forEach((person) => {
+    if (person.single_district) {
+      uniqueDistricts.add(person.single_district);
+    }
+  });
+
+  // Convert Set back to Array for easier handling
+  return Array.from(uniqueDistricts)
+    .sort()
+    .map((item) => ({
+      name: item,
+      value: item,
+    }));
 };
 
 export const allCasualtyData: CasualtyPerson[] = [
@@ -2313,20 +2333,7 @@ export const allCasualtyData: CasualtyPerson[] = [
     lng: 89.261985,
     gender: "male",
   },
-  {
-    id: 166,
-    date: null,
-    name: null,
-    age: null,
-    occupation: null,
-    type: "No Casualties",
-    location: "Hatirjheel Rampura Bridge",
-    single_district: "Dhaka",
-    "Location Coordinates": "23.768691817246374, 90.4224979647367",
-    lat: 23.7686918172,
-    lng: 90.4224979647,
-    gender: null,
-  },
+
   {
     id: 168,
     date: null,
@@ -2341,20 +2348,7 @@ export const allCasualtyData: CasualtyPerson[] = [
     lng: 90.384772,
     gender: null,
   },
-  {
-    id: 170,
-    date: null,
-    name: null,
-    age: null,
-    occupation: null,
-    type: "No Casualties",
-    location: "Agrani Bank Ltd., Rampura TV Branch",
-    single_district: "Dhaka",
-    "Location Coordinates": "23.765097, 90.421640",
-    lat: 23.765097,
-    lng: 90.42164,
-    gender: null,
-  },
+
   {
     id: 171,
     date: 1721260800000,
@@ -2369,34 +2363,7 @@ export const allCasualtyData: CasualtyPerson[] = [
     lng: 90.363725,
     gender: null,
   },
-  {
-    id: 172,
-    date: null,
-    name: null,
-    age: null,
-    occupation: null,
-    type: "No Casualties",
-    location: "Prime Asia University, Banani",
-    single_district: "Dhaka",
-    "Location Coordinates": "23.793757220248988, 90.40348054202381",
-    lat: 23.7937572202,
-    lng: 90.403480542,
-    gender: null,
-  },
-  {
-    id: 173,
-    date: null,
-    name: null,
-    age: null,
-    occupation: null,
-    type: "No Casualties",
-    location: "Prime Asia University, Banani",
-    single_district: "Dhaka",
-    "Location Coordinates": "23.793757220248988, 90.40348054202381",
-    lat: 23.7937572202,
-    lng: 90.403480542,
-    gender: null,
-  },
+
   {
     id: 174,
     date: null,
@@ -2467,20 +2434,7 @@ export const allCasualtyData: CasualtyPerson[] = [
     lng: 90.400196,
     gender: null,
   },
-  {
-    id: 179,
-    date: null,
-    name: null,
-    age: null,
-    occupation: null,
-    type: "No Casualties",
-    location: "Labaid Hospital, Dhanmandi",
-    single_district: "Dhaka",
-    "Location Coordinates": "23.741694, 90.382959",
-    lat: 23.741694,
-    lng: 90.382959,
-    gender: null,
-  },
+
   {
     id: 180,
     date: null,
@@ -2495,20 +2449,7 @@ export const allCasualtyData: CasualtyPerson[] = [
     lng: 90.374718,
     gender: null,
   },
-  {
-    id: 181,
-    date: null,
-    name: null,
-    age: null,
-    occupation: null,
-    type: "No Casualties",
-    location: "Bosila Road, Mohammadpur",
-    single_district: "Dhaka",
-    "Location Coordinates": "23.756945, 90.360328",
-    lat: 23.756945,
-    lng: 90.360328,
-    gender: null,
-  },
+
   {
     id: 182,
     date: null,
@@ -2523,34 +2464,7 @@ export const allCasualtyData: CasualtyPerson[] = [
     lng: 90.401441,
     gender: null,
   },
-  {
-    id: 183,
-    date: 1722211200000,
-    name: null,
-    age: null,
-    occupation: null,
-    type: "No Casualties",
-    location: "ECB Chattar, Matikata, Dhaka",
-    single_district: "Dhaka",
-    "Location Coordinates": "23.822064, 90.392386",
-    lat: 23.822064,
-    lng: 90.392386,
-    gender: null,
-  },
-  {
-    id: 184,
-    date: 1722211200000,
-    name: null,
-    age: null,
-    occupation: null,
-    type: "No Casualties",
-    location: "Dhanmondi Road-01, Dhaka",
-    single_district: "Dhaka",
-    "Location Coordinates": "23.738618, 90.381820",
-    lat: 23.738618,
-    lng: 90.38182,
-    gender: null,
-  },
+
   {
     id: 185,
     date: null,
@@ -2607,20 +2521,7 @@ export const allCasualtyData: CasualtyPerson[] = [
     lng: 90.270587,
     gender: null,
   },
-  {
-    id: 189,
-    date: null,
-    name: null,
-    age: null,
-    occupation: null,
-    type: "No Casualties",
-    location: "Matuail, Jatrabari",
-    single_district: "Dhaka",
-    "Location Coordinates": "23.693538, 90.469566",
-    lat: 23.693538,
-    lng: 90.469566,
-    gender: null,
-  },
+
   {
     id: 190,
     date: 1722816000000,
@@ -2635,34 +2536,7 @@ export const allCasualtyData: CasualtyPerson[] = [
     lng: 90.440559,
     gender: "male",
   },
-  {
-    id: 191,
-    date: null,
-    name: null,
-    age: null,
-    occupation: null,
-    type: "No Casualties",
-    location: "Uttara, Sector - 11",
-    single_district: "Dhaka",
-    "Location Coordinates": "23.878566, 90.390863",
-    lat: 23.878566,
-    lng: 90.390863,
-    gender: null,
-  },
-  {
-    id: 192,
-    date: null,
-    name: null,
-    age: null,
-    occupation: null,
-    type: "No Casualties",
-    location: "Khilgaon Police Station",
-    single_district: "Dhaka",
-    "Location Coordinates": "23.750958, 90.425154",
-    lat: 23.750958,
-    lng: 90.425154,
-    gender: null,
-  },
+
   {
     id: 193,
     date: 1722816000000,
@@ -2733,132 +2607,7 @@ export const allCasualtyData: CasualtyPerson[] = [
     lng: 90.271626,
     gender: null,
   },
-  {
-    id: 198,
-    date: 1722816000000,
-    name: null,
-    age: null,
-    occupation: null,
-    type: "No Casualties",
-    location: "Chandra Road, Baipail, Dhaka",
-    single_district: "Dhaka",
-    "Location Coordinates": "23.943390, 90.272208",
-    lat: 23.94339,
-    lng: 90.272208,
-    gender: null,
-  },
-  {
-    id: 199,
-    date: 1722816000000,
-    name: null,
-    age: null,
-    occupation: null,
-    type: "No Casualties",
-    location: "Chandra Road, Baipail, Dhaka",
-    single_district: "Dhaka",
-    "Location Coordinates": "23.943390, 90.272208",
-    lat: 23.94339,
-    lng: 90.272208,
-    gender: null,
-  },
-  {
-    id: 200,
-    date: null,
-    name: null,
-    age: null,
-    occupation: null,
-    type: "No Casualties",
-    location: "Sagarpara Road, Rajshahi",
-    single_district: "Rajshahi",
-    "Location Coordinates": "24.362739, 88.605772",
-    lat: 24.362739,
-    lng: 88.605772,
-    gender: null,
-  },
-  {
-    id: 201,
-    date: null,
-    name: null,
-    age: null,
-    occupation: null,
-    type: "No Casualties",
-    location: "Mayor Hanif Flyover, Jatrabari",
-    single_district: "Dhaka",
-    "Location Coordinates": "23.708253, 90.438227",
-    lat: 23.708253,
-    lng: 90.438227,
-    gender: null,
-  },
-  {
-    id: 202,
-    date: null,
-    name: null,
-    age: null,
-    occupation: null,
-    type: "No Casualties",
-    location: "Progati Sarani, Bashundhara, Dhaka",
-    single_district: "Dhaka",
-    "Location Coordinates": "23.811918, 90.421163",
-    lat: 23.811918,
-    lng: 90.421163,
-    gender: null,
-  },
-  {
-    id: 203,
-    date: null,
-    name: null,
-    age: null,
-    occupation: null,
-    type: "No Casualties",
-    location: "Deputy Commissioner's office, Chandpur",
-    single_district: "Chandpur",
-    "Location Coordinates": "23.234041, 90.671477",
-    lat: 23.234041,
-    lng: 90.671477,
-    gender: null,
-  },
-  {
-    id: 204,
-    date: 1722729600000,
-    name: null,
-    age: null,
-    occupation: null,
-    type: "No Casualties",
-    location: "Gourango Bazar Road, Kishoreganj",
-    single_district: "Kishoreganj",
-    "Location Coordinates": "24.434529, 90.783105",
-    lat: 24.434529,
-    lng: 90.783105,
-    gender: null,
-  },
-  {
-    id: 205,
-    date: null,
-    name: null,
-    age: null,
-    occupation: null,
-    type: "No Casualties",
-    location: "Uttara East Police Station, Uttara",
-    single_district: "Dhaka",
-    "Location Coordinates": "23.866951, 90.400402",
-    lat: 23.866951,
-    lng: 90.400402,
-    gender: null,
-  },
-  {
-    id: 206,
-    date: null,
-    name: null,
-    age: null,
-    occupation: null,
-    type: "No Casualties",
-    location: "Popular Diagonistic Center, Mirpur-10",
-    single_district: "Dhaka",
-    "Location Coordinates": "23.810432, 90.367516",
-    lat: 23.810432,
-    lng: 90.367516,
-    gender: null,
-  },
+
   {
     id: 207,
     date: null,
@@ -2873,92 +2622,8 @@ export const allCasualtyData: CasualtyPerson[] = [
     lng: 90.207952,
     gender: null,
   },
-  {
-    id: 208,
-    date: null,
-    name: null,
-    age: null,
-    occupation: null,
-    type: "No Casualties",
-    location: "Azampur Bus Stand, Uttara",
-    single_district: "Dhaka",
-    "Location Coordinates": "23.870766, 90.400489",
-    lat: 23.870766,
-    lng: 90.400489,
-    gender: null,
-  },
-  {
-    id: 209,
-    date: null,
-    name: null,
-    age: null,
-    occupation: null,
-    type: "No Casualties",
-    location: "Mawna, Gazipur",
-    single_district: "Gazipur",
-    "Location Coordinates": "24.220507, 90.412842",
-    lat: 24.220507,
-    lng: 90.412842,
-    gender: null,
-  },
-  {
-    id: 210,
-    date: null,
-    name: null,
-    age: null,
-    occupation: null,
-    type: "No Casualties",
-    location: "Mawna, Gazipur",
-    single_district: "Gazipur",
-    "Location Coordinates": "24.220210, 90.413743",
-    lat: 24.22021,
-    lng: 90.413743,
-    gender: null,
-  },
-  {
-    id: 211,
-    date: null,
-    name: null,
-    age: null,
-    occupation: null,
-    type: "No Casualties",
-    location: "Mawna, Gazipur",
-    single_district: "Gazipur",
-    "Location Coordinates": "24.220210, 90.413743",
-    lat: 24.22021,
-    lng: 90.413743,
-    gender: null,
-  },
-  {
-    id: 212,
-    date: null,
-    name: null,
-    age: null,
-    occupation: null,
-    type: "No Casualties",
-    location: "Basila Road, Mohammadpur",
-    single_district: "Dhaka",
-    "Location Coordinates": "23.756861, 90.359755",
-    lat: 23.756861,
-    lng: 90.359755,
-    gender: null,
-  },
-  {
-    id: 213,
-    date: null,
-    name: null,
-    age: null,
-    occupation: null,
-    type: "No Casualties",
-    location: "Lalmatia, Mohammadpur",
-    single_district: "Dhaka",
-    "Location Coordinates": "23.753513, 90.366336",
-    lat: 23.753513,
-    lng: 90.366336,
-    gender: null,
-  },
 ];
 
 export const uniqueTypes = [
-	...new Set(allCasualtyData.map((item) => item.type)),
+  ...new Set(allCasualtyData.map((item) => item.type)),
 ];
