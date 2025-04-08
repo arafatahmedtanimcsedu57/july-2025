@@ -78,3 +78,33 @@
 		animation-delay: 4s;
 	}
 }
+
+@layer utilities {
+	.scrollbar-hide {
+		-ms-overflow-style: none; /* IE and Edge */
+		scrollbar-width: none; /* Firefox */
+	}
+
+	.scrollbar-hide::-webkit-scrollbar {
+		display: none; /* Chrome, Safari and Opera */
+	}
+
+	.scrollbar-default {
+		-ms-overflow-style: auto; /* IE and Edge */
+		scrollbar-width: thin; /* Firefox */
+	}
+
+	.scrollbar-default::-webkit-scrollbar {
+		display: block; /* Chrome, Safari and Opera */
+		width: 8px;
+	}
+
+	.scrollbar-default::-webkit-scrollbar-track {
+		background: transparent;
+	}
+
+	.scrollbar-default::-webkit-scrollbar-thumb {
+		background-color: rgba(0, 0, 0, 0.2);
+		border-radius: 20px;
+	}
+}
