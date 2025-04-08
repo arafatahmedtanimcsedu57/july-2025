@@ -55,7 +55,9 @@ const CasualtiesList = React.memo(() => {
         {filteredData
           .slice(0, showAll ? CASUALTY_COUNT : MIN_CASUALTY_INITIAL_LOAD)
           .map((person) => {
-            return (
+            return isMultipleCasualties && !person.district ? (
+              <></>
+            ) : (
               <div
                 key={person.id || person.district || "0"}
                 ref={(el) => {
@@ -71,7 +73,11 @@ const CasualtiesList = React.memo(() => {
                     : ""
                 }`}
                 onClick={() =>
-                  !isMultipleCasualties && selectedIncident?.id === person.id
+                  !isMultipleCasualties
+                    ? selectedIncident?.id === person.id
+                      ? setSelectedIncident(null)
+                      : setSelectedIncident(person)
+                    : selectedIncident?.district === person.district
                     ? setSelectedIncident(null)
                     : setSelectedIncident(person)
                 }

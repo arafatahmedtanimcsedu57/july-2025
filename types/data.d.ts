@@ -40,4 +40,6 @@ export interface CasualtyPerson {
   total_injuries?: number | null;
   verified_injuries?: number | null;
   unverified_injuries?: number | null;
+
+  single_district?: string | null;
 }

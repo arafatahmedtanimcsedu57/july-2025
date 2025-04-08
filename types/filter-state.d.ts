@@ -4,4 +4,5 @@ export type FilterState = {
 	maxAgeFilter: string;
 	typeFilter: string;
 	casualtyTypeFilter: string;
+	districtFilter: string
 };

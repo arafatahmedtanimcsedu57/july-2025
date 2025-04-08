@@ -13,7 +13,7 @@ const Casualty = ({ person }: { person: CasualtyPerson }) => {
   const { total_injuries, total_deaths, total_cases } = person;
   const isMultipleCasualties = casualtyTypeFilter === CASUALTY_TYPES.MULTIPLE;
 
-  return (
+  return person.district ? (
     <>
       <div className="text-xs text-muted-foreground flex flex-col">
         <span>{person.district || "Unknown location"}</span>
@@ -68,6 +68,8 @@ const Casualty = ({ person }: { person: CasualtyPerson }) => {
         )}
       </div>
     </>
+  ) : (
+    <></>
   );
 };
 
