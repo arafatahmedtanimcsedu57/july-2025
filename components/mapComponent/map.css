@@ -38,3 +38,8 @@
 .leaflet-control-zoom-out {
   border-radius: 0 0 50px 50px !important;
 }
+
+.leaflet-tooltip {
+  border-radius: 16px;
+  box-shadow: 0 1px 12px rgb(26 4 104 / 35%);
+}

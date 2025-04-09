@@ -1,13 +1,13 @@
 "use client";
 
 import { memo } from "react";
-import { CircleMarker } from "react-leaflet";
+import { CircleMarker, Tooltip } from "react-leaflet";
 
 import { useSelectedCasualtyStore } from "@/lib/selected-casualty-store";
 
 import {
   CASUALTY_ITEMS,
-  CASUALTY_ITEMS_COLORS,
+  CASUALTY_ITEMS_COLOR_ELEMENTS,
 } from "@/constant/casualty-types";
 import type { Casualty } from "@/types/data";
 
@@ -16,28 +16,25 @@ interface CasualtyMarkerProps {
 }
 
 const CasualtyMarker = memo(({ casualty }: CasualtyMarkerProps) => {
-  const { type, lat, lng, district, verified_deaths, verified_injuries } =
-    casualty;
-  if (type === CASUALTY_ITEMS.NO_CASUALTIES || lat === null || lng === null)
-    return null;
+  const { lat, lng, district, verified_deaths, verified_injuries } = casualty;
+  if (lat === null || lng === null) return null;
 
-  const markerPosition = [lat, lng] as [number, number];
   const { selectedCasualty, toggleSelectedCasualty } =
     useSelectedCasualtyStore();
-  const handleMarkerClick = () => {
-    toggleSelectedCasualty(casualty);
-  };
 
-  const markerColor =
-    type && CASUALTY_ITEMS_COLORS[type] ? CASUALTY_ITEMS_COLORS[type]() : "";
-
+  const markerPosition = [lat, lng] as [number, number];
   const isSelected = selectedCasualty && selectedCasualty.district === district;
+  const deathCircleRadius = (verified_deaths || 0) / 5;
+  const casualtyCircleRadius =
+    ((verified_deaths || 0) + (verified_injuries || 0)) / 25;
 
-  const rippleEffect = isSelected && (
+  const handleMarkerClick = () => toggleSelectedCasualty(casualty);
+
+  const rippleEffect = isSelected ? (
     <>
       <CircleMarker
         center={markerPosition}
-        radius={((verified_deaths || 0) + (verified_injuries || 0)) / 25 + 5}
+        radius={casualtyCircleRadius + 5}
         pathOptions={{
           color: "#ee7f01",
           fillColor: "transparent",
@@ -46,10 +43,11 @@ const CasualtyMarker = memo(({ casualty }: CasualtyMarkerProps) => {
           opacity: 0.7,
           dashArray: "5,5",
         }}
+        eventHandlers={{ click: handleMarkerClick }}
       />
       <CircleMarker
         center={markerPosition}
-        radius={((verified_deaths || 0) + (verified_injuries || 0)) / 25 + 10}
+        radius={casualtyCircleRadius + 10}
         pathOptions={{
           color: "#ee7f01",
           fillColor: "transparent",
@@ -58,47 +56,69 @@ const CasualtyMarker = memo(({ casualty }: CasualtyMarkerProps) => {
           opacity: 0.5,
           dashArray: "3,7",
         }}
+        eventHandlers={{ click: handleMarkerClick }}
       />
     </>
+  ) : (
+    <></>
   );
 
-  const baseCircleMarker = (
+  const deathCircleMarker = (
     <CircleMarker
       key={district}
       center={markerPosition}
-      radius={(casualty.verified_deaths || 0) / 5}
+      radius={deathCircleRadius}
       pathOptions={{
-        color: markerColor,
-        fillColor: markerColor,
+        color: "#9c0610",
+        fillColor: "#9c0610",
         fillOpacity: 1,
         weight: 0,
         stroke: true,
       }}
       eventHandlers={{ click: handleMarkerClick }}
-      className={`drop-shadow-[0_0_0.1rem_crimson] ${
-        isSelected ? "animate-bounce-small" : ""
-      }`}
+      className="drop-shadow-[0_0_0.1rem_crimson]"
+    >
+      {isSelected && (
+        <Tooltip permanent={true} direction="top">
+          <div className="p-2">
+            <h3 className="font-bold text-lg mb-1">{district}</h3>
+            <div className="flex gap-2">
+              <div className="flex items-center">
+                {CASUALTY_ITEMS_COLOR_ELEMENTS[CASUALTY_ITEMS.DEATH]!()}
+                <span>Deaths: {verified_deaths || 0}</span>
+              </div>
+              <div className="flex items-center">
+                {CASUALTY_ITEMS_COLOR_ELEMENTS[CASUALTY_ITEMS.INJURY]!()}
+                <span>Injuries: {verified_injuries || 0}</span>
+              </div>
+            </div>
+          </div>
+        </Tooltip>
+      )}
+    </CircleMarker>
+  );
+
+  const injuryCircleMarker = (
+    <CircleMarker
+      key={`${district}-outer`}
+      center={markerPosition}
+      radius={casualtyCircleRadius}
+      pathOptions={{
+        color: "#ee7f01",
+        fillColor: "#e9a30c",
+        fillOpacity: 0.4,
+        weight: 0.75,
+        stroke: true,
+      }}
+      eventHandlers={{ click: handleMarkerClick }}
     />
   );
 
   return (
     <>
       {rippleEffect}
-      <CircleMarker
-        key={`${district}-outer`}
-        center={markerPosition}
-        radius={((verified_deaths || 0) + (verified_injuries || 0)) / 25}
-        pathOptions={{
-          color: "#ee7f01",
-          fillColor: "#e9a30c",
-          fillOpacity: 0.4,
-          weight: 0.75,
-          stroke: true,
-        }}
-        eventHandlers={{ click: handleMarkerClick }}
-      >
-        {baseCircleMarker}
-      </CircleMarker>
+      {injuryCircleMarker}
+      {deathCircleMarker}
     </>
   );
 });

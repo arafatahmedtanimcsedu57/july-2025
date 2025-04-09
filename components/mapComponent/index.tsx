@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useCallback } from "react";
+import { useRef } from "react";
 import { MapContainer } from "react-leaflet";
 import type L from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -26,13 +26,6 @@ import "./map.css";
 export default function MapComponent() {
   const markerRefsMap = useRef<Map<string, L.Marker>>(new Map());
 
-  // const handleMarkerRef = useCallback((id: string, marker: L.Marker) => {
-  //   markerRefsMap.current.set(id, marker);
-  //   return () => {
-  //     markerRefsMap.current.delete(id);
-  //   };
-  // }, []);
-
   return (
     <div className="w-full h-full">
       <MapContainer
@@ -48,13 +41,7 @@ export default function MapComponent() {
         <ThemeTileLayer />
 
         {dataDistrictWiseInjuryDeath.map((casualty) => {
-          return (
-            <CasualtyMarker
-              key={casualty.district}
-              casualty={casualty}
-              // onMarkerRef={handleMarkerRef}
-            />
-          );
+          return <CasualtyMarker key={casualty.district} casualty={casualty} />;
         })}
 
         <MapController
