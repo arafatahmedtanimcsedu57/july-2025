@@ -5,6 +5,16 @@ import { MapContainer } from 'react-leaflet';
 import type L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
+import { CpuIcon } from 'lucide-react';
+import {
+	Popover,
+	PopoverTrigger,
+	PopoverContent,
+} from '@/components/ui/popover';
+import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+
 import { ThemeTileLayer } from './theme-tile-layer';
 import { MapController } from './map-controller';
 import { CasualtyMarker } from './casualty-marker';

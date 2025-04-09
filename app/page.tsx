@@ -33,7 +33,6 @@ export default function Home() {
 							</div>
 
 							<TabularData />
-
 							<TopNCasesByTotalCases />
 						</div>
 					</div>
