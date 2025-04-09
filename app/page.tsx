@@ -11,7 +11,6 @@ import {
 
 import Logo from '@/public/logo.png';
 import Image from 'next/image';
-import { ScrollArea } from '@/components/ui/scroll-area';
 
 export default function Home() {
 	return (

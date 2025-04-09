@@ -5,10 +5,6 @@ import { CircleMarker, Tooltip } from 'react-leaflet';
 
 import { useSelectedCasualtyStore } from '@/lib/selected-casualty-store';
 
-import {
-	CASUALTY_ITEMS,
-	CASUALTY_ITEMS_COLOR_ELEMENTS,
-} from '@/constant/casualty-types';
 import type { Casualty } from '@/types/data';
 import DonutChart from '../ui/donut-chart';
 
@@ -48,7 +44,7 @@ const CasualtyMarker = memo(({ casualty }: CasualtyMarkerProps) => {
 			{
 				chart: {
 					data: [
-						{ label: 'Deaths', value: verified_deaths, color: '#bb4110' },
+						{ label: 'Deaths', value: verified_deaths, color: '#9c0612' },
 						{
 							label: 'Total Casualties',
 							value: total_cases,
@@ -69,7 +65,7 @@ const CasualtyMarker = memo(({ casualty }: CasualtyMarkerProps) => {
 			{
 				chart: {
 					data: [
-						{ label: 'Injuries', value: verified_injuries, color: '#de813c' },
+						{ label: 'Injuries', value: verified_injuries, color: '#ee7f01' },
 						{
 							label: 'Total Casualties',
 							value: total_cases,
@@ -205,4 +201,4 @@ const CasualtyMarker = memo(({ casualty }: CasualtyMarkerProps) => {
 
 CasualtyMarker.displayName = 'CasualtyMarker';
 
-export default CasualtyMarker;
+export { CasualtyMarker };

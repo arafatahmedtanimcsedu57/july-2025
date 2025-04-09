@@ -8,8 +8,6 @@ import { useSelectedCasualtyStore } from '@/lib/selected-casualty-store';
 
 import { BANGLADESH_CENTER, MAP_ZOOM } from '@/constant/map-container-config';
 
-import type { CasualtyPerson } from '@/types/data';
-
 interface MapControllerProps {
 	markerRefs: Map<string, L.Marker> | null;
 	flyToDuration?: number;
@@ -17,14 +15,13 @@ interface MapControllerProps {
 	defaultZoom?: number;
 }
 
-export default function MapController({
-	
+function MapController({
 	markerRefs,
 	flyToDuration = 2,
 	flyToZoom = MAP_ZOOM.MAX,
 	defaultZoom = MAP_ZOOM.DEFAULT,
 }: MapControllerProps) {
-	const {selectedCasualty} = useSelectedCasualtyStore();
+	const { selectedCasualty } = useSelectedCasualtyStore();
 
 	const map = useMap();
 	const flyingRef = useRef(false);
@@ -51,8 +48,6 @@ export default function MapController({
 					flyingRef.current = false;
 				}
 			}, flyToDuration * 1000);
-
-		
 
 			return () => {
 				clearTimeout(enableDraggingTimeout);
@@ -89,7 +84,14 @@ export default function MapController({
 				}
 			};
 		}
-	}, [selectedCasualty, map, markerRefs, flyToDuration, flyToZoom, defaultZoom]);
+	}, [
+		selectedCasualty,
+		map,
+		markerRefs,
+		flyToDuration,
+		flyToZoom,
+		defaultZoom,
+	]);
 
 	return (
 		<>
@@ -97,3 +99,5 @@ export default function MapController({
 		</>
 	);
 }
+
+export { MapController };

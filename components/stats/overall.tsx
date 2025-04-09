@@ -35,7 +35,7 @@ const donutChartsConfig = () => {
 		{
 			chart: {
 				data: [
-					{ label: 'Deaths', value: deathCount, color: '#bb4110' },
+					{ label: 'Deaths', value: deathCount, color: '#9c0612' },
 					{
 						label: 'Total Casualties',
 						value: total,
@@ -56,7 +56,7 @@ const donutChartsConfig = () => {
 		{
 			chart: {
 				data: [
-					{ label: 'Injuries', value: injuryCount, color: '#de813c' },
+					{ label: 'Injuries', value: injuryCount, color: '#ee7f01' },
 					{
 						label: 'Total Casualties',
 						value: total,
