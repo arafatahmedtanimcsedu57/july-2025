@@ -27,8 +27,9 @@ export default function Header() {
 					</Button>
 				</PopoverTrigger>
 				<PopoverContent
-					side="right"
-					className="text-slate-500 rounded-3xl w-80 h-[300px] shadow-xl scrollbar-hide overflow-auto p-6 mt-12"
+					side="bottom"
+					align="start"
+					className="text-slate-700 rounded-3xl w-80 h-[300px] shadow-xl scrollbar-hide overflow-auto p-6  bg-gradient-to-tr from-blue-300 to-pink-300 z-[10000]"
 				>
 					<h1 className="text-sm mb-4 font-semibold">
 						Methodology for Collecting Casualty Data of the July Revolution of
