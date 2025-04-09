@@ -55,7 +55,7 @@ const donutChartsConfig = () => {
     {
       chart: {
         data: [
-          { label: "Injuries", value: injuryCount, color: "#d8af81" },
+          { label: "Injuries", value: injuryCount, color: "#de813c" },
           {
             label: "Total Casualties",
             value: total,
@@ -190,7 +190,7 @@ const TopNCasesByTotalCases = () => {
           Math.min(100, ((item.total_cases || 0) / maxCases) * 100)
         );
 
-        const colors = ["bg-indigo-500", "bg-orange-600", "bg-amber-500"];
+        const colors = ["bg-indigo-600", "bg-indigo-500", "bg-indigo-400"];
 
         const bgColor = colors[index % colors.length];
 
