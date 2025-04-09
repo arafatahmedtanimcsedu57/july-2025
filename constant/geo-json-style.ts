@@ -11,6 +11,6 @@ export const GEO_DETAILS_JSON_STYLE: L.PathOptions = {
 	color: '#e1e3e1',
 	weight: 0.5,
 	fillColor: 'white',
-	fillOpacity: 1,
+	fillOpacity: 0.5,
 	lineJoin: 'bevel',
 };
