@@ -21,6 +21,7 @@ import {
   getTotalInjuries,
   dataDistrictWiseInjuryDeath,
 } from "@/lib/data_district_wise_injury_death";
+import { useSelectedCasualtyStore } from "@/lib/selected-casualty-store";
 
 const total = getTotalCases();
 const deathCount = getTotalDeaths();
@@ -110,6 +111,8 @@ const DonutCharts = () => {
 };
 
 const TabularData = () => {
+  const { selectedCasualty, toggleSelectedCasualty } =
+    useSelectedCasualtyStore();
   const [showAll, setShowAll] = useState(false);
 
   const displayData = showAll
@@ -121,34 +124,56 @@ const TabularData = () => {
       <Table className="text-[14px]">
         <TableHeader className="text-[10px]">
           <TableRow>
-            <TableHead className="whitespace-nowrap uppercase font-mono font-bold">
+            <TableHead className="h-4 whitespace-nowrap uppercase font-mono font-bold">
               District
             </TableHead>
-            <TableHead className="whitespace-nowrap uppercase font-mono font-bold">
+            <TableHead className="h-4 whitespace-nowrap uppercase font-mono font-bold">
               Total Cases
             </TableHead>
-            <TableHead className="whitespace-nowrap uppercase font-mono font-bold">
+            <TableHead className="h-4 whitespace-nowrap uppercase font-mono font-bold">
               Deaths
             </TableHead>
-            <TableHead className="whitespace-nowrap uppercase font-mono font-bold text-right">
+            <TableHead className="h-4 whitespace-nowrap uppercase font-mono font-bold text-right">
               Injuries
             </TableHead>
           </TableRow>
         </TableHeader>
 
         <TableBody>
-          {displayData.map((item) => (
-            <TableRow key={item.district}>
-              <TableCell className="font-light">{item.district}</TableCell>
-              <TableCell className="font-light">{item.total_cases}</TableCell>
-              <TableCell className="font-light">
-                {item.verified_deaths}
-              </TableCell>
-              <TableCell className="text-right font-light">
-                {item.verified_injuries}
-              </TableCell>
-            </TableRow>
-          ))}
+          {displayData.map((item) => {
+            const selectedTow = selectedCasualty?.district === item.district;
+
+            return (
+              <TableRow
+                className={`cursor-pointer ${
+                  selectedTow ? "bg-accent rounded-full" : "bg-transparent"
+                }`}
+                key={item.district}
+                onClick={() => toggleSelectedCasualty(item)}
+              >
+                <TableCell
+                  className={`py-2 font-light ${
+                    selectedTow ? "rounded-s-full" : ""
+                  }`}
+                >
+                  {item.district}
+                </TableCell>
+                <TableCell className="py-0  font-light">
+                  {item.total_cases}
+                </TableCell>
+                <TableCell className="py-0  font-light">
+                  {item.verified_deaths}
+                </TableCell>
+                <TableCell
+                  className={`py-0 text-right font-light ${
+                    selectedTow ? "rounded-e-full" : ""
+                  }`}
+                >
+                  {item.verified_injuries}
+                </TableCell>
+              </TableRow>
+            );
+          })}
         </TableBody>
       </Table>
 

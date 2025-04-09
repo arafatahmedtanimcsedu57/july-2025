@@ -9,7 +9,6 @@ import { ThemeTileLayer } from "./theme-tile-layer";
 import MapController from "./map-controller";
 import CasualtyMarker from "./casualty-marker";
 
-
 import {
   BANGLADESH_CENTER,
   MAP_CONTAINER,
@@ -20,21 +19,19 @@ import {
   CASUALTY_ITEMS_COLOR_ELEMENTS,
 } from "@/constant/casualty-types";
 
-import {dataDistrictWiseInjuryDeath} from "@/lib/data_district_wise_injury_death";
+import { dataDistrictWiseInjuryDeath } from "@/lib/data_district_wise_injury_death";
 
 import "./map.css";
 
 export default function MapComponent() {
-
- 
   const markerRefsMap = useRef<Map<string, L.Marker>>(new Map());
 
-  const handleMarkerRef = useCallback((id: string, marker: L.Marker) => {
-    markerRefsMap.current.set(id, marker);
-    return () => {
-      markerRefsMap.current.delete(id);
-    };
-  }, []);
+  // const handleMarkerRef = useCallback((id: string, marker: L.Marker) => {
+  //   markerRefsMap.current.set(id, marker);
+  //   return () => {
+  //     markerRefsMap.current.delete(id);
+  //   };
+  // }, []);
 
   return (
     <div className="w-full h-full">
@@ -53,16 +50,14 @@ export default function MapComponent() {
         {dataDistrictWiseInjuryDeath.map((casualty) => {
           return (
             <CasualtyMarker
-              key={ casualty.district}
+              key={casualty.district}
               casualty={casualty}
-              onMarkerRef={handleMarkerRef}
+              // onMarkerRef={handleMarkerRef}
             />
           );
         })}
 
         <MapController
-        // WORK HERE
-          selectedCasualty={null}
           markerRefs={markerRefsMap.current}
           flyToDuration={2}
           flyToZoom={MAP_ZOOM.MAX}

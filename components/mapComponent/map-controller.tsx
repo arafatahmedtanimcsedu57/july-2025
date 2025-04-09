@@ -4,12 +4,13 @@ import { useEffect, useRef } from 'react';
 import { useMap, ZoomControl } from 'react-leaflet';
 import type L from 'leaflet';
 
+import { useSelectedCasualtyStore } from '@/lib/selected-casualty-store';
+
 import { BANGLADESH_CENTER, MAP_ZOOM } from '@/constant/map-container-config';
 
 import type { CasualtyPerson } from '@/types/data';
 
 interface MapControllerProps {
-	selectedCasualty: CasualtyPerson | null;
 	markerRefs: Map<string, L.Marker> | null;
 	flyToDuration?: number;
 	flyToZoom?: number;
@@ -17,12 +18,14 @@ interface MapControllerProps {
 }
 
 export default function MapController({
-	selectedCasualty,
+	
 	markerRefs,
 	flyToDuration = 2,
 	flyToZoom = MAP_ZOOM.MAX,
 	defaultZoom = MAP_ZOOM.DEFAULT,
 }: MapControllerProps) {
+	const {selectedCasualty} = useSelectedCasualtyStore();
+
 	const map = useMap();
 	const flyingRef = useRef(false);
 
@@ -49,23 +52,7 @@ export default function MapController({
 				}
 			}, flyToDuration * 1000);
 
-			if (markerRefs && markerRefs.has(String(selectedCasualty.id))) {
-				const popupTimeout = setTimeout(() => {
-					const marker = markerRefs.get(String(selectedCasualty.id));
-					if (marker) {
-						marker.openPopup();
-					}
-				}, flyToDuration * 0.1 * 1000 + 100); // Convert to milliseconds and add buffer
-
-				return () => {
-					clearTimeout(popupTimeout);
-					clearTimeout(enableDraggingTimeout);
-					if (flyingRef.current) {
-						map.dragging.enable();
-						flyingRef.current = false;
-					}
-				};
-			}
+		
 
 			return () => {
 				clearTimeout(enableDraggingTimeout);
