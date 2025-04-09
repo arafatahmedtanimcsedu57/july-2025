@@ -5,25 +5,15 @@ import { MapContainer } from 'react-leaflet';
 import type L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
-import { CpuIcon } from 'lucide-react';
-import {
-	Popover,
-	PopoverTrigger,
-	PopoverContent,
-} from '@/components/ui/popover';
-import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
-
 import { ThemeTileLayer } from './theme-tile-layer';
 import { MapController } from './map-controller';
 import { CasualtyMarker } from './casualty-marker';
 import { Legend } from './legend';
+import { useResponsiveZoom } from '@/hooks/use-responsive-zoom';
 
 import {
 	BANGLADESH_CENTER,
 	MAP_CONTAINER,
-	MAP_ZOOM,
 } from '@/constant/map-container-config';
 
 import { dataDistrictWiseInjuryDeath } from '@/lib/data_district_wise_injury_death';
@@ -32,14 +22,15 @@ import './map.css';
 
 export default function MapComponent() {
 	const markerRefsMap = useRef<Map<string, L.Marker>>(new Map());
+	const responsiveZoom = useResponsiveZoom();
 
 	return (
 		<div className="w-full h-full">
 			<MapContainer
 				center={BANGLADESH_CENTER}
-				zoom={MAP_CONTAINER.zoom}
+				zoom={responsiveZoom.DEFAULT}
 				zoomControl={MAP_CONTAINER.zoomControl}
-				minZoom={MAP_CONTAINER.minZoom}
+				minZoom={responsiveZoom.MIN}
 				dragging={MAP_CONTAINER.dragging}
 				doubleClickZoom={MAP_CONTAINER.doubleClickZoom}
 				scrollWheelZoom={MAP_CONTAINER.scrollWheelZoom}
@@ -54,8 +45,8 @@ export default function MapComponent() {
 				<MapController
 					markerRefs={markerRefsMap.current}
 					flyToDuration={2}
-					flyToZoom={MAP_ZOOM.MAX}
-					defaultZoom={MAP_ZOOM.DEFAULT}
+					flyToZoom={responsiveZoom.MAX}
+					defaultZoom={responsiveZoom.DEFAULT}
 				/>
 			</MapContainer>
 

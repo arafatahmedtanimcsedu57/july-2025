@@ -15,7 +15,7 @@ interface MapControllerProps {
 	defaultZoom?: number;
 }
 
-function MapController({
+export function MapController({
 	markerRefs,
 	flyToDuration = 2,
 	flyToZoom = MAP_ZOOM.MAX,
@@ -99,5 +99,3 @@ function MapController({
 		</>
 	);
 }
-
-export { MapController };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { CpuIcon, InfoIcon } from 'lucide-react';
+import { InfoIcon } from 'lucide-react';
 
 import {
 	Popover,

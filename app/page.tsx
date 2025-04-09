@@ -23,10 +23,10 @@ export default function Home() {
 				</div>
 
 				<div className=" text-slate-600 h-full relative">
-					<div className="absolute z-10 backdrop-blur-[1px] overflow-auto scrollbar-hide h-full flex flex-col justify-between">
+					<div className="absolute z-10 backdrop-blur-[1px] overflow-auto scrollbar-hide h-full flex flex-col gap-4">
 						<Header />
 
-						<div className="flex-1 flex flex-col justify-between p-10 gap-16 ">
+						<div className="flex-1 flex flex-col  p-10 gap-16 ">
 							<TotalCasualties />
 							<div className="w-max flex flex-wrap gap-10">
 								<DonutCharts />
