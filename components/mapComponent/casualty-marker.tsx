@@ -4,32 +4,26 @@ import { memo, useMemo } from "react";
 import { CircleMarker, Marker } from "react-leaflet";
 import type L from "leaflet";
 
-import { useIncidentStore } from "@/lib/incident-store";
 import { MapIcons } from "./map-icons";
 import {
   CASUALTY_ITEMS,
   CASUALTY_ITEMS_COLORS,
 } from "@/constant/casualty-types";
-import type { CasualtyPerson } from "@/types/data";
+import type { Casualty } from "@/types/data";
 
 interface CasualtyMarkerProps {
-  person: CasualtyPerson;
+  casualty: Casualty;
   onMarkerRef: (id: string, marker: L.Marker) => void;
 }
 
-const CasualtyMarker = memo(({ person, onMarkerRef }: CasualtyMarkerProps) => {
-  const { id, name, type, lat, lng } = person;
-  const { setSelectedIncident, selectedIncident } = useIncidentStore();
+const CasualtyMarker = memo(({ casualty, onMarkerRef }: CasualtyMarkerProps) => {
+  const {  type, lat, lng, district, verified_deaths, verified_injuries } = casualty;
 
   if (type === CASUALTY_ITEMS.NO_CASUALTIES || lat === null || lng === null)
     return null;
 
   const markerPosition = [lat, lng] as [number, number];
-  const isSelected =
-    (selectedIncident?.id && selectedIncident.id === person.id) ||
-    (selectedIncident?.district &&
-      selectedIncident.district === person.district);
-
+  
   const icon =
     type === "Death"
       ? MapIcons.death
@@ -39,11 +33,10 @@ const CasualtyMarker = memo(({ person, onMarkerRef }: CasualtyMarkerProps) => {
 
   const setMarkerRef = useMemo(() => {
     return (marker: L.Marker | null) => {
-      if (marker) onMarkerRef(String(id), marker);
+      if (marker) onMarkerRef(String(district), marker);
     };
-  }, [id, onMarkerRef]);
+  }, [district, onMarkerRef]);
 
-  const handleMarkerClick = () => setSelectedIncident(person);
 
   const markerPin = (
     <Marker
@@ -56,10 +49,10 @@ const CasualtyMarker = memo(({ person, onMarkerRef }: CasualtyMarkerProps) => {
             (e.target as L.Marker).openPopup();
           }
         },
-        click: handleMarkerClick,
+        // click: handleMarkerClick,
       }}
       keyboard={true}
-      aria-label={`${type} marker for ${name || "Unknown person"}`}
+      aria-label={`${type} marker for ${district || "Unknown"}`}
     />
   );
 
@@ -68,9 +61,9 @@ const CasualtyMarker = memo(({ person, onMarkerRef }: CasualtyMarkerProps) => {
 
   const baseCircleMarker = (
     <CircleMarker
-      key={id}
+      key={district}
       center={markerPosition}
-      radius={(person.verified_deaths || 0) / 5}
+      radius={(casualty.verified_deaths || 0) / 5}
       pathOptions={{
         color: markerColor,
         fillColor: markerColor,
@@ -78,19 +71,19 @@ const CasualtyMarker = memo(({ person, onMarkerRef }: CasualtyMarkerProps) => {
         weight: 0,
         stroke: true,
       }}
-      eventHandlers={{ click: handleMarkerClick }}
+      // eventHandlers={{ click: handleMarkerClick }}
       className="drop-shadow-[0_0_0.1rem_crimson]"
     >
-      {isSelected && markerPin}
+      {/* {isSelected && markerPin} */}
     </CircleMarker>
   );
 
   return (
     <CircleMarker
-      key={`${id}-outer`}
+      key={`${district}-outer`}
       center={markerPosition}
       radius={
-        ((person.verified_deaths || 0) + (person.verified_injuries || 0)) / 25
+        ((verified_deaths || 0) + (verified_injuries || 0)) / 25
       }
       pathOptions={{
         color: "#ee7f01",
@@ -99,7 +92,7 @@ const CasualtyMarker = memo(({ person, onMarkerRef }: CasualtyMarkerProps) => {
         weight: 0.75,
         stroke: true,
       }}
-      eventHandlers={{ click: handleMarkerClick }}
+      // eventHandlers={{ click: handleMarkerClick }}
     >
       {baseCircleMarker}
     </CircleMarker>

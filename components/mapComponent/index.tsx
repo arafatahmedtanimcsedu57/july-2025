@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useMemo, useCallback } from "react";
+import { useRef, useCallback } from "react";
 import { MapContainer } from "react-leaflet";
 import type L from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -9,7 +9,6 @@ import { ThemeTileLayer } from "./theme-tile-layer";
 import MapController from "./map-controller";
 import CasualtyMarker from "./casualty-marker";
 
-import { useFilteredData } from "@/hooks/use-filtered-data";
 import { useIncidentStore } from "@/lib/incident-store";
 import { getUpdatedPersonData } from "@/lib/edit-store";
 
@@ -18,21 +17,19 @@ import {
   MAP_CONTAINER,
   MAP_ZOOM,
 } from "@/constant/map-container-config";
-import "./map.css";
 import {
   CASUALTY_ITEMS,
   CASUALTY_ITEMS_COLOR_ELEMENTS,
 } from "@/constant/casualty-types";
 
+import {dataDistrictWiseInjuryDeath} from "@/lib/data_district_wise_injury_death";
+
+import "./map.css";
+
 export default function MapComponent() {
   const { selectedIncident } = useIncidentStore();
-  const filteredData = useFilteredData();
 
-  const validCasualtyData = useMemo(
-    () =>
-      filteredData.filter((person) => person.lat != null && person.lng != null),
-    [filteredData]
-  );
+ 
   const markerRefsMap = useRef<Map<string, L.Marker>>(new Map());
 
   const handleMarkerRef = useCallback((id: string, marker: L.Marker) => {
@@ -56,12 +53,11 @@ export default function MapComponent() {
       >
         <ThemeTileLayer />
 
-        {validCasualtyData.map((person) => {
-          const updatedPerson = getUpdatedPersonData(person);
+        {dataDistrictWiseInjuryDeath.map((casualty) => {
           return (
             <CasualtyMarker
-              key={person.id || person.district}
-              person={updatedPerson}
+              key={ casualty.district}
+              casualty={casualty}
               onMarkerRef={handleMarkerRef}
             />
           );

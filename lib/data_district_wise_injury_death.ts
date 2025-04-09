@@ -1,6 +1,6 @@
-import type { CasualtyPerson } from '@/types/data';
+import type { Casualty } from '@/types/data';
 
-export const dataDistrictWiseInjuryDeath: CasualtyPerson[] = [
+export const dataDistrictWiseInjuryDeath: Casualty[] = [
 	{
 		district: 'Bagerhat',
 		total_cases: 99,

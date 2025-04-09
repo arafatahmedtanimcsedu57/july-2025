@@ -41,3 +41,18 @@ export interface CasualtyPerson {
 	verified_injuries?: number | null;
 	unverified_injuries?: number | null;
 }
+
+
+export interface Casualty {
+	district: string,
+	total_cases: number,
+	total_deaths: number,
+	verified_deaths: number,
+	unverified_deaths: number,
+	total_injuries: number,
+	verified_injuries: number,
+	unverified_injuries: number,
+	lat: number,
+	lng: number,
+	type: string,
+}

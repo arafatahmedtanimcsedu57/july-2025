@@ -74,7 +74,7 @@ export default function Home() {
           <div></div>
         </div>
 
-        <div className="hidden md:block text-slate-600 h-full relative">
+        <div className=" text-slate-600 h-full relative">
           <div className="absolute z-[1] overflow-auto scrollbar-hide h-full flex flex-col justify-between">
             <Header />
 
