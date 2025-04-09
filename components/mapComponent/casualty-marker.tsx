@@ -10,13 +10,21 @@ import {
   CASUALTY_ITEMS_COLOR_ELEMENTS,
 } from "@/constant/casualty-types";
 import type { Casualty } from "@/types/data";
+import DonutChart from "../ui/donut-chart";
 
 interface CasualtyMarkerProps {
   casualty: Casualty;
 }
 
 const CasualtyMarker = memo(({ casualty }: CasualtyMarkerProps) => {
-  const { lat, lng, district, verified_deaths, verified_injuries } = casualty;
+  const {
+    lat,
+    lng,
+    district,
+    verified_deaths,
+    verified_injuries,
+    total_cases,
+  } = casualty;
   if (lat === null || lng === null) return null;
 
   const { selectedCasualty, toggleSelectedCasualty } =
@@ -29,6 +37,57 @@ const CasualtyMarker = memo(({ casualty }: CasualtyMarkerProps) => {
     ((verified_deaths || 0) + (verified_injuries || 0)) / 25;
 
   const handleMarkerClick = () => toggleSelectedCasualty(casualty);
+
+  const deathPercentage =
+    ((verified_deaths / total_cases) * 100).toFixed(1) + "%";
+  const injuriesPercentage =
+    ((verified_injuries / total_cases) * 100).toFixed(1) + "%";
+
+  const donutChartsConfig = () => {
+    return [
+      {
+        chart: {
+          data: [
+            { label: "Deaths", value: verified_deaths, color: "#bb4110" },
+            {
+              label: "Total Casualties",
+              value: total_cases,
+              color: "#e2e0df",
+            },
+          ],
+
+          size: 56,
+          thickness: 3,
+          innerText: deathPercentage,
+        },
+        legend: {
+          label: "Deaths",
+          value: verified_deaths,
+        },
+      },
+
+      {
+        chart: {
+          data: [
+            { label: "Injuries", value: verified_injuries, color: "#de813c" },
+            {
+              label: "Total Casualties",
+              value: total_cases,
+              color: "#e2e0df",
+            },
+          ],
+
+          size: 56,
+          thickness: 3,
+          innerText: injuriesPercentage,
+        },
+        legend: {
+          label: "Injuries",
+          value: verified_injuries,
+        },
+      },
+    ];
+  };
 
   const rippleEffect = isSelected ? (
     <>
@@ -80,17 +139,38 @@ const CasualtyMarker = memo(({ casualty }: CasualtyMarkerProps) => {
     >
       {isSelected && (
         <Tooltip permanent={true} direction="top">
-          <div className="p-2">
-            <h3 className="font-bold text-lg mb-1">{district}</h3>
+          <div className="p-2 flex flex-col ga-4">
+            <div>
+              <h3 className="font-bold text-lg mb-1">{district}</h3>
+            </div>
+            <div>
+              <h5 className="text-xs w-max">Total Casualties</h5>
+              <p className="text-4xl font-semibold w-max">
+                {total_cases.toLocaleString()}
+              </p>
+            </div>
+
             <div className="flex gap-2">
-              <div className="flex items-center">
-                {CASUALTY_ITEMS_COLOR_ELEMENTS[CASUALTY_ITEMS.DEATH]!()}
-                <span>Deaths: {verified_deaths || 0}</span>
-              </div>
-              <div className="flex items-center">
-                {CASUALTY_ITEMS_COLOR_ELEMENTS[CASUALTY_ITEMS.INJURY]!()}
-                <span>Injuries: {verified_injuries || 0}</span>
-              </div>
+              {donutChartsConfig().map((donutChart) => (
+                <div
+                  className="flex flex-wrap gap-2 items-center justify-center"
+                  key={donutChart.legend.label}
+                >
+                  <DonutChart
+                    data={donutChart.chart.data}
+                    size={donutChart.chart.size}
+                    thickness={donutChart.chart.thickness}
+                    innerText={donutChart.chart.innerText}
+                  />
+
+                  <div className="text-center">
+                    <h1 className="text-xs font-semibold">
+                      {donutChart.legend.value}
+                    </h1>
+                    <p className="text-xs">{donutChart.legend.label}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </Tooltip>
