@@ -3,12 +3,13 @@
 import { useEffect, useRef } from 'react';
 import { useMap, ZoomControl } from 'react-leaflet';
 import type L from 'leaflet';
-import type { CasualtyPerson } from '@/types/data';
+
 import { BANGLADESH_CENTER, MAP_ZOOM } from '@/constant/map-container-config';
-import { useFullScreenStore } from '@/lib/full-screen-store';
+
+import type { CasualtyPerson } from '@/types/data';
 
 interface MapControllerProps {
-	selectedPerson: CasualtyPerson | null;
+	selectedCasualty: CasualtyPerson | null;
 	markerRefs: Map<string, L.Marker> | null;
 	flyToDuration?: number;
 	flyToZoom?: number;
@@ -16,7 +17,7 @@ interface MapControllerProps {
 }
 
 export default function MapController({
-	selectedPerson,
+	selectedCasualty,
 	markerRefs,
 	flyToDuration = 2,
 	flyToZoom = MAP_ZOOM.MAX,
@@ -24,20 +25,19 @@ export default function MapController({
 }: MapControllerProps) {
 	const map = useMap();
 	const flyingRef = useRef(false);
-	const { toggle } = useFullScreenStore();
 
 	useEffect(() => {
 		if (
-			selectedPerson &&
-			selectedPerson.lat != null &&
-			selectedPerson.lng != null
+			selectedCasualty &&
+			selectedCasualty.lat != null &&
+			selectedCasualty.lng != null
 		) {
 			if (map.dragging.enabled()) {
 				map.dragging.disable();
 				flyingRef.current = true;
 			}
 
-			map.flyTo([selectedPerson.lat, selectedPerson.lng], flyToZoom, {
+			map.flyTo([selectedCasualty.lat, selectedCasualty.lng], flyToZoom, {
 				animate: true,
 				duration: flyToDuration,
 			});
@@ -49,9 +49,9 @@ export default function MapController({
 				}
 			}, flyToDuration * 1000);
 
-			if (markerRefs && markerRefs.has(String(selectedPerson.id))) {
+			if (markerRefs && markerRefs.has(String(selectedCasualty.id))) {
 				const popupTimeout = setTimeout(() => {
-					const marker = markerRefs.get(String(selectedPerson.id));
+					const marker = markerRefs.get(String(selectedCasualty.id));
 					if (marker) {
 						marker.openPopup();
 					}
@@ -102,7 +102,7 @@ export default function MapController({
 				}
 			};
 		}
-	}, [selectedPerson, map, markerRefs, flyToDuration, flyToZoom, defaultZoom]);
+	}, [selectedCasualty, map, markerRefs, flyToDuration, flyToZoom, defaultZoom]);
 
 	return (
 		<>

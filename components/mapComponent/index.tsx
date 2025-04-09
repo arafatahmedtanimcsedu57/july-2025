@@ -9,8 +9,6 @@ import { ThemeTileLayer } from "./theme-tile-layer";
 import MapController from "./map-controller";
 import CasualtyMarker from "./casualty-marker";
 
-import { useIncidentStore } from "@/lib/incident-store";
-import { getUpdatedPersonData } from "@/lib/edit-store";
 
 import {
   BANGLADESH_CENTER,
@@ -27,7 +25,6 @@ import {dataDistrictWiseInjuryDeath} from "@/lib/data_district_wise_injury_death
 import "./map.css";
 
 export default function MapComponent() {
-  const { selectedIncident } = useIncidentStore();
 
  
   const markerRefsMap = useRef<Map<string, L.Marker>>(new Map());
@@ -64,7 +61,8 @@ export default function MapComponent() {
         })}
 
         <MapController
-          selectedPerson={selectedIncident}
+        // WORK HERE
+          selectedCasualty={null}
           markerRefs={markerRefsMap.current}
           flyToDuration={2}
           flyToZoom={MAP_ZOOM.MAX}

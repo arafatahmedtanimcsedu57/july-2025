@@ -1,18 +1,18 @@
 "use client"
 
+import type { Casualty } from "@/types/data"
 import { create } from "zustand"
 
 interface SidebarState {
-  isOpen: boolean
-  toggle: () => void
-  close: () => void
-  open: () => void
+  selectedCasualty: Casualty| null
+  setSelectedCasualty: () => void
+  resetSelectedCasualty : () => void
 }
 
 export const useSidebarStore = create<SidebarState>((set) => ({
-  isOpen: false,
-  toggle: () => set((state) => ({ isOpen: !state.isOpen })),
-  close: () => set({ isOpen: false }),
-  open: () => set({ isOpen: true }),
+    selectedCasualty: null,
+    setSelectedCasualty: () => set((casualty) => ({ selectedCasualty: casualty })),
+    resetSelectedCasualty: () => set({ selectedCasualty: null }),
+  
 }))
 
