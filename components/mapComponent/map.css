@@ -3,8 +3,9 @@
 	height: 100%;
 	z-index: 0;
 	cursor: grab !important;
-	background-color: hsl(var(--background));
+	/* background-color: hsl(var(--background)); */
 	position: relative;
+	background-color: transparent;
 }
 
 .bd-border {
