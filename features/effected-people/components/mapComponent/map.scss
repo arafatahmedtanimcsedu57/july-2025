@@ -60,4 +60,8 @@
 
     opacity: 1 !important;
   }
+
+  .leaflet-overlay-pane {
+    z-index: 500;
+  }
 }

@@ -1,26 +1,50 @@
-import data from "@/features/effected-people/data/data_effected_people.json";
-import type { EffectedPerson } from "@/types/data";
+import { format } from 'date-fns';
 
-// export const getCasualtyDataByDate = (dateStr: string): CasualtyPerson[] => {
-//   if (!dateStr) return allCasualtyData;
-
-//   const targetDate = new Date(dateStr);
-//   const startOfDay = new Date(targetDate.setHours(0, 0, 0, 0)).getTime();
-//   const endOfDay = new Date(targetDate.setHours(23, 59, 59, 999)).getTime();
-
-//   return allCasualtyData.filter((person) => {
-//     const personDate = person?.date;
-//     if (typeof personDate !== "number") return false;
-//     return personDate >= startOfDay && personDate <= endOfDay;
-//   });
-// };
+import { CASUALTY_ITEMS } from '@/constant/casualty-types';
+import data from '@/features/effected-people/data/data_effected_people.json';
+import type { EffectedPerson } from '@/types/data';
 
 export const getTotalEffectedPeople = () => {
-  return dataEffectedPeople.reduce((sum) => sum + 1, 0);
+	return dataEffectedPeople.reduce((sum) => sum + 1, 0);
 };
 
-export const dataEffectedPeople: EffectedPerson[] = data.data_effected_people;
+export const getTotalDeadPeople = () => {
+	return (
+		dataEffectedPeople.filter((person) => person.type === CASUALTY_ITEMS.DEATH)
+			.length || 0
+	);
+};
 
-// export const uniqueTypes = [
-//   ...new Set(allCasualtyData.map((item) => item.type)),
-// ];
+export const getTotalInjuredPeople = () => {
+	return (
+		dataEffectedPeople.filter((person) => person.type === CASUALTY_ITEMS.INJURY)
+			.length || 0
+	);
+};
+
+export const getGroupedByDateData = () => {
+	return dataEffectedPeople.reduce((acc, person) => {
+		if (!person.date) return acc;
+
+		const dateStr = format(new Date(person.date), 'yyyy-MM-dd');
+
+		if (!acc[dateStr]) {
+			acc[dateStr] = {
+				date: dateStr,
+				displayDate: format(new Date(person.date), 'MMM d'),
+				timestamp: person.date,
+				deaths: 0,
+				injuries: 0,
+			};
+		}
+
+		if (person.type === CASUALTY_ITEMS.DEATH) {
+			acc[dateStr].deaths += 1;
+		} else if (person.type === CASUALTY_ITEMS.INJURY) {
+			acc[dateStr].injuries += 1;
+		}
+
+		return acc;
+	}, {} as Record<string, { date: string; displayDate: string; timestamp: number; deaths: number; injuries: number }>);
+};
+export const dataEffectedPeople: EffectedPerson[] = data.data_effected_people;

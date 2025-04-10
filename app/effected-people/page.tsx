@@ -1,47 +1,74 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-
-import MapContainer from "@/features/effected-people/components/map-container";
-import Header from "@/features/effected-people/components/header";
+import MapContainer from '@/features/effected-people/components/map-container';
+import Header from '@/features/effected-people/components/header';
 import {
-  // DonutCharts,
-  // TabularData,
-  // TopNCasesByTotalCases,
-  TotalCasualties,
-} from "@/features/effected-people/components/stats/overall";
+	DateWiseBarChart,
+	DonutCharts,
+	ListData,
+	TotalCasualties,
+} from '@/features/effected-people/components/stats/overall';
 
-import Logo from "@/public/logo.png";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/ui/tabs';
+
+const VIEWS: Record<string, Record<string, string>> = {
+	OVERVIEW: {
+		value: 'OVERVIEW',
+		label: 'Overview',
+	},
+	PERSON_LIST: {
+		value: 'PERSON_LIST',
+		label: 'Person List',
+	},
+} as const;
 
 export default function Home() {
-  return (
-    <main className="flex flex-1 flex-col bg-background h-[100vh] overflow-hidden">
-      <div className="flex h-full">
-        <div className="w-[50px] flex flex-col bg-foreground justify-between items-center shadow-2xl z-[100] py-11">
-          <Image src={Logo} alt="brand" width={40} height={40} />
+	return (
+		<>
+			<div className="text-slate-600 h-full relative">
+				<div className="absolute z-10 backdrop-blur-[1px] overflow-auto scrollbar-hide h-full flex flex-col gap-4">
+					<Header />
 
-          <div></div>
-        </div>
+					<TotalCasualties />
 
-        <div className=" text-slate-600 h-full relative">
-          <div className="absolute z-10 backdrop-blur-[1px] overflow-auto scrollbar-hide h-full flex flex-col gap-4">
-            <Header />
-            <div className="flex-1  flex flex-col  p-10 gap-16 ">
-              <TotalCasualties />
-              {/* <div className="w-max flex flex-wrap gap-10">
-                <DonutCharts />
-              </div>
+					<Tabs
+						className="flex-1 flex flex-col px-10 "
+						defaultValue={VIEWS.OVERVIEW.value}
+					>
+						<TabsList className="grid grid-cols-2 mb-4 w-[250px] m-0 rounded-xl">
+							{Object.keys(VIEWS).map((view) => {
+								return (
+									<TabsTrigger
+										key={view}
+										value={VIEWS[view].value}
+										className="rounded-xl text-slate-700 dark:text-white data-[state=active]:text-primary"
+									>
+										{VIEWS[view].label}
+									</TabsTrigger>
+								);
+							})}
+						</TabsList>
+						<TabsContent value={VIEWS.OVERVIEW.value}>
+							<div className="py-10 flex-1 flex flex-col">
+								<div className="w-max flex flex-wrap gap-10 mb-10">
+									<DonutCharts />
+								</div>
 
-              <TabularData />
-              <TopNCasesByTotalCases /> */}
-            </div>
-          </div>
-        </div>
+								<DateWiseBarChart />
+							</div>
+						</TabsContent>
+						<TabsContent value={VIEWS.PERSON_LIST.value}>
+							<div className="py-10 flex-1 flex flex-col">
+								<ListData />
+							</div>
+						</TabsContent>
+					</Tabs>
+				</div>
+			</div>
 
-        <div className="flex-1  h-full">
-          <MapContainer />
-        </div>
-      </div>
-    </main>
-  );
+			<div className="flex-1 h-full">
+				<MapContainer />
+			</div>
+		</>
+	);
 }
