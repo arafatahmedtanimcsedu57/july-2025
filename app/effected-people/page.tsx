@@ -2,14 +2,14 @@
 
 import Image from "next/image";
 
-import MapContainer from "@/features/home/components/map-container";
-import Header from "@/features/home/components/header";
+import MapContainer from "@/features/effected-people/components/map-container";
+import Header from "@/features/effected-people/components/header";
 import {
-  DonutCharts,
-  TabularData,
-  TopNCasesByTotalCases,
+  // DonutCharts,
+  // TabularData,
+  // TopNCasesByTotalCases,
   TotalCasualties,
-} from "@/features/home/components/stats/overall";
+} from "@/features/effected-people/components/stats/overall";
 
 import Logo from "@/public/logo.png";
 
@@ -28,12 +28,12 @@ export default function Home() {
             <Header />
             <div className="flex-1  flex flex-col  p-10 gap-16 ">
               <TotalCasualties />
-              <div className="w-max flex flex-wrap gap-10">
+              {/* <div className="w-max flex flex-wrap gap-10">
                 <DonutCharts />
               </div>
 
               <TabularData />
-              <TopNCasesByTotalCases />
+              <TopNCasesByTotalCases /> */}
             </div>
           </div>
         </div>
