@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useMap } from "react-leaflet";
 import L from "leaflet";
 
 import bangladeshData from "@/data/bangladesh.json";
 import bangladeshDetailsData from "@/data/bangladesh_details.json";
-import divisionsData from "@/data/bd-divisions.json";
+import districtData from "@/data/bd-districts.json";
 
 import {
   GEO_DETAILS_JSON_STYLE,
@@ -32,14 +32,14 @@ const TileLayer = () => {
       }),
     }).addTo(map);
 
-    divisionsData.divisions.forEach((division) => {
-      const lat = Number.parseFloat(division.lat);
-      const lng = Number.parseFloat(division.long);
+    districtData.districts.forEach((district) => {
+      const lat = Number.parseFloat(district.lat);
+      const lng = Number.parseFloat(district.long);
 
       if (!isNaN(lat) && !isNaN(lng)) {
         const icon = L.divIcon({
           className: "division-label",
-          html: `${division.name}`,
+          html: `${district.name}`,
           iconSize: [100, 20],
           iconAnchor: [50, 10],
         });

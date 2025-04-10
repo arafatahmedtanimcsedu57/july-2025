@@ -8,6 +8,11 @@
     position: relative;
   }
 
+  .grayscale-tiles {
+    /* filter: grayscale(100%) opacity(0.2) !important; */
+    filter: grayscale(100%) sepia(50%) hue-rotate(300deg);
+  }
+
   .bd-border {
     filter: drop-shadow(0 0 5px #aba7e3);
   }
