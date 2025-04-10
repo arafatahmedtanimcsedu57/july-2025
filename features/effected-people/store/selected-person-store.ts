@@ -10,7 +10,7 @@ interface SelectedPersonState {
 	resetSelectedPerson: () => void;
 }
 
-export const useSelectedCasualtyStore = create<SelectedPersonState>((set) => ({
+export const useSelectedPersonStore = create<SelectedPersonState>((set) => ({
 	selectedPerson: null,
 	setSelectedPerson: (person) => set({ selectedPerson: person }),
 	toggleSelectedPerson: (person) =>

@@ -1,197 +1,186 @@
-"use client";
+'use client';
 
-import { memo } from "react";
-import { CircleMarker, Tooltip } from "react-leaflet";
+import { memo } from 'react';
+import { CircleMarker, Tooltip } from 'react-leaflet';
+import { formatDate } from 'date-fns';
+import { Calendar, MapPin } from 'lucide-react';
+import Image from 'next/image';
 
-import { DonutChart } from "@/shared/ui/donut-chart";
-// import { useSelectedCasualtyStore } from "@/features/effected-people/store/selected-casualty-store";
+import { Separator } from '@/shared/ui/separator';
+import { useSelectedPersonStore } from '@/features/effected-people/store/selected-person-store';
+import { Card, CardDescription, CardHeader, CardTitle } from '@/shared/ui/card';
 
-import { CASUALTY_ITEMS } from "@/constant/casualty-types";
-import type { EffectedPerson } from "@/types/data";
+import { CASUALTY_ITEMS } from '@/constant/casualty-types';
+import { GENDERS } from '@/constant/gender-types';
+import { CASUALTY_ITEMS_COLOR_ELEMENTS } from '@/constant/casualty-types';
+
+import type { EffectedPerson } from '@/types/data';
+import MaleIcon from '@/public/male.png';
+import FemaleIcon from '@/public/female.png';
 
 interface EffectedPersonMarkerProps {
-  person: EffectedPerson;
+	person: EffectedPerson;
 }
 
 const EffectedPersonMarker = memo(({ person }: EffectedPersonMarkerProps) => {
-  const { lat, lng, district, type } = person;
-  if (lat === null || lng === null) return null;
+	const {
+		lat,
+		name,
+		lng,
+		district,
+		type,
+		id,
+		location,
+		date,
+		gender,
+		age,
+		occupation,
+	} = person;
+	if (lat === null || lng === null) return null;
 
-  // const { selectedCasualty, toggleSelectedCasualty } =
-  //   useSelectedCasualtyStore();
+	const { selectedPerson, toggleSelectedPerson } = useSelectedPersonStore();
 
-  const markerPosition = [lat, lng] as [number, number];
-  // const isSelected = selectedCasualty && selectedCasualty.district === district;
-  const deathCircleRadius = 5;
-  const injuryCircleRadius = 5;
+	const GenderIcon =
+		gender === GENDERS.MALE
+			? MaleIcon
+			: gender === GENDERS.FEMALE
+			? FemaleIcon
+			: '';
+	const _date = date ? new Date(date) : '';
+	const _dateString = _date ? formatDate(_date.toLocaleString(), 'dd MMM') : '';
+	const markerPosition = [lat, lng] as [number, number];
+	const isSelected = selectedPerson && selectedPerson.id === id;
+	const deathCircleRadius = 5;
+	const injuryCircleRadius = 5;
 
-  // const handleMarkerClick = () => toggleSelectedCasualty(casualty);
+	const handleMarkerClick = () => toggleSelectedPerson(person);
 
-  // const deathPercentage =
-  //   ((verified_deaths / total_cases) * 100).toFixed(1) + "%";
-  // const injuriesPercentage =
-  //   ((verified_injuries / total_cases) * 100).toFixed(1) + "%";
+	const rippleEffect = isSelected ? (
+		<>
+			<CircleMarker
+				center={markerPosition}
+				radius={injuryCircleRadius + 5}
+				pathOptions={{
+					color: '#ee7f01',
+					fillColor: 'transparent',
+					fillOpacity: 0,
+					weight: 1,
+					opacity: 0.7,
+					dashArray: '5,5',
+				}}
+				eventHandlers={{ click: handleMarkerClick }}
+			/>
+			<CircleMarker
+				center={markerPosition}
+				radius={injuryCircleRadius + 10}
+				pathOptions={{
+					color: '#ee7f01',
+					fillColor: 'transparent',
+					fillOpacity: 0,
+					weight: 0.75,
+					opacity: 0.5,
+					dashArray: '3,7',
+				}}
+				eventHandlers={{ click: handleMarkerClick }}
+			/>
+		</>
+	) : (
+		<></>
+	);
 
-  // const donutChartsConfig = () => {
-  //   return [
-  //     {
-  //       chart: {
-  //         data: [
-  //           { label: "Deaths", value: verified_deaths, color: "#9c0612" },
-  //           {
-  //             label: "Total Casualties",
-  //             value: total_cases,
-  //             color: "#e2e0df",
-  //           },
-  //         ],
+	const deathCircleMarker = (
+		<CircleMarker
+			key={district}
+			center={markerPosition}
+			radius={deathCircleRadius}
+			pathOptions={{
+				color: '#9c0610',
+				fillColor: '#9c0610',
+				fillOpacity: 1,
+				weight: 0,
+				stroke: true,
+			}}
+			eventHandlers={{ click: handleMarkerClick }}
+			className="drop-shadow-[0_0_0.1rem_crimson]"
+		>
+			{isSelected && (
+				<Tooltip permanent={true} direction="top">
+					<Card className="bg-transparent border-none shadow-none p-4" key={id}>
+						<CardHeader className="space-y-4 p-0">
+							<CardTitle className="flex flex-col gap-2">
+								<div className="flex justify-between items-center">
+									<div className="flex gap-2 items-center">
+										{GenderIcon ? (
+											<Image
+												src={GenderIcon || '/placeholder.svg'}
+												alt="gender"
+												width={32}
+												height={32}
+											/>
+										) : (
+											<></>
+										)}
+										<div className="flex flex-col">
+											<span className="text-xs">{name || 'Unknown'}</span>
+											<span className="text-xs font-normal">
+												{age || '...'} years, {occupation || '...'}
+											</span>
+										</div>
+									</div>
 
-  //         size: 56,
-  //         thickness: 3,
-  //         innerText: deathPercentage,
-  //       },
-  //       legend: {
-  //         label: "Deaths",
-  //         value: verified_deaths,
-  //       },
-  //     },
+									{type ? CASUALTY_ITEMS_COLOR_ELEMENTS[type]!() : <></>}
+								</div>
+							</CardTitle>
+							<Separator />
+							<CardDescription>
+								<div className="flex gap-2 items-center">
+									<div>
+										<MapPin width={16} />
+									</div>
+									<span className="text-xs">
+										{location || '...'}, {district || '...'}
+									</span>
+								</div>
 
-  //     {
-  //       chart: {
-  //         data: [
-  //           { label: "Injuries", value: verified_injuries, color: "#ee7f01" },
-  //           {
-  //             label: "Total Casualties",
-  //             value: total_cases,
-  //             color: "#e2e0df",
-  //           },
-  //         ],
+								<div className="flex gap-2 items-center">
+									<div>
+										<Calendar width={16} />
+									</div>
+									<span className="text-xs">{_dateString || '...'}</span>
+								</div>
+							</CardDescription>
+						</CardHeader>
+					</Card>
+				</Tooltip>
+			)}
+		</CircleMarker>
+	);
 
-  //         size: 56,
-  //         thickness: 3,
-  //         innerText: injuriesPercentage,
-  //       },
-  //       legend: {
-  //         label: "Injuries",
-  //         value: verified_injuries,
-  //       },
-  //     },
-  //   ];
-  // };
+	const injuryCircleMarker = (
+		<CircleMarker
+			key={`${district}-outer`}
+			center={markerPosition}
+			radius={injuryCircleRadius}
+			pathOptions={{
+				color: '#ee7f01',
+				fillColor: '#e9a30c',
+				fillOpacity: 0.4,
+				weight: 0.75,
+				stroke: true,
+			}}
+			eventHandlers={{ click: handleMarkerClick }}
+		/>
+	);
 
-  // const rippleEffect = isSelected ? (
-  //   <>
-  //     <CircleMarker
-  //       center={markerPosition}
-  //       radius={casualtyCircleRadius + 5}
-  //       pathOptions={{
-  //         color: "#ee7f01",
-  //         fillColor: "transparent",
-  //         fillOpacity: 0,
-  //         weight: 1,
-  //         opacity: 0.7,
-  //         dashArray: "5,5",
-  //       }}
-  //       eventHandlers={{ click: handleMarkerClick }}
-  //     />
-  //     <CircleMarker
-  //       center={markerPosition}
-  //       radius={casualtyCircleRadius + 10}
-  //       pathOptions={{
-  //         color: "#ee7f01",
-  //         fillColor: "transparent",
-  //         fillOpacity: 0,
-  //         weight: 0.75,
-  //         opacity: 0.5,
-  //         dashArray: "3,7",
-  //       }}
-  //       eventHandlers={{ click: handleMarkerClick }}
-  //     />
-  //   </>
-  // ) : (
-  //   <></>
-  // );
-
-  const deathCircleMarker = (
-    <CircleMarker
-      key={district}
-      center={markerPosition}
-      radius={deathCircleRadius}
-      pathOptions={{
-        color: "#9c0610",
-        fillColor: "#9c0610",
-        fillOpacity: 1,
-        weight: 0,
-        stroke: true,
-      }}
-      // eventHandlers={{ click: handleMarkerClick }}
-      className="drop-shadow-[0_0_0.1rem_crimson]"
-    >
-      {/* {isSelected && (
-        <Tooltip permanent={true} direction="top">
-          <div className="p-2 flex flex-col gap-4">
-            <div>
-              <h3 className="font-bold text-lg mb-1">{district}</h3>
-            </div>
-            <div>
-              <h5 className="text-xs w-max">Total Casualties</h5>
-              <p className="text-4xl font-semibold w-max">
-                {total_cases.toLocaleString()}
-              </p>
-            </div>
-
-            <div className="flex gap-2">
-              {donutChartsConfig().map((donutChart) => (
-                <div
-                  className="flex flex-wrap gap-2 items-center justify-center"
-                  key={donutChart.legend.label}
-                >
-                  <DonutChart
-                    data={donutChart.chart.data}
-                    size={donutChart.chart.size}
-                    thickness={donutChart.chart.thickness}
-                    innerText={donutChart.chart.innerText}
-                  />
-
-                  <div className="text-center">
-                    <h1 className="text-xs font-semibold">
-                      {donutChart.legend.value}
-                    </h1>
-                    <p className="text-xs">{donutChart.legend.label}</p>
-                  </div>
-                </div>
-              ))} 
-            </div>
-          </div>
-        </Tooltip>
-      )} */}
-    </CircleMarker>
-  );
-
-  const injuryCircleMarker = (
-    <CircleMarker
-      key={`${district}-outer`}
-      center={markerPosition}
-      radius={injuryCircleRadius}
-      pathOptions={{
-        color: "#ee7f01",
-        fillColor: "#e9a30c",
-        fillOpacity: 0.4,
-        weight: 0.75,
-        stroke: true,
-      }}
-      // eventHandlers={{ click: handleMarkerClick }}
-    />
-  );
-
-  return (
-    <>
-      {/* {rippleEffect} */}
-      {type === CASUALTY_ITEMS.DEATH && deathCircleMarker}
-      {type === CASUALTY_ITEMS.INJURY && injuryCircleMarker}
-    </>
-  );
+	return (
+		<>
+			{rippleEffect}
+			{type === CASUALTY_ITEMS.DEATH && deathCircleMarker}
+			{type === CASUALTY_ITEMS.INJURY && injuryCircleMarker}
+		</>
+	);
 });
 
-EffectedPersonMarker.displayName = "EffectedPersonMarker";
+EffectedPersonMarker.displayName = 'EffectedPersonMarker';
 
 export { EffectedPersonMarker };

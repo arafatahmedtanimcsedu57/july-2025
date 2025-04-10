@@ -1,16 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from 'recharts';
-import {
-	Calendar,
-	ChevronDown,
-	ChevronUp,
-	LocateIcon,
-	Map,
-	MapPin,
-	PinIcon,
-} from 'lucide-react';
+import { Calendar, ChevronDown, ChevronUp, MapPin } from 'lucide-react';
+import Image from 'next/image';
+import { formatDate } from 'date-fns';
 
 import { DonutChart } from '@/shared/ui/donut-chart';
 import {
@@ -27,6 +21,7 @@ import {
 	CardTitle,
 } from '@/shared/ui/card';
 import { Button } from '@/shared/ui/button';
+import { Separator } from '@/shared/ui/separator';
 
 import {
 	getGroupedByDateData,
@@ -35,15 +30,13 @@ import {
 	getTotalInjuredPeople,
 	dataEffectedPeople,
 } from '@/features/effected-people/lib/data-managers';
+import { useSelectedPersonStore } from '@/features/effected-people/store/selected-person-store';
 
 import { GENDERS } from '@/constant/gender-types';
 import { CASUALTY_ITEMS_COLOR_ELEMENTS } from '@/constant/casualty-types';
 
 import MaleIcon from '@/public/male.png';
 import FemaleIcon from '@/public/female.png';
-import Image from 'next/image';
-import { Separator } from '@/shared/ui/separator';
-import { formatDate } from 'date-fns';
 
 const total = getTotalEffectedPeople();
 const deathCount = getTotalDeadPeople();
@@ -51,7 +44,7 @@ const injuryCount = getTotalInjuredPeople();
 const deathPercentage = ((deathCount / total) * 100).toFixed(1) + '%';
 const injuriesPercentage = ((injuryCount / total) * 100).toFixed(1) + '%';
 const groupedByDateData = getGroupedByDateData();
-let chartData = Object.values(groupedByDateData).sort(
+const chartData = Object.values(groupedByDateData).sort(
 	(a, b) => a.timestamp - b.timestamp,
 );
 
@@ -172,15 +165,56 @@ const DateWiseBarChart = () => {
 };
 
 const ListData = () => {
+	const { selectedPerson, toggleSelectedPerson } = useSelectedPersonStore();
 	const [showAll, setShowAll] = useState(false);
+	const selectedPersonRef = useRef<HTMLDivElement>(null);
+	const listContainerRef = useRef<HTMLDivElement>(null);
 
 	const displayData = showAll
 		? dataEffectedPeople
 		: dataEffectedPeople.slice(0, 3);
 
+	useEffect(() => {
+		if (
+			selectedPerson &&
+			selectedPersonRef.current &&
+			listContainerRef.current
+		) {
+			// Store a reference to the current value to use inside the callback
+			const currentListContainer = listContainerRef.current;
+
+			// Wait for the next frame to ensure DOM is updated
+			requestAnimationFrame(() => {
+				// Check again that the refs are still valid
+				if (selectedPersonRef.current && currentListContainer) {
+					const containerRect = currentListContainer.getBoundingClientRect();
+					const selectedRect =
+						selectedPersonRef.current.getBoundingClientRect();
+
+					// Calculate the exact center position
+					const containerCenter = containerRect.top + containerRect.height / 2;
+					const selectedCenter = selectedRect.top + selectedRect.height / 2;
+
+					// Calculate how much we need to scroll to center the element
+					const scrollOffset =
+						currentListContainer.scrollTop + (selectedCenter - containerCenter);
+
+					// Smooth scroll to the calculated position
+					currentListContainer.scrollTo({
+						top: scrollOffset,
+						behavior: 'smooth',
+					});
+				}
+			});
+		}
+	}, [selectedPerson]);
+
 	return (
 		<div className="space-y-2">
-			<div className="max-h-[300px] overflow-auto scrollbar-hide space-y-2">
+			<div
+				ref={listContainerRef}
+				className="max-h-[300px] overflow-auto scrollbar-hide space-y-2"
+			>
 				{displayData.map((person) => {
 					const {
 						id,
@@ -201,20 +235,35 @@ const ListData = () => {
 							? FemaleIcon
 							: '';
 					const _date = date ? new Date(date) : '';
-					const _dateString = formatDate(_date.toLocaleString(), 'dd MMM');
+					const _dateString = _date
+						? formatDate(_date.toLocaleString(), 'dd MMM')
+						: '';
+
+					const selectedItem = selectedPerson?.id === person.id;
 
 					return (
-						<Card key={id} className="bg-transparent cursor-pointer">
+						<Card
+							ref={selectedItem ? selectedPersonRef : null}
+							key={id}
+							className={`cursor-pointer rounded-2xl ${
+								selectedItem ? 'bg-accent shadow-xl' : 'bg-transparent '
+							}`}
+							onClick={() => toggleSelectedPerson(person)}
+						>
 							<CardHeader className="space-y-4">
 								<CardTitle className="flex flex-col gap-2">
 									<div className="flex justify-between items-center">
 										<div className="flex gap-2 items-center">
-											<Image
-												src={GenderIcon}
-												alt="gender"
-												width={32}
-												height={32}
-											/>
+											{GenderIcon ? (
+												<Image
+													src={GenderIcon || '/placeholder.svg'}
+													alt="gender"
+													width={32}
+													height={32}
+												/>
+											) : (
+												<></>
+											)}
 											<div className="flex flex-col">
 												<span className="text-xs">{name || 'Unknown'}</span>
 												<span className="text-xs font-normal">
@@ -227,7 +276,9 @@ const ListData = () => {
 									</div>
 								</CardTitle>
 								<Separator />
-								<CardDescription>
+								<CardDescription
+									className={`${selectedItem ? 'text-white' : ''}`}
+								>
 									<div className="flex gap-2 items-center">
 										<div>
 											<MapPin width={16} />
