@@ -28,25 +28,15 @@ import {
 	getTotalDeadPeople,
 	getTotalEffectedPeople,
 	getTotalInjuredPeople,
-	dataEffectedPeople,
 } from '@/features/effected-people/lib/data-managers';
 import { useSelectedPersonStore } from '@/features/effected-people/store/selected-person-store';
+import { useFilteredData } from '@/features/effected-people/hooks/useFiltered-data';
 
 import { GENDERS } from '@/constant/gender-types';
 import { CASUALTY_ITEMS_COLOR_ELEMENTS } from '@/constant/casualty-types';
 
 import MaleIcon from '@/public/male.png';
 import FemaleIcon from '@/public/female.png';
-
-const total = getTotalEffectedPeople();
-const deathCount = getTotalDeadPeople();
-const injuryCount = getTotalInjuredPeople();
-const deathPercentage = ((deathCount / total) * 100).toFixed(1) + '%';
-const injuriesPercentage = ((injuryCount / total) * 100).toFixed(1) + '%';
-const groupedByDateData = getGroupedByDateData();
-const chartData = Object.values(groupedByDateData).sort(
-	(a, b) => a.timestamp - b.timestamp,
-);
 
 const dateWiseBarChartConfig = () => {
 	return {
@@ -60,6 +50,15 @@ const dateWiseBarChartConfig = () => {
 };
 
 const donutChartsConfig = () => {
+	const data = useFilteredData();
+	const total = getTotalEffectedPeople(data);
+
+	const deathCount = getTotalDeadPeople(data);
+	const injuryCount = getTotalInjuredPeople(data);
+
+	const deathPercentage = ((deathCount / total) * 100).toFixed(1) + '%';
+	const injuriesPercentage = ((injuryCount / total) * 100).toFixed(1) + '%';
+
 	return [
 		{
 			chart: {
@@ -106,6 +105,8 @@ const donutChartsConfig = () => {
 };
 
 const TotalCasualties = () => {
+	const data = useFilteredData();
+	const total = getTotalEffectedPeople(data);
 	return (
 		<div className="flex flex-col p-10">
 			<h5 className="text-xs w-max">Total Casualties</h5>
@@ -140,6 +141,12 @@ const DonutCharts = () => {
 };
 
 const DateWiseBarChart = () => {
+	const data = useFilteredData();
+
+	const groupedByDateData = getGroupedByDateData(data);
+	const chartData = Object.values(groupedByDateData).sort(
+		(a, b) => a.timestamp - b.timestamp,
+	);
 	return (
 		<Card className="bg-transparent border-0 shadow-none">
 			<CardContent className="bg-transparent !p-0  px-2">
@@ -167,12 +174,11 @@ const DateWiseBarChart = () => {
 const ListData = () => {
 	const { selectedPerson, toggleSelectedPerson } = useSelectedPersonStore();
 	const [showAll, setShowAll] = useState(false);
+	const data = useFilteredData();
 	const selectedPersonRef = useRef<HTMLDivElement>(null);
 	const listContainerRef = useRef<HTMLDivElement>(null);
 
-	const displayData = showAll
-		? dataEffectedPeople
-		: dataEffectedPeople.slice(0, 3);
+	const displayData = showAll ? data : data.slice(0, 3);
 
 	useEffect(() => {
 		if (

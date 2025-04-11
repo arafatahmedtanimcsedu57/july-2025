@@ -1,29 +1,27 @@
 import { format } from 'date-fns';
 
-import { CASUALTY_ITEMS } from '@/constant/casualty-types';
 import data from '@/features/effected-people/data/data_effected_people.json';
+import { CASUALTY_ITEMS } from '@/constant/casualty-types';
 import type { EffectedPerson } from '@/types/data';
 
-export const getTotalEffectedPeople = () => {
-	return dataEffectedPeople.reduce((sum) => sum + 1, 0);
+export const getTotalEffectedPeople = (data = dataEffectedPeople) => {
+	return data.reduce((sum) => sum + 1, 0);
 };
 
-export const getTotalDeadPeople = () => {
+export const getTotalDeadPeople = (data = dataEffectedPeople) => {
 	return (
-		dataEffectedPeople.filter((person) => person.type === CASUALTY_ITEMS.DEATH)
-			.length || 0
+		data.filter((person) => person.type === CASUALTY_ITEMS.DEATH).length || 0
 	);
 };
 
-export const getTotalInjuredPeople = () => {
+export const getTotalInjuredPeople = (data = dataEffectedPeople) => {
 	return (
-		dataEffectedPeople.filter((person) => person.type === CASUALTY_ITEMS.INJURY)
-			.length || 0
+		data.filter((person) => person.type === CASUALTY_ITEMS.INJURY).length || 0
 	);
 };
 
-export const getGroupedByDateData = () => {
-	return dataEffectedPeople.reduce((acc, person) => {
+export const getGroupedByDateData = (data = dataEffectedPeople) => {
+	return data.reduce((acc, person) => {
 		if (!person.date) return acc;
 
 		const dateStr = format(new Date(person.date), 'yyyy-MM-dd');
