@@ -1,8 +1,11 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import ReactDOM from "react-dom/client";
 import { useMap, ZoomControl } from "react-leaflet";
-import type L from "leaflet";
+import L from "leaflet";
+
+import Stats from "@/features/home/components/stats";
 
 import { useSelectedCasualtyStore } from "@/features/home/store/selected-casualty-store";
 
@@ -15,7 +18,7 @@ interface MapControllerProps {
   defaultZoom?: number;
 }
 
-export function MapController({
+export function MapContainerController({
   markerRefs,
   flyToDuration = 2,
   flyToZoom = MAP_ZOOM.MAX,
@@ -99,3 +102,39 @@ export function MapController({
     </>
   );
 }
+
+export const MapStatsControl: React.FC = () => {
+  const map = useMap();
+
+  useEffect(() => {
+    const Custom = L.Control.extend({
+      onAdd: () => {
+        const div = L.DomUtil.create("div");
+        div.className = "custom-leaflet-control"; // Optional class for styling
+
+        L.DomEvent.disableClickPropagation(div);
+        L.DomEvent.disableScrollPropagation(div);
+
+        const root = ReactDOM.createRoot(div);
+        root.render(<Stats />);
+
+        return div;
+      },
+      onRemove: () => {
+        // Optionally handle cleanup
+      },
+      options: {
+        position: "topleft",
+      },
+    });
+
+    const control = new Custom();
+    map.addControl(control);
+
+    return () => {
+      map.removeControl(control);
+    };
+  }, [map]);
+
+  return null;
+};

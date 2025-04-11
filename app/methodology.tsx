@@ -1,17 +1,12 @@
 import React from "react";
 import { InfoIcon } from "lucide-react";
-
-import { Popover, PopoverTrigger, PopoverContent } from "@/shared/ui/popover";
 import { Button } from "@/shared/ui/button";
+import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
 
-export default function Header() {
+function Methodology() {
   return (
-    <div className="flex items-center justify-between">
-      <div className="flex flex-col p-10 ">
-        <h5 className="text-xl font-medium w-max">July Memorial </h5>
-        <p className="text-xs font-light w-max">Remembering July 2024</p>
-      </div>
-
+    <div>
+      {" "}
       <Popover modal={false} defaultOpen={true}>
         <PopoverTrigger asChild className="shadow-xl z-[100]">
           <Button
@@ -109,3 +104,5 @@ export default function Header() {
     </div>
   );
 }
+
+export default Methodology;

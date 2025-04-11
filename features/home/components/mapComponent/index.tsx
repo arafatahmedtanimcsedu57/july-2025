@@ -6,7 +6,7 @@ import type L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
 import { ThemeTileLayer } from "./theme-tile-layer";
-import { MapController } from "./map-controller";
+import { MapContainerController, MapStatsControl } from "./map-controller";
 import { CasualtyMarker } from "./casualty-marker";
 import { Legend } from "./legend";
 
@@ -19,7 +19,6 @@ import {
 } from "@/constant/map-container-config";
 
 import "./map.css";
-import { TabularData } from "../stats/overall";
 
 export default function MapComponent() {
   const markerRefsMap = useRef<Map<string, L.Marker>>(new Map());
@@ -40,11 +39,13 @@ export default function MapComponent() {
       >
         <ThemeTileLayer />
 
+        <MapStatsControl />
+
         {dataDistrictWiseInjuryDeath.map((casualty) => {
           return <CasualtyMarker key={casualty.district} casualty={casualty} />;
         })}
 
-        <MapController
+        <MapContainerController
           markerRefs={markerRefsMap.current}
           flyToDuration={2}
           flyToZoom={responsiveZoom.MAX}
