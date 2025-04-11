@@ -12,6 +12,7 @@ import {
 } from "@/constant/geo-json-style";
 
 import type { GeoJsonObject } from "geojson";
+import { TILE_LINK } from "@/constant/tile-link";
 
 const bangladeshGeoJson = bangladeshData as GeoJsonObject;
 const bangladeshDetailsGeoJson = bangladeshDetailsData as GeoJsonObject;
@@ -42,6 +43,8 @@ const TileLayer = () => {
         ...GEO_JSON_STYLE,
       }),
     }).addTo(map);
+
+    L.tileLayer(TILE_LINK).addTo(map);
 
     districtData.districts.forEach((district) => {
       const lat = Number.parseFloat(district.lat);
