@@ -101,17 +101,13 @@ export default function FilterContainer() {
     <Sheet>
       <SheetTrigger asChild>
         <Button
-          variant="secondary"
-          size="sm"
-          className="border border-primary text-xs flex items-center rounded-full p-0 h-7 w-7"
+          variant="default"
+          className="shadow-lg w-10 h-10 rounded-full p-0 aspect-square flex items-center justify-center"
         >
-          <FilterIcon className="text-primary" />
+          <FilterIcon className="text-white font-extrabold" />
         </Button>
       </SheetTrigger>
-      <SheetContent
-        side="left"
-        className="left-[50px] dark:text-white text-slate-700"
-      >
+      <SheetContent side="left" className=" dark:text-white text-slate-700">
         <SheetHeader className="dark:text-white text-slate-700">
           <SheetTitle className=" dark:!text-white !text-slate-700">
             Filter

@@ -1,7 +1,6 @@
 import React from "react";
 
 import { FilterControls } from "@/app/filter-control";
-import Header from "@/app/header";
 import {
   DonutCharts,
   TotalCasualties,
@@ -24,8 +23,6 @@ const VIEWS: Record<string, Record<string, string>> = {
 function Stats() {
   return (
     <div className="w-[330px] bg-foreground rounded-xl shadow-lg overflow-auto scrollbar-hide h-[100vh] dark:text-white text-slate-700">
-      <Header />
-
       <FilterControls />
 
       <TotalCasualties />

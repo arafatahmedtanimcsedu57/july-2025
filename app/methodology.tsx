@@ -10,11 +10,10 @@ function Methodology() {
       <Popover modal={false} defaultOpen={true}>
         <PopoverTrigger asChild className="shadow-xl z-[100]">
           <Button
-            variant="secondary"
-            size="sm"
-            className="border border-primary text-xs flex items-center rounded-full p-0 h-7 w-7"
+            variant="default"
+            className="shadow-lg w-10 h-10 rounded-full p-0 aspect-square flex items-center justify-center"
           >
-            <InfoIcon className="text-primary" />
+            <InfoIcon className="text-white" />
           </Button>
         </PopoverTrigger>
         <PopoverContent
