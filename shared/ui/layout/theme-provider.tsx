@@ -36,11 +36,11 @@ export function ThemeProvider({
 		const savedTheme = localStorage.getItem(storageKey) as Theme | null;
 
 		if (savedTheme) {
-			setTheme(savedTheme);
+			setTheme('light');
 		} else if (defaultTheme === 'system') {
 			const systemTheme = window.matchMedia('(prefers-color-scheme: dark)')
 				.matches
-				? 'dark'
+				? 'light'
 				: 'light';
 			setTheme(systemTheme);
 		}
@@ -48,12 +48,12 @@ export function ThemeProvider({
 
 	useEffect(() => {
 		const root = window.document.documentElement;
-		root.classList.remove('light', 'dark');
+		root.classList.remove('light', 'light');
 
 		if (theme === 'system') {
 			const systemTheme = window.matchMedia('(prefers-color-scheme: dark)')
 				.matches
-				? 'dark'
+				? 'light'
 				: 'light';
 			root.classList.add(systemTheme);
 		} else {
