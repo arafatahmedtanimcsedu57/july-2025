@@ -13,7 +13,7 @@ interface RootLayoutProps {
 
 export function RootLayout({ children }: RootLayoutProps) {
 	return (
-		<ThemeProvider defaultTheme="system" storageKey="map-theme">
+		<ThemeProvider defaultTheme="system" storageKey="july-map-theme">
 			<SidebarProvider defaultOpen={true}>
 				<div className="flex min-h-screen flex-col">
 					<AppHeader />
