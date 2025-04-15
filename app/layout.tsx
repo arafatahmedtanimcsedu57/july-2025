@@ -41,7 +41,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 						<NavMenu />
 					</div>
 				</header>
-				<ThemeProvider defaultTheme="system" storageKey="july-map-theme">
+				<ThemeProvider defaultTheme="light" storageKey="july-map-theme">
 					<main className="flex flex-1 flex-col bg-background h-[calc(100vh-80px)] overflow-hidden">
 						<div className="flex h-full">
 							<div className="ms-[12px] w-[60px] flex flex-col bg-transparent justify-between items-center z-[100] absolute bottom-0">
