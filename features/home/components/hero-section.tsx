@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Button } from "@/shared/ui/button";
 
 import HeroBg from "@/public/header-banner.png";
@@ -34,9 +35,11 @@ function HeroSection() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {heroData.actions.map((label, idx) => (
-              <Button key={idx} variant="outline" className="text-slate-700">
-                {label}
-              </Button>
+              <Link href="/content-collection" key={idx}>
+                <Button variant="outline" className="text-slate-700 w-full">
+                  {label}
+                </Button>
+              </Link>
             ))}
           </div>
         </div>
