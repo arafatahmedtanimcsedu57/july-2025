@@ -4,7 +4,7 @@ import HeroSection from "./components/hero-section";
 import ImportantSection from "./components/important-section";
 import MediaCoverage from "./components/press-section";
 import ProjectNumberSection from "./components/project-number-section";
-import SlideInSection from "./components/slide-in-section";
+import SlideInSection from "../../shared/ui/slide-in-section";
 
 function LandingContainer() {
   return (

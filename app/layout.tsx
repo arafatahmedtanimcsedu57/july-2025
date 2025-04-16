@@ -4,7 +4,6 @@ import Image from "next/image";
 import { IBM_Plex_Sans } from "next/font/google";
 
 import Methodology from "@/app/methodology";
-import FilterContainer from "@/app/filter-container";
 import { ThemeProvider } from "@/shared/ui/layout/theme-provider";
 
 import "@/app/globals.css";
