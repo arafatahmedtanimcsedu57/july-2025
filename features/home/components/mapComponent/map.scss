@@ -58,11 +58,8 @@
 }
 
 .custom-leaflet-control {
-  pointer-events: auto; /* Ensure it can receive events */
-  max-height: 100vh;
-  overflow: auto;
-  z-index: 1000;
-
   box-shadow: 0 0 10px rgba(210, 207, 248, 1);
-  border-radius: 32px 32px 0 0;
+  position: relative;
+
+  border-radius: 32px;
 }

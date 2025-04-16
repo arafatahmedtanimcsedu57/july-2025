@@ -102,7 +102,7 @@ export default function FilterContainer() {
       <SheetTrigger asChild>
         <Button
           variant="default"
-          className="shadow-lg w-10 h-10 rounded-full p-0 aspect-square flex items-center justify-center"
+          className="shadow-lg w-10 h-10 rounded-e-full py-0 px-10 aspect-square flex items-center justify-center"
         >
           <FilterIcon className="text-white font-extrabold" />
         </Button>

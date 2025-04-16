@@ -8,6 +8,7 @@ import {
   ListData,
 } from "@/features/effected-people/components/stats/overall";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/tabs";
+import FilterContainer from "@/app/filter-container";
 
 const VIEWS: Record<string, Record<string, string>> = {
   OVERVIEW: {
@@ -22,7 +23,7 @@ const VIEWS: Record<string, Record<string, string>> = {
 
 function Stats() {
   return (
-    <div className="w-[330px] bg-foreground rounded-xl shadow-lg overflow-auto scrollbar-hide h-[100vh] dark:text-white text-slate-700">
+    <div className="min-w-[430px] bg-foreground rounded-3xl border shadow-lg overflow-auto h-[100vh] scrollbar-hide dark:text-white text-slate-700">
       <FilterControls />
 
       <TotalCasualties />
@@ -59,6 +60,10 @@ function Stats() {
           </div>
         </TabsContent>
       </Tabs>
+
+      <div className="absolute right-0 top-6 translate-x-[100%]">
+        <FilterContainer />
+      </div>
     </div>
   );
 }
