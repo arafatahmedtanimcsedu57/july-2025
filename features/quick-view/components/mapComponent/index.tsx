@@ -10,8 +10,8 @@ import { MapContainerController, MapStatsControl } from "./map-controller";
 import { CasualtyMarker } from "./casualty-marker";
 import { Legend } from "./legend";
 
-import { useResponsiveZoom } from "@/features/home/hooks/use-responsive-zoom";
-import { dataDistrictWiseInjuryDeath } from "@/features/home/lib/data-managers";
+import { useResponsiveZoom } from "@/features/quick-view/hooks/use-responsive-zoom";
+import { dataDistrictWiseInjuryDeath } from "@/features/quick-view/lib/data-managers";
 
 import {
   BANGLADESH_CENTER,

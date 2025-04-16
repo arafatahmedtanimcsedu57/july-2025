@@ -4,7 +4,7 @@ import { memo } from "react";
 import { CircleMarker, Tooltip } from "react-leaflet";
 
 import { DonutChart } from "@/shared/ui/donut-chart";
-import { useSelectedCasualtyStore } from "@/features/home/store/selected-casualty-store";
+import { useSelectedCasualtyStore } from "@/features/quick-view/store/selected-casualty-store";
 
 import type { Casualty } from "@/types/data";
 

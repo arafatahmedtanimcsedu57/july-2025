@@ -15,7 +15,7 @@ import Link from "next/link";
 const navigationItems = [
   {
     title: "Quick Look",
-    href: "/",
+    href: "/quick-view",
     description: "District wise Deaths & Injuries.",
   },
   {
@@ -69,7 +69,7 @@ export function NavMenu() {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <Link href="/home" legacyBehavior passHref>
+          <Link href="/" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Home
             </NavigationMenuLink>

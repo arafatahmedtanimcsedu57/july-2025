@@ -30,13 +30,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <body
         className={`min-h-screen bg-background  antialiased ${ibmPlexSans.className}`}
       >
-        <header className="sticky shadow-md bg-foreground top-0 z-40 w-full p-4 flex justify-between items-center">
+        <header className="sticky shadow-md bg-foreground top-0 z-40 w-full p-4 flex flex-wrap justify-between items-center">
           <div className="flex gap-2 dark:text-white text-slate-700">
             <Image src={Logo} alt="brand" width={48} height={48} />
             <Header />
           </div>
 
-          <div className="flex gap-2 dark:text-white text-slate-700">
+          <div className=" gap-2 dark:text-white text-slate-700 hidden lg:flex">
             <NavMenu />
           </div>
         </header>

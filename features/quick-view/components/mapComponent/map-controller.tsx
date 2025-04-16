@@ -5,9 +5,9 @@ import ReactDOM from "react-dom/client";
 import { useMap, ZoomControl } from "react-leaflet";
 import L from "leaflet";
 
-import Stats from "@/features/home/components/stats";
+import Stats from "@/features/quick-view/components/stats";
 
-import { useSelectedCasualtyStore } from "@/features/home/store/selected-casualty-store";
+import { useSelectedCasualtyStore } from "@/features/quick-view/store/selected-casualty-store";
 
 import { BANGLADESH_CENTER, MAP_ZOOM } from "@/constant/map-container-config";
 

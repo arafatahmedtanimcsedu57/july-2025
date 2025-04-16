@@ -14,14 +14,14 @@ import {
 } from "@/shared/ui/table";
 import { Button } from "@/shared/ui/button";
 
-import { getTopNCasesByTotalCases } from "@/features/home/lib/data-managers";
+import { getTopNCasesByTotalCases } from "@/features/quick-view/lib/data-managers";
 import {
   getTotalCases,
   getTotalDeaths,
   getTotalInjuries,
   dataDistrictWiseInjuryDeath,
-} from "@/features/home/lib/data-managers";
-import { useSelectedCasualtyStore } from "@/features/home/store/selected-casualty-store";
+} from "@/features/quick-view/lib/data-managers";
+import { useSelectedCasualtyStore } from "@/features/quick-view/store/selected-casualty-store";
 
 const total = getTotalCases();
 const deathCount = getTotalDeaths();

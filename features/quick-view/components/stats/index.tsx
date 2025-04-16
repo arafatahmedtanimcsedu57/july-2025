@@ -4,7 +4,7 @@ import {
   DonutCharts,
   TabularData,
   TotalCasualties,
-} from "@/features/home/components/stats/overall";
+} from "@/features/quick-view/components/stats/overall";
 import FilterContainer from "@/app/filter-container";
 
 function Stats() {

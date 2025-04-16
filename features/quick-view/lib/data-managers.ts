@@ -1,4 +1,4 @@
-import data from "@/features/home/data/data_district_wise_injury_death.json";
+import data from "@/features/quick-view/data/data_district_wise_injury_death.json";
 import type { Casualty } from "@/types/data";
 
 export const dataDistrictWiseInjuryDeath: Casualty[] =
