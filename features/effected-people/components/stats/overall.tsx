@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
-import { Calendar, ChevronDown, ChevronUp, MapPin } from "lucide-react";
+import { Calendar, MapPin } from "lucide-react";
 import Image from "next/image";
 import { formatDate } from "date-fns";
 
@@ -20,7 +20,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/shared/ui/card";
-import { Button } from "@/shared/ui/button";
 import { Separator } from "@/shared/ui/separator";
 
 import {
@@ -173,12 +172,11 @@ const DateWiseBarChart = () => {
 
 const ListData = () => {
   const { selectedPerson, toggleSelectedPerson } = useSelectedPersonStore();
-  const [showAll, setShowAll] = useState(false);
   const data = useFilteredData();
   const selectedPersonRef = useRef<HTMLDivElement>(null);
   const listContainerRef = useRef<HTMLDivElement>(null);
 
-  const displayData = showAll ? data : data.slice(0, 3);
+  const displayData = data;
 
   useEffect(() => {
     if (
@@ -219,7 +217,7 @@ const ListData = () => {
     <div className="space-y-2">
       <div
         ref={listContainerRef}
-        className="max-h-[300px] overflow-auto scrollbar-hide space-y-2"
+        className="h-[100vh] overflow-auto scrollbar-hide space-y-2"
       >
         {displayData.map((person) => {
           const {
@@ -305,24 +303,6 @@ const ListData = () => {
             </Card>
           );
         })}
-      </div>
-      <div className="flex justify-center">
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => setShowAll(!showAll)}
-          className="text-xs flex items-center gap-1"
-        >
-          {showAll ? (
-            <>
-              Show Less <ChevronUp className="h-3 w-3" />
-            </>
-          ) : (
-            <>
-              Show All <ChevronDown className="h-3 w-3" />
-            </>
-          )}
-        </Button>
       </div>
     </div>
   );
