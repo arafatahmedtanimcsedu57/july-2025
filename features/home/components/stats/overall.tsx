@@ -162,41 +162,44 @@ const TabularData = () => {
           </TableHeader>
 
           <TableBody>
-            {displayData.map((item) => {
-              const selectedRow = selectedCasualty?.district === item.district;
+            {displayData
+              .sort((a, b) => (b.total_cases || 0) - (a.total_cases || 0))
+              .map((item) => {
+                const selectedRow =
+                  selectedCasualty?.district === item.district;
 
-              return (
-                <TableRow
-                  ref={selectedRow ? selectedRowRef : null}
-                  className={`cursor-pointer ${
-                    selectedRow ? "bg-accent rounded-full" : "bg-transparent"
-                  }`}
-                  key={item.district}
-                  onClick={() => toggleSelectedCasualty(item)}
-                >
-                  <TableCell
-                    className={`py-2 font-light ${
-                      selectedRow ? "rounded-s-full" : ""
+                return (
+                  <TableRow
+                    ref={selectedRow ? selectedRowRef : null}
+                    className={`cursor-pointer ${
+                      selectedRow ? "bg-accent rounded-full" : "bg-transparent"
                     }`}
+                    key={item.district}
+                    onClick={() => toggleSelectedCasualty(item)}
                   >
-                    {item.district}
-                  </TableCell>
-                  <TableCell className="py-0 font-light">
-                    {item.total_cases}
-                  </TableCell>
-                  <TableCell className="py-0 font-light">
-                    {item.verified_deaths}
-                  </TableCell>
-                  <TableCell
-                    className={`py-0 text-right font-light ${
-                      selectedRow ? "rounded-e-full" : ""
-                    }`}
-                  >
-                    {item.verified_injuries}
-                  </TableCell>
-                </TableRow>
-              );
-            })}
+                    <TableCell
+                      className={`py-2 font-light ${
+                        selectedRow ? "rounded-s-full" : ""
+                      }`}
+                    >
+                      {item.district}
+                    </TableCell>
+                    <TableCell className="py-0 font-light">
+                      {item.total_cases}
+                    </TableCell>
+                    <TableCell className="py-0 font-light">
+                      {item.verified_deaths}
+                    </TableCell>
+                    <TableCell
+                      className={`py-0 text-right font-light ${
+                        selectedRow ? "rounded-e-full" : ""
+                      }`}
+                    >
+                      {item.verified_injuries}
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
           </TableBody>
         </Table>
       </div>
