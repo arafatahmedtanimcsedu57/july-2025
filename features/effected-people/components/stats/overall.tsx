@@ -217,7 +217,7 @@ const ListData = () => {
     <div className="space-y-2">
       <div
         ref={listContainerRef}
-        className="h-[100vh] overflow-auto scrollbar-hide space-y-2"
+        className="h-[100vh] overflow-auto scrollbar-hide space-y-2 pb-16"
       >
         {displayData.map((person) => {
           const {
