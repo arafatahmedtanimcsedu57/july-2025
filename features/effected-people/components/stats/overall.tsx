@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
-import { Calendar, MapPin } from "lucide-react";
+import { Calendar, LinkIcon, MapPin } from "lucide-react";
 import Image from "next/image";
 import { formatDate } from "date-fns";
 
@@ -36,6 +36,7 @@ import { CASUALTY_ITEMS_COLOR_ELEMENTS } from "@/constant/casualty-types";
 
 import MaleIcon from "@/public/male.png";
 import FemaleIcon from "@/public/female.png";
+import Link from "next/link";
 
 const dateWiseBarChartConfig = () => {
   return {
@@ -229,6 +230,9 @@ const ListData = () => {
           location,
           district,
           date,
+          mediaLinks,
+          summary,
+          graphicLevel,
         } = person;
 
         const GenderIcon =
@@ -248,8 +252,8 @@ const ListData = () => {
           <Card
             ref={selectedItem ? selectedPersonRef : null}
             key={id}
-            className={`cursor-pointer rounded-2xl ${
-              selectedItem ? "bg-accent shadow-xl" : "bg-transparent "
+            className={`cursor-pointer rounded-2xl text-slate-700 dark:text-white ${
+              selectedItem ? "bg-white  border-primary" : "bg-background "
             }`}
             onClick={() => toggleSelectedPerson(person)}
           >
@@ -278,26 +282,67 @@ const ListData = () => {
                   {type ? CASUALTY_ITEMS_COLOR_ELEMENTS[type]!() : <></>}
                 </div>
               </CardTitle>
-              <Separator />
-              <CardDescription
-                className={`${selectedItem ? "text-white" : ""}`}
-              >
-                <div className="flex gap-2 items-center">
-                  <div>
-                    <MapPin width={16} />
-                  </div>
-                  <span className="text-xs">
-                    {location || "..."}, {district || "..."}
-                  </span>
-                </div>
+              {selectedItem ? (
+                <>
+                  <Separator />
+                  <CardDescription
+                    className={`${
+                      selectedItem
+                        ? "text-slate-700 dark:text-white flex flex-col gap-1"
+                        : ""
+                    }`}
+                  >
+                    <div className="flex gap-2 items-center">
+                      <div>
+                        <MapPin width={16} />
+                      </div>
+                      <span className="text-xs">
+                        {location || "..."}, {district || "..."}
+                      </span>
+                    </div>
 
-                <div className="flex gap-2 items-center">
-                  <div>
-                    <Calendar width={16} />
-                  </div>
-                  <span className="text-xs">{_dateString || "..."}</span>
-                </div>
-              </CardDescription>
+                    <div className="flex gap-2 items-center">
+                      <div>
+                        <Calendar width={16} />
+                      </div>
+                      <span className="text-xs">{_dateString || "..."}</span>
+                    </div>
+
+                    <div className="flex gap-2 bg-slate-200 rounded-lg p-4">
+                      <span>Graphical Level:</span>{" "}
+                      <span>{graphicLevel || "..."}</span>
+                    </div>
+
+                    <div className="flex flex-col gap-1">
+                      {mediaLinks.map((link) => (
+                        <Link
+                          href={link}
+                          key={link}
+                          target="_black"
+                          className="inline-flex gap-2 text-xs text-blue-500 hover:underline items-center"
+                        >
+                          <div>
+                            <LinkIcon width={16} />
+                          </div>
+                          <span className="truncate overflow-hidden whitespace-nowrap block max-w-full">
+                            {link}
+                          </span>
+                        </Link>
+                      ))}
+                    </div>
+
+                    {summary ? (
+                      <div className="bg-slate-200 rounded-lg p-4">
+                        {summary}
+                      </div>
+                    ) : (
+                      <></>
+                    )}
+                  </CardDescription>
+                </>
+              ) : (
+                <></>
+              )}
             </CardHeader>
           </Card>
         );
