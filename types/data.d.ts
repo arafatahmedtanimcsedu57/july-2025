@@ -22,6 +22,9 @@ export interface EffectedPerson {
   lat: number | null;
   lng: number | null;
   gender: string | null;
+  graphicLevel: string | null;
+  summary: string | null;
+  mediaLinks: string[] | [];
 }
 
 export interface Casualty {
