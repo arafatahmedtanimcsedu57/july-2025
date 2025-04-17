@@ -44,9 +44,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <div className="flex h-full">
               <div className="ms-[12px] w-[60px] flex flex-col bg-transparent justify-between items-center z-[100] absolute bottom-0">
                 <div></div>
-                <div className="flex flex-col gap-4 items-center justify-center py-10">
-                  <Methodology />
-                </div>
               </div>
               {children}
             </div>

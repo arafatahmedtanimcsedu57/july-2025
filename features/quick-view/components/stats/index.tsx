@@ -1,11 +1,12 @@
 import React from "react";
 
+import FilterContainer from "@/app/filter-container";
+import Methodology from "@/app/methodology";
 import {
   DonutCharts,
   TabularData,
   TotalCasualties,
 } from "@/features/quick-view/components/stats/overall";
-import FilterContainer from "@/app/filter-container";
 
 function Stats() {
   return (
@@ -24,6 +25,10 @@ function Stats() {
 
       <div className="absolute right-0 top-6 translate-x-[100%]">
         <FilterContainer />
+      </div>
+
+      <div className="absolute right-0 top-20 translate-x-[100%]">
+        <Methodology />
       </div>
     </div>
   );

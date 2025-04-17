@@ -1,6 +1,7 @@
 import React from "react";
 
 import { FilterControls } from "@/app/filter-control";
+import Methodology from "@/app/methodology";
 import {
   DonutCharts,
   TotalCasualties,
@@ -63,6 +64,10 @@ function Stats() {
 
       <div className="absolute right-0 top-6 translate-x-[100%]">
         <FilterContainer />
+      </div>
+
+      <div className="absolute right-0 top-20 translate-x-[100%]">
+        <Methodology />
       </div>
     </div>
   );
