@@ -1,5 +1,4 @@
 import React from "react";
-
 import FilterContainer from "@/app/filter-container";
 import Methodology from "@/app/methodology";
 import {
@@ -8,21 +7,26 @@ import {
   TotalCasualties,
 } from "@/features/quick-view/components/stats/overall";
 
-function Stats() {
+export default function Stats() {
   return (
-    <div className="min-w-[430px] bg-foreground rounded-3xl border shadow-lg overflow-auto h-[100vh] scrollbar-hide dark:text-white text-slate-700">
+    <div className="h-full flex flex-col min-w-[430px] bg-foreground rounded-3xl border shadow-lg dark:text-white text-slate-700 relative">
+      {/* Top section: Total Casualties */}
       <TotalCasualties />
 
-      <div className="p-10 flex-1 flex flex-col">
-        <div className="w-max flex flex-wrap gap-10 mb-10">
+      {/* Middle section: donut charts + scrollable table */}
+      <div className="flex-1 min-h-0 flex flex-col p-10">
+        {/* Donut Charts */}
+        <div className="flex flex-wrap gap-10 mb-10">
           <DonutCharts />
         </div>
 
-        <div className="w-max flex flex-wrap gap-10 mb-10">
+        {/* Scrollable Table */}
+        <div className="flex-1 min-h-0 overflow-auto">
           <TabularData />
         </div>
       </div>
 
+      {/* Right-side panels */}
       <div className="absolute right-0 top-6 translate-x-[100%]">
         <FilterContainer />
       </div>
@@ -33,5 +37,3 @@ function Stats() {
     </div>
   );
 }
-
-export default Stats;

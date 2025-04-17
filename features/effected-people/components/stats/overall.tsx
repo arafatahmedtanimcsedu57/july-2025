@@ -214,96 +214,94 @@ const ListData = () => {
   }, [selectedPerson]);
 
   return (
-    <div className="space-y-2">
-      <div
-        ref={listContainerRef}
-        className="h-[100vh] overflow-auto scrollbar-hide space-y-2 pb-16"
-      >
-        {displayData.map((person) => {
-          const {
-            id,
-            name,
-            age,
-            occupation,
-            gender,
-            type,
-            location,
-            district,
-            date,
-          } = person;
+    <div
+      ref={listContainerRef}
+      className="overflow-auto h-full scrollbar-hide flex flex-col gap-4"
+    >
+      {displayData.map((person) => {
+        const {
+          id,
+          name,
+          age,
+          occupation,
+          gender,
+          type,
+          location,
+          district,
+          date,
+        } = person;
 
-          const GenderIcon =
-            gender === GENDERS.MALE
-              ? MaleIcon
-              : gender === GENDERS.FEMALE
-              ? FemaleIcon
-              : "";
-          const _date = date ? new Date(date) : "";
-          const _dateString = _date
-            ? formatDate(_date.toLocaleString(), "dd MMM")
+        const GenderIcon =
+          gender === GENDERS.MALE
+            ? MaleIcon
+            : gender === GENDERS.FEMALE
+            ? FemaleIcon
             : "";
+        const _date = date ? new Date(date) : "";
+        const _dateString = _date
+          ? formatDate(_date.toLocaleString(), "dd MMM")
+          : "";
 
-          const selectedItem = selectedPerson?.id === person.id;
+        const selectedItem = selectedPerson?.id === person.id;
 
-          return (
-            <Card
-              ref={selectedItem ? selectedPersonRef : null}
-              key={id}
-              className={`cursor-pointer rounded-2xl ${
-                selectedItem ? "bg-accent shadow-xl" : "bg-transparent "
-              }`}
-              onClick={() => toggleSelectedPerson(person)}
-            >
-              <CardHeader className="space-y-4">
-                <CardTitle className="flex flex-col gap-2">
-                  <div className="flex justify-between items-center">
-                    <div className="flex gap-2 items-center">
-                      {GenderIcon ? (
-                        <Image
-                          src={GenderIcon || "/placeholder.svg"}
-                          alt="gender"
-                          width={32}
-                          height={32}
-                        />
-                      ) : (
-                        <></>
-                      )}
-                      <div className="flex flex-col">
-                        <span className="text-xs">{name || "Unknown"}</span>
-                        <span className="text-xs font-normal">
-                          {age || "..."} years, {occupation || "..."}
-                        </span>
-                      </div>
-                    </div>
-
-                    {type ? CASUALTY_ITEMS_COLOR_ELEMENTS[type]!() : <></>}
-                  </div>
-                </CardTitle>
-                <Separator />
-                <CardDescription
-                  className={`${selectedItem ? "text-white" : ""}`}
-                >
+        return (
+          <Card
+            ref={selectedItem ? selectedPersonRef : null}
+            key={id}
+            className={`cursor-pointer rounded-2xl ${
+              selectedItem ? "bg-accent shadow-xl" : "bg-transparent "
+            }`}
+            onClick={() => toggleSelectedPerson(person)}
+          >
+            <CardHeader className="space-y-4">
+              <CardTitle className="flex flex-col gap-2">
+                <div className="flex justify-between items-center">
                   <div className="flex gap-2 items-center">
-                    <div>
-                      <MapPin width={16} />
+                    {GenderIcon ? (
+                      <Image
+                        src={GenderIcon || "/placeholder.svg"}
+                        alt="gender"
+                        width={32}
+                        height={32}
+                      />
+                    ) : (
+                      <></>
+                    )}
+                    <div className="flex flex-col">
+                      <span className="text-xs">{name || "Unknown"}</span>
+                      <span className="text-xs font-normal">
+                        {age || "..."} years, {occupation || "..."}
+                      </span>
                     </div>
-                    <span className="text-xs">
-                      {location || "..."}, {district || "..."}
-                    </span>
                   </div>
 
-                  <div className="flex gap-2 items-center">
-                    <div>
-                      <Calendar width={16} />
-                    </div>
-                    <span className="text-xs">{_dateString || "..."}</span>
+                  {type ? CASUALTY_ITEMS_COLOR_ELEMENTS[type]!() : <></>}
+                </div>
+              </CardTitle>
+              <Separator />
+              <CardDescription
+                className={`${selectedItem ? "text-white" : ""}`}
+              >
+                <div className="flex gap-2 items-center">
+                  <div>
+                    <MapPin width={16} />
                   </div>
-                </CardDescription>
-              </CardHeader>
-            </Card>
-          );
-        })}
-      </div>
+                  <span className="text-xs">
+                    {location || "..."}, {district || "..."}
+                  </span>
+                </div>
+
+                <div className="flex gap-2 items-center">
+                  <div>
+                    <Calendar width={16} />
+                  </div>
+                  <span className="text-xs">{_dateString || "..."}</span>
+                </div>
+              </CardDescription>
+            </CardHeader>
+          </Card>
+        );
+      })}
     </div>
   );
 };
