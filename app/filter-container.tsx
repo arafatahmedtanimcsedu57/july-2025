@@ -102,8 +102,29 @@ export default function FilterContainer() {
       <SheetTrigger asChild>
         <Button
           variant="default"
-          className="shadow-lg w-10 h-10 rounded-e-full py-0 px-10 aspect-square flex items-center justify-center"
+          className={`
+            shadow-lg 
+            rounded-e-full
+            
+            w-[48px]
+            aspect-square
+            inline-flex
+            items-center
+            justify-center
+            gap-4
+            text-lg
+            font-semibold
+            
+            group
+            hover:w-[140px]
+            transition-all
+            duration-100
+            ease-in-out
+            hover:bg-blue-600`}
         >
+          <span className="hidden group-hover:inline-block opacity-0 group-hover:opacity-100 transition-opacity">
+            Filter
+          </span>{" "}
           <FilterIcon className="text-white font-extrabold" />
         </Button>
       </SheetTrigger>
