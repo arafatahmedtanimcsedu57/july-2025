@@ -28,9 +28,13 @@ const CasualtyMarker = memo(({ casualty }: CasualtyMarkerProps) => {
 
   const markerPosition = [lat, lng] as [number, number];
   const isSelected = selectedCasualty && selectedCasualty.district === district;
-  const deathCircleRadius = (verified_deaths || 0) / 5;
-  const casualtyCircleRadius =
-    ((verified_deaths || 0) + (verified_injuries || 0)) / 25;
+
+  const baseRadius = 10;
+  const maxDeath = 84;
+  const maxInjury = 1561;
+
+  const deathCircleRadius = Math.sqrt((verified_deaths || 0) / maxDeath) * (baseRadius);
+  const casualtyCircleRadius = Math.sqrt((verified_injuries || 0) / maxInjury) * (baseRadius * 4);
 
   const handleMarkerClick = () => toggleSelectedCasualty(casualty);
 

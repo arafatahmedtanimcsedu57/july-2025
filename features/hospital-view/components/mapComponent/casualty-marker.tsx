@@ -1,12 +1,13 @@
 "use client";
 
-import { memo } from "react";
-import { CircleMarker, Tooltip } from "react-leaflet";
+import { memo, useEffect, useState } from "react";
+import { CircleMarker, Tooltip, useMap } from "react-leaflet";
 
 import { DonutChart } from "@/shared/ui/donut-chart";
 import { useSelectedCasualtyStore } from "@/features/hospital-view/store/selected-casualty-store";
 
 import type { HospitalCasualty } from "@/types/data";
+import { MAP_ZOOM } from "@/constant/map-container-config";
 
 interface CasualtyMarkerProps {
   casualty: HospitalCasualty;
@@ -29,8 +30,29 @@ const CasualtyMarker = memo(({ casualty }: CasualtyMarkerProps) => {
 
   const markerPosition = [lat, lng] as [number, number];
   const isSelected = selectedCasualty && selectedCasualty.facility === facility;
-  const deathCircleRadius = verified_deaths || 0 / 10;
-  const casualtyCircleRadius = (verified_injuries || 0) / 10;
+
+  const map = useMap();
+  const [zoom, setZoom] = useState(map.getZoom());
+
+  useEffect(() => {
+    const handleZoom = () => {
+      setZoom(map.getZoom());
+    };
+
+    map.on("zoomend", handleZoom);
+    return () => {
+      map.off("zoomend", handleZoom);
+    };
+  }, [map]);
+
+  const baseRadius = zoom * 2;
+  const maxDeath = 126;
+  const maxInjury = 733;
+  const deathCircleRadius =
+    Math.sqrt((verified_deaths || 0) / maxDeath) * baseRadius * 3;
+  const casualtyCircleRadius =
+    Math.sqrt((verified_injuries || 0) / maxInjury) * baseRadius * 2;
+  console.log(baseRadius);
 
   const handleMarkerClick = () => toggleSelectedCasualty(casualty);
 
