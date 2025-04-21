@@ -19,6 +19,11 @@ const navigationItems = [
     description: "District wise Deaths & Injuries.",
   },
   {
+    title: "Hospital View",
+    href: "/hospital-view",
+    description: "Hospital wise each Effected Person",
+  },
+  {
     title: "Individual",
     href: "/effected-people",
     description: "Area wise each Effected Person",

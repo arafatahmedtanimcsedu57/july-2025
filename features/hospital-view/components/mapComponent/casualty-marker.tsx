@@ -4,22 +4,23 @@ import { memo } from "react";
 import { CircleMarker, Tooltip } from "react-leaflet";
 
 import { DonutChart } from "@/shared/ui/donut-chart";
-import { useSelectedCasualtyStore } from "@/features/quick-view/store/selected-casualty-store";
+import { useSelectedCasualtyStore } from "@/features/hospital-view/store/selected-casualty-store";
 
-import type { Casualty } from "@/types/data";
+import type { HospitalCasualty } from "@/types/data";
 
 interface CasualtyMarkerProps {
-  casualty: Casualty;
+  casualty: HospitalCasualty;
 }
 
 const CasualtyMarker = memo(({ casualty }: CasualtyMarkerProps) => {
   const {
     lat,
     lng,
-    district,
+    facility,
     verified_deaths,
     verified_injuries,
-    total_cases,
+
+    total_verified_cases,
   } = casualty;
   if (lat === null || lng === null) return null;
 
@@ -27,17 +28,16 @@ const CasualtyMarker = memo(({ casualty }: CasualtyMarkerProps) => {
     useSelectedCasualtyStore();
 
   const markerPosition = [lat, lng] as [number, number];
-  const isSelected = selectedCasualty && selectedCasualty.district === district;
-  const deathCircleRadius = (verified_deaths || 0) / 5;
-  const casualtyCircleRadius =
-    ((verified_deaths || 0) + (verified_injuries || 0)) / 25;
+  const isSelected = selectedCasualty && selectedCasualty.facility === facility;
+  const deathCircleRadius = verified_deaths || 0 / 10;
+  const casualtyCircleRadius = (verified_injuries || 0) / 10;
 
   const handleMarkerClick = () => toggleSelectedCasualty(casualty);
 
   const deathPercentage =
-    ((verified_deaths / total_cases) * 100).toFixed(1) + "%";
+    ((verified_deaths / total_verified_cases) * 100).toFixed(1) + "%";
   const injuriesPercentage =
-    ((verified_injuries / total_cases) * 100).toFixed(1) + "%";
+    ((verified_injuries / total_verified_cases) * 100).toFixed(1) + "%";
 
   const donutChartsConfig = () => {
     return [
@@ -47,7 +47,7 @@ const CasualtyMarker = memo(({ casualty }: CasualtyMarkerProps) => {
             { label: "Deaths", value: verified_deaths, color: "#9c0612" },
             {
               label: "Total Casualties",
-              value: total_cases,
+              value: total_verified_cases,
               color: "#e2e0df",
             },
           ],
@@ -68,7 +68,7 @@ const CasualtyMarker = memo(({ casualty }: CasualtyMarkerProps) => {
             { label: "Injuries", value: verified_injuries, color: "#ee7f01" },
             {
               label: "Total Casualties",
-              value: total_cases,
+              value: total_verified_cases,
               color: "#e2e0df",
             },
           ],
@@ -120,7 +120,7 @@ const CasualtyMarker = memo(({ casualty }: CasualtyMarkerProps) => {
 
   const deathCircleMarker = (
     <CircleMarker
-      key={district}
+      key={facility}
       center={markerPosition}
       radius={deathCircleRadius}
       pathOptions={{
@@ -137,12 +137,12 @@ const CasualtyMarker = memo(({ casualty }: CasualtyMarkerProps) => {
         <Tooltip permanent={true} direction="top">
           <div className="p-2 flex flex-col gap-4">
             <div>
-              <h3 className="font-bold text-lg mb-1">{district}</h3>
+              <h3 className="font-bold text-lg mb-1">{facility}</h3>
             </div>
             <div>
               <h5 className="text-xs w-max">Total Casualties</h5>
               <p className="text-4xl font-semibold w-max">
-                {total_cases.toLocaleString()}
+                {total_verified_cases.toLocaleString()}
               </p>
             </div>
 
@@ -176,7 +176,7 @@ const CasualtyMarker = memo(({ casualty }: CasualtyMarkerProps) => {
 
   const injuryCircleMarker = (
     <CircleMarker
-      key={`${district}-outer`}
+      key={`${facility}-outer`}
       center={markerPosition}
       radius={casualtyCircleRadius}
       pathOptions={{

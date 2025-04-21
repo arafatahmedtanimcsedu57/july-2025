@@ -5,7 +5,7 @@ import {
   DonutCharts,
   TabularData,
   TotalCasualties,
-} from "@/features/quick-view/components/stats/overall";
+} from "@/features/hospital-view/components/stats/overall";
 import { Button } from "@/shared/ui/button";
 import { ChevronUp } from "lucide-react";
 
