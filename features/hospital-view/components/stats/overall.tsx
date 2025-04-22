@@ -14,14 +14,14 @@ import {
 } from "@/shared/ui/table";
 import { Button } from "@/shared/ui/button";
 
-import { getTopNCasesByTotalCases } from "@/features/quick-view/lib/data-managers";
+import { getTopNCasesByTotalCases } from "@/features/hospital-view/lib/data-managers";
 import {
   getTotalCases,
   getTotalDeaths,
   getTotalInjuries,
-  dataDistrictWiseInjuryDeath,
-} from "@/features/quick-view/lib/data-managers";
-import { useSelectedCasualtyStore } from "@/features/quick-view/store/selected-casualty-store";
+  dataHospitalWiseInjuryDeath,
+} from "@/features/hospital-view/lib/data-managers";
+import { useSelectedCasualtyStore } from "@/features/hospital-view/store/selected-casualty-store";
 
 const total = getTotalCases();
 const deathCount = getTotalDeaths();
@@ -129,7 +129,7 @@ const TabularData = () => {
     }
   }, [selectedCasualty]);
 
-  const displayData = dataDistrictWiseInjuryDeath;
+  const displayData = dataHospitalWiseInjuryDeath;
 
   return (
     <div ref={containerRef} className="overflow-auto h-full scrollbar-hide">
@@ -145,18 +145,25 @@ const TabularData = () => {
 
         <TableBody>
           {displayData
-            .sort((a, b) => (b.total_cases || 0) - (a.total_cases || 0))
+            .sort(
+              (a, b) =>
+                (b.total_verified_cases || 0) - (a.total_verified_cases || 0)
+            )
             .map((item) => {
-              const selected = selectedCasualty?.district === item.district;
+              const selected = selectedCasualty?.facility === item.facility;
               return (
                 <TableRow
-                  key={item.district}
+                  key={item.facility}
                   ref={selected ? selectedRowRef : null}
                   className={`cursor-pointer ${selected ? "bg-accent" : ""}`}
                   onClick={() => toggleSelectedCasualty(item)}
                 >
-                  <TableCell>{item.district}</TableCell>
-                  <TableCell>{item.total_cases}</TableCell>
+                  <TableCell className="max-w-[120px] text-xs whitespace-nowrap overflow-clip text-ellipsis">
+                    <span data-tooltip-target={item.facility}>
+                      {item.facility}
+                    </span>
+                  </TableCell>
+                  <TableCell>{item.total_verified_cases}</TableCell>
                   <TableCell>{item.verified_deaths}</TableCell>
                   <TableCell className="text-right">
                     {item.verified_injuries}
@@ -172,7 +179,7 @@ const TabularData = () => {
 
 const TopNCasesByTotalCases = () => {
   const maxCases = Math.max(
-    ...topNCasesByTotalCases.map((item) => item.total_cases || 0)
+    ...topNCasesByTotalCases.map((item) => item.total_verified_cases || 0)
   );
 
   return (
@@ -183,7 +190,7 @@ const TopNCasesByTotalCases = () => {
       {topNCasesByTotalCases.map((item, index) => {
         const widthPercentage = Math.max(
           10,
-          Math.min(100, ((item.total_cases || 0) / maxCases) * 100)
+          Math.min(100, ((item.total_verified_cases || 0) / maxCases) * 100)
         );
 
         const colors = ["bg-indigo-600", "bg-indigo-500", "bg-indigo-400"];
@@ -191,16 +198,16 @@ const TopNCasesByTotalCases = () => {
         const bgColor = colors[index % colors.length];
 
         return (
-          <div key={item.district} className="flex gap-2 items-center">
+          <div key={item.facility} className="flex gap-2 items-center">
             <div
-              key={item.district}
+              key={item.facility}
               className={`flex rounded-3xl items-center justify-between px-4 py-2 ${bgColor}`}
               style={{ width: `${widthPercentage}%` }}
             >
-              <span className="font-medium text-white">{item.district}</span>
+              <span className="font-medium text-white">{item.facility}</span>
             </div>
             <span className="font-normal whitespace-nowrap">
-              {item.total_cases?.toLocaleString()} Cases
+              {item.total_verified_cases?.toLocaleString()} Cases
             </span>
           </div>
         );

@@ -71,9 +71,9 @@ const donutChartsConfig = () => {
           },
         ],
 
-        size: 56,
+        size: 40,
         thickness: 3,
-        innerText: deathPercentage,
+        innerText: "",
       },
       legend: {
         label: "Deaths",
@@ -92,9 +92,9 @@ const donutChartsConfig = () => {
           },
         ],
 
-        size: 56,
+        size: 40,
         thickness: 3,
-        innerText: injuriesPercentage,
+        innerText: "",
       },
       legend: {
         label: "Injuries",

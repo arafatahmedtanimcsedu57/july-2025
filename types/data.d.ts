@@ -40,3 +40,15 @@ export interface Casualty {
 	lng: number;
 	type: string;
 }
+
+export interface HospitalCasualty {
+  total_deaths: number;
+  verified_deaths: number;
+  total_injuries: number;
+  verified_injuries: number;
+  lat: number | null;
+  lng: number | null;
+  total_cases: number;
+  total_verified_cases: number;
+  facility: string;
+}

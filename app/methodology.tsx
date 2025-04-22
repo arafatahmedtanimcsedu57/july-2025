@@ -7,7 +7,7 @@ function Methodology() {
   return (
     <div>
       {" "}
-      <Popover modal={false} defaultOpen={true}>
+      <Popover modal={false} defaultOpen={false}>
         <PopoverTrigger asChild className="shadow-xl z-[100]">
           <Button
             variant="default"
