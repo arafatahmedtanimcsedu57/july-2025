@@ -41,15 +41,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </header>
         <ThemeProvider defaultTheme="light" storageKey="july-map-theme">
           <main className="flex flex-1 flex-col bg-background h-[calc(100vh-80px)] overflow-hidden">
-            <div className="flex h-full">
-              <div className="ms-[12px] w-[60px] flex flex-col bg-transparent justify-between items-center z-[100] absolute bottom-0">
-                <div></div>
-                <div className="flex flex-col gap-4 items-center justify-center py-10">
-                  <Methodology />
-                </div>
-              </div>
-              {children}
-            </div>
+            <div className="flex h-full">{children}</div>
           </main>
         </ThemeProvider>
       </body>

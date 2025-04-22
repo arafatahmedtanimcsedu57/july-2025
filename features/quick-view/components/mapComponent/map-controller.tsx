@@ -110,7 +110,8 @@ export const MapStatsControl: React.FC = () => {
     const Custom = L.Control.extend({
       onAdd: () => {
         const div = L.DomUtil.create("div");
-        div.className = "custom-leaflet-control"; // Optional class for styling
+        div.className = "custom-leaflet-control h-screen "; // Optional class for styling
+        // "custom-leaflet-control h-screen transform md:translate-y-3/4 md:hover:translate-y-0 md:transition-transform md:duration-500 md:ease-in-out";
 
         L.DomEvent.disableClickPropagation(div);
         L.DomEvent.disableScrollPropagation(div);

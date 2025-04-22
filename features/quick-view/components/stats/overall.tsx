@@ -114,95 +114,58 @@ const TabularData = () => {
   const { selectedCasualty, toggleSelectedCasualty } =
     useSelectedCasualtyStore();
   const selectedRowRef = useRef<HTMLTableRowElement>(null);
-  const tableContainerRef = useRef<HTMLDivElement>(null);
-
-  const displayData = dataDistrictWiseInjuryDeath;
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (selectedRowRef.current && tableContainerRef.current) {
-      const containerRect = tableContainerRef.current.getBoundingClientRect();
-      const containerHeight = containerRect.height;
-
+    if (selectedRowRef.current && containerRef.current) {
+      const containerRect = containerRef.current.getBoundingClientRect();
       const rowRect = selectedRowRef.current.getBoundingClientRect();
-      const rowHeight = rowRect.height;
-
-      const rowTop =
-        rowRect.top - containerRect.top + tableContainerRef.current.scrollTop;
-      const scrollPosition = rowTop - containerHeight / 2 + rowHeight / 2;
-
-      tableContainerRef.current.scrollTo({
-        top: scrollPosition,
-        behavior: "smooth",
-      });
+      const scrollTop =
+        rowRect.top -
+        containerRect.top +
+        containerRef.current.scrollTop -
+        containerRect.height / 2;
+      containerRef.current.scrollTo({ top: scrollTop, behavior: "smooth" });
     }
   }, [selectedCasualty]);
 
+  const displayData = dataDistrictWiseInjuryDeath;
+
   return (
-    <div className="space-y-2">
-      <div
-        ref={tableContainerRef}
-        className="pb-10 overflow-auto scrollbar-hide h-[100vh]"
-      >
-        <Table className="text-[14px]">
-          <TableHeader className="text-[10px] sticky top-0 bg-background z-10">
-            <TableRow>
-              <TableHead className="h-4 whitespace-nowrap uppercase font-mono font-bold">
-                District
-              </TableHead>
-              <TableHead className="h-4 whitespace-nowrap uppercase font-mono font-bold">
-                Total Cases
-              </TableHead>
-              <TableHead className="h-4 whitespace-nowrap uppercase font-mono font-bold">
-                Deaths
-              </TableHead>
-              <TableHead className="h-4 whitespace-nowrap uppercase font-mono font-bold text-right">
-                Injuries
-              </TableHead>
-            </TableRow>
-          </TableHeader>
+    <div ref={containerRef} className="overflow-auto h-full scrollbar-hide">
+      <Table className="min-w-full text-sm">
+        <TableHeader className="sticky top-0 bg-background z-10 text-xs">
+          <TableRow>
+            <TableHead>District</TableHead>
+            <TableHead>Total Cases</TableHead>
+            <TableHead>Deaths</TableHead>
+            <TableHead className="text-right">Injuries</TableHead>
+          </TableRow>
+        </TableHeader>
 
-          <TableBody>
-            {displayData
-              .sort((a, b) => (b.total_cases || 0) - (a.total_cases || 0))
-              .map((item) => {
-                const selectedRow =
-                  selectedCasualty?.district === item.district;
-
-                return (
-                  <TableRow
-                    ref={selectedRow ? selectedRowRef : null}
-                    className={`cursor-pointer ${
-                      selectedRow ? "bg-accent rounded-full" : "bg-transparent"
-                    }`}
-                    key={item.district}
-                    onClick={() => toggleSelectedCasualty(item)}
-                  >
-                    <TableCell
-                      className={`py-2 font-light ${
-                        selectedRow ? "rounded-s-full" : ""
-                      }`}
-                    >
-                      {item.district}
-                    </TableCell>
-                    <TableCell className="py-0 font-light">
-                      {item.total_cases}
-                    </TableCell>
-                    <TableCell className="py-0 font-light">
-                      {item.verified_deaths}
-                    </TableCell>
-                    <TableCell
-                      className={`py-0 text-right font-light ${
-                        selectedRow ? "rounded-e-full" : ""
-                      }`}
-                    >
-                      {item.verified_injuries}
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
-          </TableBody>
-        </Table>
-      </div>
+        <TableBody>
+          {displayData
+            .sort((a, b) => (b.total_cases || 0) - (a.total_cases || 0))
+            .map((item) => {
+              const selected = selectedCasualty?.district === item.district;
+              return (
+                <TableRow
+                  key={item.district}
+                  ref={selected ? selectedRowRef : null}
+                  className={`cursor-pointer ${selected ? "bg-accent" : ""}`}
+                  onClick={() => toggleSelectedCasualty(item)}
+                >
+                  <TableCell>{item.district}</TableCell>
+                  <TableCell>{item.total_cases}</TableCell>
+                  <TableCell>{item.verified_deaths}</TableCell>
+                  <TableCell className="text-right">
+                    {item.verified_injuries}
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+        </TableBody>
+      </Table>
     </div>
   );
 };

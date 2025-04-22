@@ -11,8 +11,33 @@ function Methodology() {
         <PopoverTrigger asChild className="shadow-xl z-[100]">
           <Button
             variant="default"
-            className="shadow-lg w-10 h-10 rounded-full p-0 aspect-square flex items-center justify-center"
+            className={`
+            shadow-lg 
+            rounded-e-full
+            
+            w-[48px]
+            aspect-square
+            inline-flex
+            items-center
+            justify-center
+            gap-4
+            text-lg
+            font-semibold
+            bg-gradient-to-tr
+
+            from-pink-400
+            to-blue-400
+            
+            group
+            hover:w-[172px]
+            transition-all
+            duration-100
+            ease-in-out
+           `}
           >
+            <span className="hidden group-hover:inline-block opacity-0 group-hover:opacity-100 transition-opacity">
+              Methodology
+            </span>{" "}
             <InfoIcon className="text-white" />
           </Button>
         </PopoverTrigger>

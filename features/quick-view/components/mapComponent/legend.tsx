@@ -11,9 +11,11 @@ function Legend() {
       {Object.entries(CASUALTY_ITEMS)
         .filter(([_, value]) => CASUALTY_ITEMS_COLOR_ELEMENTS[value]())
         .map(([key, value]) => (
-          <div key={`${value}_${key}`} className="flex items-center gap-1">
+          <div key={`${value}_${key}`} className="flex items-center gap-4">
             {CASUALTY_ITEMS_COLOR_ELEMENTS[value]!()}
-            <p className="text-xs dark:text-white text-slate-700">{value}</p>
+            <p className="text-md dark:text-white text-slate-700 font-semibold">
+              {value}
+            </p>
           </div>
         ))}
     </div>

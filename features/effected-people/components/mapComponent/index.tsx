@@ -57,8 +57,17 @@ export default function MapComponent() {
         />
       </MapContainer>
 
-      <div className="absolute bottom-8 right-4 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-xl z-[100] min-h-[100px] flex flex-col justify-center">
-        <Legend />
+      <div className="absolute bottom-8 right-4 z-[100] min-h-[100px]">
+        <div className="mx-auto">
+          <div className="relative group cursor-pointer">
+            <div className="absolute -inset-1 bg-gradient-to-r from-red-600 to-blue-600 rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+            <div className="relative">
+              <div className="flex flex-col justify-center bg-white dark:bg-gray-800 p-4 rounded-lg">
+                <Legend />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

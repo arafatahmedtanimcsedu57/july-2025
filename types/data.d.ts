@@ -17,14 +17,14 @@ export interface EffectedPerson {
 	occupation: string | null;
 	type: string | null;
 	location: string | null;
-	district?: string | null;
+	district: string | null;
 	locationCoordinates: string | null;
 	lat: number | null;
 	lng: number | null;
 	gender: string | null;
 	graphicLevel: string | null;
-	mediaLink: string[] | null;
 	summary: string | null;
+	mediaLinks: string[] | [];
 }
 
 export interface Casualty {

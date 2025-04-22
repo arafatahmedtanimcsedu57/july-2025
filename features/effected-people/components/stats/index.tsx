@@ -1,6 +1,7 @@
 import React from "react";
 
 import { FilterControls } from "@/app/filter-control";
+import Methodology from "@/app/methodology";
 import {
   DonutCharts,
   TotalCasualties,
@@ -23,13 +24,13 @@ const VIEWS: Record<string, Record<string, string>> = {
 
 function Stats() {
   return (
-    <div className="min-w-[430px] bg-foreground rounded-3xl border shadow-lg overflow-auto h-[100vh] scrollbar-hide dark:text-white text-slate-700">
+    <div className="h-full flex flex-col w-[430px] bg-foreground rounded-3xl border shadow-lg dark:text-white text-slate-700 relative">
       <FilterControls />
 
       <TotalCasualties />
 
       <Tabs
-        className="flex-1 flex flex-col px-10 "
+        className="flex-1 min-h-0 flex flex-col p-10"
         defaultValue={VIEWS.OVERVIEW.value}
       >
         <TabsList className="grid grid-cols-2 mb-4 w-[250px] m-0 rounded-xl">
@@ -54,8 +55,11 @@ function Stats() {
             <DateWiseBarChart />
           </div>
         </TabsContent>
-        <TabsContent value={VIEWS.PERSON_LIST.value}>
-          <div className="py-10 flex-1 flex flex-col">
+        <TabsContent
+          value={VIEWS.PERSON_LIST.value}
+          className="flex-1 min-h-0 flex flex-col"
+        >
+          <div className="py-10 flex-1 min-h-0 overflow-auto">
             <ListData />
           </div>
         </TabsContent>
@@ -63,6 +67,10 @@ function Stats() {
 
       <div className="absolute right-0 top-6 translate-x-[100%]">
         <FilterContainer />
+      </div>
+
+      <div className="absolute right-0 top-20 translate-x-[100%]">
+        <Methodology />
       </div>
     </div>
   );
