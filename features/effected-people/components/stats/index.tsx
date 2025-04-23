@@ -12,13 +12,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/tabs";
 import FilterContainer from "@/app/filter-container";
 
 const VIEWS: Record<string, Record<string, string>> = {
-  OVERVIEW: {
-    value: "OVERVIEW",
-    label: "Overview",
-  },
   PERSON_LIST: {
     value: "PERSON_LIST",
     label: "Person List",
+  },
+  OVERVIEW: {
+    value: "OVERVIEW",
+    label: "Overview",
   },
 } as const;
 
@@ -31,7 +31,7 @@ function Stats() {
 
       <Tabs
         className="flex-1 min-h-0 flex flex-col p-10"
-        defaultValue={VIEWS.OVERVIEW.value}
+        defaultValue={VIEWS.PERSON_LIST.value}
       >
         <TabsList className="grid grid-cols-2 mb-4 w-[250px] m-0 rounded-xl">
           {Object.keys(VIEWS).map((view) => {
