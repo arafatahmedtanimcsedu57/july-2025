@@ -46,82 +46,58 @@ function Methodology() {
           align="start"
           className="text-slate-700 rounded-3xl w-80 h-[300px] shadow-xl scrollbar-hide overflow-auto p-6  bg-gradient-to-tr from-blue-300 to-pink-300 z-[10000]"
         >
-          <h1 className="text-sm mb-4 font-semibold">
-            Methodology for Collecting Casualty Data of the July Revolution of
-            Bangladesh
-          </h1>
+          <h1 className="text-sm mb-4 font-semibold">Methodology</h1>
 
           <section className="text-xs flex flex-col gap-4">
             <p>
-              To ensure accuracy and comprehensiveness, a multi-source data
-              collection approach was adopted for documenting casualties related
-              to the July Revolution of Bangladesh. The following methods were
-              employed:
+              The Monsoon Revolution Archive, created by the Tech Global
+              Institute, is a digital memorial honoring victims of the July
+              Revolution in Bangladesh. This interactive map visualizes the
+              revolution's spread and impact using Ministry of Health (MoH)
+              data, eyewitness footage, and digital forensics to ensure the
+              integrity and accessibility of victim information.
             </p>
+
+            <p>We divided our map into three sections:</p>
 
             <ol className="flex flex-col gap-2">
               <li>
-                <strong>Archival Research</strong>
+                <strong> Quick View: Organized by Districts </strong>
                 <br />
-                Historical documents, newspapers, and government records from
-                the period surrounding the July Revolution were reviewed.
-                Special attention was given to official press releases, police
-                records, hospital reports, and investigative committee findings.
+                In the Quick Look section, the total casualties including deaths
+                and injuries are displayed as dots on the map, organized by
+                district. The red colour indicates the dead, while Orange
+                denotes the injured.
               </li>
 
               <li>
-                <strong>Media Analysis</strong>
+                <strong>Hospital View: Organized by Hospitals</strong>
                 <br />
-                Both national and international media outlets were analyzed.
-                Reports from newspapers such as <em>The Daily Ittefaq</em>,{" "}
-                <em>The Daily Star</em>, and <em>Prothom Alo</em>, along with
-                broadcasts from international agencies (e.g., BBC, Reuters),
-                were examined for casualty figures and witness testimonies.
+                In the Hospital view section, the total casualties, including
+                deaths and injuries, are organized by hospitals, which displays
+                a more comprehensive casualty distribution across the country.
               </li>
 
               <li>
-                <strong>Eyewitness Interviews and Oral Histories</strong>
+                <strong> Incidents: Analyzed Incidents</strong>
                 <br />
-                Survivors, relatives of victims, and eyewitnesses were
-                interviewed where possible. These first-hand accounts helped
-                triangulate data and fill gaps left by official records.
-              </li>
-
-              <li>
-                <strong>NGO and Human Rights Reports</strong>
-                <br />
-                Reports and databases from human rights organizations, both
-                local (e.g., Ain o Salish Kendra) and international (e.g.,
-                Amnesty International, Human Rights Watch), were reviewed for
-                independently documented casualties.
-              </li>
-
-              <li>
-                <strong>Academic and Historical Literature</strong>
-                <br />
-                Existing research papers, books, and theses written by
-                historians and political analysts were also consulted to support
-                the data set and provide contextual interpretation.
-              </li>
-
-              <li>
-                <strong>Cross-verification and Data Cleaning</strong>
-                <br />
-                All data sources were cross-verified to eliminate duplicates and
-                inconsistencies. Where conflicting reports were found, data was
-                categorized as either “confirmed” or “unverified” based on the
-                credibility of the source and corroborative evidence.
-              </li>
-
-              <li>
-                <strong>Ethical Considerations</strong>
-                <br />
-                In handling sensitive personal information, all ethical
-                guidelines were strictly followed. Informed consent was obtained
-                from interviewees, and identities were anonymized upon request
-                to protect privacy.
+                In the Incident section, viewers can see the victims' names,
+                along with their gender, occupation, Incident location, a
+                description of the incident, and other relevant information by
+                clicking each dot on the map. Each entry or incident is manually
+                verified and analyzed by TGI's forensics team.
               </li>
             </ol>
+
+            <p>
+              Families and volunteers are requested to share information and
+              digital evidence of the victim with informed consent. Sensitive
+              details will be anonymized upon request to protect privacy. This
+              archive features a submission form, allowing for continuous
+              additions, updates and corrections, all of which are reviewed to
+              ensure the accuracy and appropriateness of information about the
+              victims.
+            </p>
           </section>
         </PopoverContent>
       </Popover>

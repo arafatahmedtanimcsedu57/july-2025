@@ -16,17 +16,17 @@ const navigationItems = [
   {
     title: "Quick Look",
     href: "/quick-view",
-    description: "District wise Deaths & Injuries.",
+    description: "Organized by Districts.",
   },
   {
     title: "Hospital View",
     href: "/hospital-view",
-    description: "Hospital wise each Effected Person",
+    description: "Organized by Hospitals",
   },
   {
-    title: "Individual",
+    title: "Incidents",
     href: "/effected-people",
-    description: "Area wise each Effected Person",
+    description: "Analyzed Incidents",
   },
 ];
 
