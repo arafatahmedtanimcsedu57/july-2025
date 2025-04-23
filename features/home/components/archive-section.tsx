@@ -12,20 +12,21 @@ function ArchiveSection() {
           <div>
             {archiveData.leftSection.map((item, idx) => (
               <p key={idx} className="mb-4">
-                <strong>{item.heading}</strong> {item.content}
+                {/* <strong>{ item.heading }</strong> */}
+                {item.content}
               </p>
             ))}
           </div>
 
           <div>
-            <h3 className="text-xl font-bold mb-4">
+            {/* <h3 className="text-xl font-bold mb-4">
               {archiveData.rightSection.heading}
             </h3>
             <ul className="list-disc pl-5 space-y-2">
               {archiveData.rightSection.items.map((item, idx) => (
                 <li key={idx}>{item}</li>
               ))}
-            </ul>
+            </ul> */}
           </div>
         </div>
       </div>

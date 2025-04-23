@@ -22,7 +22,9 @@ function ImportantSection() {
               {section.type === "list" && (
                 <ul className="list-disc pl-5 space-y-4">
                   {section.content.map((item, lIdx) => (
-                    <li key={lIdx}>{item}</li>
+                    <li key={lIdx}>
+                      <strong>{item.label}</strong> : {item.paragraph}
+                    </li>
                   ))}
                 </ul>
               )}

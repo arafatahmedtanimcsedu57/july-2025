@@ -1,15 +1,10 @@
 export const heroData = {
   title: ["MONSOON", "REVOLUTION", "ARCHIVE"],
   subtitle:
-    "THE WORLD MUST KNOW THE HISTORY OF THIS UPRISING. SO WE DOCUMENT IT.",
+    "Truth, Justice, and Accountability in Bangladesh through Digital Evidence",
   description:
     "Since July-August 2024, when the mass uprising in Bangladesh took place, we have been collecting digital evidence, recordings of events, testimonies, and other materials to ensure that the truth about these historic events is preserved so that we are creating together.",
-  actions: [
-    "View Audio / Video",
-    "Submit a Testimony",
-    "Become a Partner",
-    "Become a User",
-  ],
+  actions: ["Submit Digital Evidence"],
 };
 
 export const projectStats = {
@@ -31,16 +26,13 @@ export const aboutData = [
   {
     heading: "About the Project",
     paragraphs: [
-      "Monsoon Revolution Archive (MRA) is a non-profit collaborative digital organization that creates a unique register of evidence related to the Monsoon Revolution in Bangladesh.",
-      "With journalists, technological and methodological specialists, it serves as a platform for collecting, verifying, and archiving digital evidence of human rights violations during a major historical and political event.",
+      "The Monsoon Revolution Archive is a digital repository led by Tech Global Institute, in partnership with the International Truth and Justice Project, dedicated to preserving and documenting human rights violations during the July Uprising in Bangladesh in 2024, which led to the collapse of the government led by former Prime Minister Sheikh Hasina.  Using open-source investigations, research, digital forensics, eyewitness accounts, and storytelling, we reconstruct the chronology of events with the aim of advancing truth, transitional justice, and accountability in the country. This archive serves as a public memorial to victims and survivors, and a valuable tool for researchers, journalists, and human rights defenders worldwide fighting for a more just, democratic, and rights-respecting society.",
     ],
   },
   {
     heading: "Who We Are",
     paragraphs: [
-      "Monsoon Revolution Archive was founded in August 2024 by a joint team of NGO activists and journalists.",
-      "Our team consists of professionals with experience in documenting human rights violations throughout the Monsoon in Eastern Europe.",
-      "The Archive team comprises 10 full-time professionals as well as volunteers.",
+      "The Monsoon Revolution Archive, a project of Tech Global Institute, was founded in 2024 to preserve documentation and unearth human rights violations and atrocities committed during Bangladesh's July Uprising. Documentation and archiving are central to criminal and human rights accountability processes. Still, they are often siloed, and archiving resources and technologies are concentrated in the Global North, despite gross abuses, wars, and conflicts being inflicted on communities in the Global Majority. Our work aims to build sociotechnical and legal capacities in Global Majority countries to advance domestic and international efforts around truth, justice, and accountability— and to contribute to open-source movements on war crimes and human rights abuse preservation. We focus on state-sanctioned abuses and crimes, particularly those related to the security sector, and are actively involved with numerous efforts on democratic reform and transitional justice in Bangladesh and elsewhere.",
     ],
   },
 ];
@@ -50,41 +42,80 @@ export const importantData = [
     heading: "Why It Is Important",
     type: "paragraphs",
     content: [
-      "When the uprising began in July, it was the most unprecedented set of events in Bangladesh's recent history. Investigative journalists, human rights defenders, and the international legal community needed reliable evidence.",
-      "That's why we created a platform that collects and preserves digital evidence of human rights violations during the Monsoon Revolution.",
+      "The Monsoon Revolution Archive serves as a digital repository to preserve digital evidence of atrocities committed during the July Uprising. This digital archive safeguards materials related to justice and accountability efforts, serving as a repository for digital evidence of human rights violations. This is crucial given that social media platforms are increasingly removing online content they deem harmful or violent, which could otherwise be used in future legal proceedings. This archive will be helpful to acknowledge the suffering of victims and serve as a historical record to safeguard against revisionism and denial of atrocities. ",
     ],
-  },
+  } as const,
   {
     heading: "Our Goal",
     type: "list",
     content: [
-      "To create a unified database containing digital materials and organized information about the Monsoon Revolution in Bangladesh",
-      "Preservation of photo/video/audio documentation of events",
-      "To provide a reliable source of materials and information for our audience of materials regarding Bangladesh's human rights situation",
-      "To create a comprehensive chronology of events",
-      "To provide space for the voices of victims",
-      "To preserve the history of the Monsoon people's resistance for the future generations and to prevent the falsification of facts",
+      {
+        label: "Collect and Verify Digital Evidence",
+        paragraph:
+          "Systematically gathering digital evidence from open source and eyewitness accounts displays human rights violations perpetrated by law enforcement agencies, military forces, and pro-government entities during the July Uprising, ensuring accuracy and reliability.",
+      },
+      {
+        label: "Secure Long-Term Preservation",
+        paragraph:
+          "Honor the victims and survivors of the July Uprising by meticulously documenting human rights abuses and establishing a secure and accessible digital repository to store evidence of atrocities, protecting it from tampering or erasure.",
+      },
+      {
+        label: "Support Justice and Accountability",
+        paragraph:
+          "Provide thoroughly investigated findings to judicial and accountability bodies, enabling the prosecution of perpetrators and the pursuit of justice for victims.",
+      },
+      {
+        label: "Facilitate Research and Advocacy",
+        paragraph:
+          "Offer researchers, journalists, and human rights defenders access to verified materials for in-depth analysis, reporting, and advocacy, fostering informed public discourse and policy change.",
+      },
+      {
+        label: "Build Capacity for Human Rights Documentation",
+        paragraph:
+          "Deliver training programs to empower human rights defenders with the skills to collect, verify, preserve, and investigate open-source information related to human rights violations, strengthening global documentation efforts.",
+      },
+      {
+        label: "Preserve Historical Truth",
+        paragraph:
+          "Safeguard the legacy of the Bangladeshi people’s resistance during the July Uprising by maintaining an accurate and comprehensive historical record, protecting it against manipulation or revisionism for future generations.",
+      },
     ],
-  },
+  } as const,
 ];
 
 export const archiveData = {
   title: "Archive Materials",
+  paragraph: "We archive materials including:",
   leftSection: [
     {
       heading: "DIGITAL EVIDENCE",
       content:
-        "includes photos, testimonies, digital files, as well as their description, evidence and other criteria considered to identify the circumstances of the event, its participants, and the consequences.",
+        "Digital files (e.g., video, audio, and photo) that document daily acts of resistance against the oppressor and human rights violations by law enforcement, military forces, and pro-government parties during the uprising.",
     },
     {
       heading: "TESTIMONIES",
       content:
-        "are witness accounts of events that occurred during the uprising.",
+        "Interviews and eye-witness accounts of the events surrounding the uprising, including the use of lethal force against demonstrators, extrajudicial killings, and mass casualties",
     },
     {
       heading: "PARTNER MATERIALS",
       content:
-        "are materials from our partners who have collected evidence of events during the uprising.",
+        "Documents related to legal, personal, and medical matters of the deceased and injured victims for potential use in investigations.",
+    },
+    {
+      heading: "PARTNER MATERIALS",
+      content:
+        "Audio, video, and photo collected from open sources (e.g., social media, news media, and articles).",
+    },
+    {
+      heading: "PARTNER MATERIALS",
+      content:
+        "Important website links associated with our research and investigations.",
+    },
+    {
+      heading: "PARTNER MATERIALS",
+      content:
+        "Reports and articles from investigative journalism and publications by human rights organizations, such as the UN Fact-Finding Mission in Bangladesh.",
     },
   ],
   rightSection: {

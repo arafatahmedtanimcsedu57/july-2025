@@ -8,7 +8,9 @@ export default function Header() {
           {" "}
           MONSOON REVOLUTION ARCHIVE{" "}
         </h5>
-        <p className="text-xs font-light w-max">Remembering July 2024</p>
+        <p className="text-xs font-light w-max">
+          Memory. Justice. Accountability
+        </p>
       </div>
     </div>
   );
