@@ -13,9 +13,9 @@ function LandingContainer() {
         <HeroSection />
       </SlideInSection>
 
-      <SlideInSection direction="up">
+      {/* <SlideInSection direction="up">
         <ProjectNumberSection />
-      </SlideInSection>
+      </SlideInSection> */}
 
       <SlideInSection direction="up">
         <AboutSection />
