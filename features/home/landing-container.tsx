@@ -25,9 +25,9 @@ function LandingContainer() {
         <ImportantSection />
       </SlideInSection>
 
-      <SlideInSection direction="up">
+      {/* <SlideInSection direction="up">
         <ArchiveSection />
-      </SlideInSection>
+      </SlideInSection> */}
 
       <SlideInSection direction="up">
         <MediaCoverage />

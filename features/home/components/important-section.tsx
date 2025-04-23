@@ -1,4 +1,4 @@
-import { importantData } from "../data";
+import { importantData, archiveData } from "../data";
 
 function ImportantSection() {
   return (
@@ -10,23 +10,40 @@ function ImportantSection() {
               key={idx}
               className={`${idx / 2 === 0 ? "text-green-800" : ""}`}
             >
-              <h2 className="text-2xl font-bold uppercase mb-8">
-                {section.heading}
-              </h2>
-              {section.type === "paragraphs" &&
-                section.content.map((para, pIdx) => (
-                  <p key={pIdx} className="mb-4">
-                    {para}
-                  </p>
-                ))}
-              {section.type === "list" && (
-                <ul className="list-disc pl-5 space-y-4">
-                  {section.content.map((item, lIdx) => (
-                    <li key={lIdx}>
-                      <strong>{item.label}</strong> : {item.paragraph}
-                    </li>
+              <div>
+                <h2 className="text-2xl font-bold uppercase mb-8">
+                  {section.heading}
+                </h2>
+                {section.type === "paragraphs" &&
+                  section.content.map((para, pIdx) => (
+                    <p key={pIdx} className="mb-4">
+                      {para}
+                    </p>
                   ))}
-                </ul>
+                {section.type === "list" && (
+                  <ul className="list-disc pl-5 space-y-4">
+                    {section.content.map((item, lIdx) => (
+                      <li key={lIdx}>{item.paragraph}</li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+              {idx === 0 ? (
+                <div className="mt-16 text-slate-600">
+                  <h2 className="text-2xl font-bold uppercase mb-8">
+                    {archiveData.title}
+                  </h2>
+
+                  <div>
+                    {archiveData.leftSection.map((item, idx) => (
+                      <p key={idx} className="mb-4">
+                        {item.content}
+                      </p>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <></>
               )}
             </div>
           ))}
