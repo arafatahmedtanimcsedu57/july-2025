@@ -138,7 +138,7 @@ const CasualtyMarker = memo(({ casualty }: CasualtyMarkerProps) => {
 		<></>
 	);
 
-	const deathCircleMarker = (
+	const deathCircleMarker = deathCircleRadius ? (
 		<CircleMarker
 			key={facility}
 			center={markerPosition}
@@ -157,7 +157,7 @@ const CasualtyMarker = memo(({ casualty }: CasualtyMarkerProps) => {
 				<Tooltip permanent={true} direction="top">
 					<div className="p-2 flex flex-col gap-4">
 						<div>
-							<h3 className="font-bold text-lg mb-1">{facility}</h3>
+							<h3 className="font-bold mb-1 text-wrap">{facility}</h3>
 						</div>
 						<div>
 							<h5 className="text-xs w-max">Total Casualties</h5>
@@ -192,9 +192,11 @@ const CasualtyMarker = memo(({ casualty }: CasualtyMarkerProps) => {
 				</Tooltip>
 			)}
 		</CircleMarker>
+	) : (
+		<></>
 	);
 
-	const injuryCircleMarker = (
+	const injuryCircleMarker = casualtyCircleRadius ? (
 		<CircleMarker
 			key={`${facility}-outer`}
 			center={markerPosition}
@@ -207,7 +209,48 @@ const CasualtyMarker = memo(({ casualty }: CasualtyMarkerProps) => {
 				stroke: true,
 			}}
 			eventHandlers={{ click: handleMarkerClick }}
-		/>
+		>
+			{!deathCircleRadius && isSelected && (
+				<Tooltip permanent={true} direction="top">
+					<div className="p-2 flex flex-col gap-4">
+						<div className="max-w-[200px]">
+							<h3 className="font-bold mb-1 text-wrap">{facility}</h3>
+						</div>
+						<div>
+							<h5 className="text-xs w-max">Total Casualties</h5>
+							<p className="text-4xl font-semibold w-max">
+								{total_verified_cases.toLocaleString()}
+							</p>
+						</div>
+
+						<div className="flex gap-2">
+							{donutChartsConfig().map((donutChart) => (
+								<div
+									className="flex flex-wrap gap-2 items-center justify-center"
+									key={donutChart.legend.label}
+								>
+									<DonutChart
+										data={donutChart.chart.data}
+										size={donutChart.chart.size}
+										thickness={donutChart.chart.thickness}
+										innerText={donutChart.chart.innerText}
+									/>
+
+									<div className="text-center">
+										<h1 className="text-xs font-semibold">
+											{donutChart.legend.value}
+										</h1>
+										<p className="text-xs">{donutChart.legend.label}</p>
+									</div>
+								</div>
+							))}
+						</div>
+					</div>
+				</Tooltip>
+			)}
+		</CircleMarker>
+	) : (
+		<></>
 	);
 
 	return (

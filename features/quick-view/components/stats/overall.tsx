@@ -123,7 +123,7 @@ const TabularData = () => {
 	return (
 		<div ref={containerRef} className="overflow-auto h-full scrollbar-hide">
 			<div className="min-w-full text-sm">
-				<div>
+				<div className="min-w-full text-sm">
 					{displayData
 						.sort((a, b) => (b.total_cases || 0) - (a.total_cases || 0))
 						.map((item, index, arr) => {
