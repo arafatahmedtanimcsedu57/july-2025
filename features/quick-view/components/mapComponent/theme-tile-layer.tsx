@@ -13,6 +13,7 @@ import {
 
 import type { GeoJsonObject } from "geojson";
 import { TILE_LINK } from "@/constant/tile-link";
+import districtData from "@/data/bd-districts.json";
 
 const bangladeshGeoJson = bangladeshData as GeoJsonObject;
 const bangladeshDetailsGeoJson = bangladeshDetailsData as GeoJsonObject;
@@ -45,14 +46,14 @@ const TileLayer = () => {
 
     L.tileLayer(TILE_LINK).addTo(map);
 
-    divisionsData.divisions.forEach((division) => {
-      const lat = Number.parseFloat(division.lat);
-      const lng = Number.parseFloat(division.long);
+    districtData.districts.forEach((district) => {
+      const lat = Number.parseFloat(district.lat);
+      const lng = Number.parseFloat(district.long);
 
       if (!isNaN(lat) && !isNaN(lng)) {
         const icon = L.divIcon({
           className: "division-label",
-          html: `${division.name}`,
+          html: `${district.name}`,
           iconSize: [100, 20],
           iconAnchor: [50, 10],
         });
