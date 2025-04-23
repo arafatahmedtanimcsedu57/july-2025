@@ -148,7 +148,6 @@ const CasualtyMarker = memo(({ casualty }: CasualtyMarkerProps) => {
 				fillColor: '#9c0610',
 				fillOpacity: 1,
 				weight: 0,
-				stroke: true,
 			}}
 			eventHandlers={{ click: handleMarkerClick }}
 			className="drop-shadow-[0_0_0.1rem_crimson]"
@@ -206,7 +205,6 @@ const CasualtyMarker = memo(({ casualty }: CasualtyMarkerProps) => {
 				fillColor: '#e9a30c',
 				fillOpacity: 0.4,
 				weight: 0.75,
-				stroke: true,
 			}}
 			eventHandlers={{ click: handleMarkerClick }}
 		>
