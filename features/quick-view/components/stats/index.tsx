@@ -19,7 +19,7 @@ export default function Stats({ show, setShow }: StatsProps) {
 		<div className="h-full flex flex-col min-w-[430px] bg-background rounded-3xl border shadow-lg dark:text-white text-slate-700 relative">
 			<TotalCasualties />
 
-			<div className="flex-1 min-h-0 flex flex-col px-10">
+			<div className="flex-1 min-h-0 flex flex-col p-10">
 				<div className="flex flex-wrap gap-10 mb-10">
 					<DonutCharts />
 				</div>

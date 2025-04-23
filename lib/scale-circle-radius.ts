@@ -13,7 +13,7 @@ export function scaleCircleRadius({
 	maxRadius?: number;
 	scale?: 'sqrt' | 'log' | 'linear';
 }): number {
-	if (!value || maxValue === 0) return minRadius;
+	if (!value || maxValue === 0) return 0;
 
 	let normalized: number;
 
