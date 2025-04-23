@@ -1,17 +1,8 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { ChevronDown, ChevronUp } from 'lucide-react';
 
 import { DonutChart } from '@/shared/ui/donut-chart';
-import {
-	Table,
-	TableBody,
-	TableCell,
-	TableHead,
-	TableHeader,
-	TableRow,
-} from '@/shared/ui/table';
 
 import { getTopNCasesByTotalCases } from '@/features/hospital-view/lib/data-managers';
 import {
@@ -22,6 +13,8 @@ import {
 } from '@/features/hospital-view/lib/data-managers';
 import { useSelectedCasualtyStore } from '@/features/hospital-view/store/selected-casualty-store';
 import { Badge } from '@/shared/ui/badge';
+import { Input } from '@/shared/ui/input';
+import { List, Menu } from 'lucide-react';
 
 const total = getTotalCases();
 const deathCount = getTotalDeaths();
@@ -111,8 +104,9 @@ const DonutCharts = () => {
 const TabularData = () => {
 	const { selectedCasualty, toggleSelectedCasualty } =
 		useSelectedCasualtyStore();
-	const selectedRowRef = useRef<HTMLTableRowElement>(null);
+	const selectedRowRef = useRef<HTMLDivElement>(null);
 	const containerRef = useRef<HTMLDivElement>(null);
+	const [searchTerm, setSearchTerm] = useState('');
 
 	useEffect(() => {
 		if (selectedRowRef.current && containerRef.current) {
@@ -127,28 +121,40 @@ const TabularData = () => {
 		}
 	}, [selectedCasualty]);
 
-	const displayData = dataHospitalWiseInjuryDeath;
+	const displayData = dataHospitalWiseInjuryDeath
+		.filter((item) =>
+			item.facility?.toLowerCase().includes(searchTerm.toLowerCase()),
+		)
+		.sort((a, b) => (b.verified_deaths || 0) - (a.verified_deaths || 0));
 
 	return (
-		<div ref={containerRef} className="overflow-auto h-full scrollbar-hide">
-			<div className="min-w-full text-sm">
-				<div>
-					{displayData
-						.sort(
-							(a, b) =>
-								(b.total_verified_cases || 0) - (a.total_verified_cases || 0),
-						)
-						.map((item, index, arr) => {
-							const selected = selectedCasualty?.facility === item.facility;
-							const nextSelected =
-								index + 1 < arr.length &&
-								selectedCasualty?.facility === arr[index + 1].facility;
+		<div className="flex flex-col h-full">
+			<div className="flex gap-2 items-center mb-4">
+				<List />
+				<h3 className="text-lg font-semibold ">Organized by Hospital</h3>
+			</div>
+			<Input
+				type="text"
+				placeholder="Search by Hospital Name..."
+				value={searchTerm}
+				onChange={(e) => setSearchTerm(e.target.value)}
+				className="w-full mb-4"
+			/>
 
-							const shouldHaveBorder = !selected && !nextSelected;
+			<div ref={containerRef} className="overflow-auto h-full scrollbar-hide">
+				<div className="min-w-full text-sm">
+					<div>
+						{displayData.map((item, index, arr) => {
+							const selected = selectedCasualty?.facility === item.facility;
+							const prevSelected =
+								index > 0 &&
+								selectedCasualty?.facility === arr[index - 1].facility;
+
+							const shouldHaveBorder = !selected && !prevSelected;
 
 							return (
 								<div
-									key={item.facility}
+									key={`${item.facility}_${index}_${item.lat}_${item.lng}`}
 									ref={selected ? selectedRowRef : null}
 									className={`cursor-pointer w-full hover:bg-slate-200 flex justify-between items-center px-4 py-4 gap-3 ${
 										selected
@@ -161,7 +167,7 @@ const TabularData = () => {
 
 									<div className="flex flex-wrap gap-2">
 										<Badge className="bg-[#970811] text-white">
-											{item.verified_deaths}{' '}
+											{item.verified_deaths}
 										</Badge>
 										<Badge className="bg-[#ef7b0a] text-white">
 											{item.verified_injuries}
@@ -170,6 +176,7 @@ const TabularData = () => {
 								</div>
 							);
 						})}
+					</div>
 				</div>
 			</div>
 		</div>
