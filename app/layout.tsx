@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { IBM_Plex_Sans } from "next/font/google";
 
-import Methodology from "@/app/methodology";
 import { ThemeProvider } from "@/shared/ui/layout/theme-provider";
 
 import "@/app/globals.css";
