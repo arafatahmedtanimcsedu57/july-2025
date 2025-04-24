@@ -99,7 +99,6 @@ export const extractUniqueDistricts = () => {
     }
   });
 
-  // Convert Set back to Array for easier handling
   return Array.from(uniqueDistricts)
     .sort()
     .map((item) => ({
