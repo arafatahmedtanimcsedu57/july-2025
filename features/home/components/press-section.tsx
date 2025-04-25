@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 
 import { mediaItems } from '../data';
+import Image from 'next/image';
 
 function getFaviconUrl(url: string) {
 	try {
@@ -32,12 +33,14 @@ export default function MediaCoverage() {
 							target="_blank"
 							href={item.link}
 							key={index}
-							className="flex items-start gap-4 p-4 bg-white rounded-3xl shadow hover:shadow-md transition"
+							className="flex items-start gap-4 px-4 py-6 bg-white rounded-2xl shadow hover:shadow-md transition"
 						>
-							<img
+							<Image
 								src={getFaviconUrl(item.link)}
 								alt="favicon"
-								className="w-8 h-8 mt-1"
+								className="rounded-full border"
+								width={40}
+								height={40}
 							/>
 							<div>
 								<li className="text-black font-semibold list-none">

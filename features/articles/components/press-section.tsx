@@ -3,6 +3,7 @@ import Link from 'next/link';
 
 import { mediaItems } from '../data';
 import { File, Link2Icon, LinkIcon } from 'lucide-react';
+import Image from 'next/image';
 
 function getFaviconUrl(url: string) {
 	try {
@@ -28,13 +29,13 @@ export default function MediaCoverage() {
 							target="_blank"
 							className="inline-flex gap-2 items-center my-4 text-primary"
 						>
-							<div className="p-4 bg-foreground rounded-3xl shadow-lg border border-slate-200 max-w-[250px] flex flex-col gap-4">
-								<div className="inline-flex gap-2 items-center">
+							<div className="px-6 py-8 bg-foreground rounded-2xl shadow-lg border border-slate-200 max-w-[250px] flex flex-col gap-4">
+								<div className="inline-flex gap-3 items-center">
 									<div className="border rounded-full bg-background min-h-10 min-w-10 flex items-center justify-center">
 										<File width={16} />
 									</div>
 
-									<strong className="text-sm">BLOODSHED IN BANGLADESH</strong>
+									<strong className="text-xs">BLOODSHED IN BANGLADESH</strong>
 
 									<div className="ms-4">
 										<Link2Icon />
@@ -70,12 +71,14 @@ export default function MediaCoverage() {
 								target="_blank"
 								href={item.link}
 								key={index}
-								className="flex items-start gap-4 p-4 bg-white rounded-3xl shadow hover:shadow-md transition"
+								className="flex items-start gap-4 px-4 py-6 bg-white rounded-2xl shadow hover:shadow-md transition"
 							>
-								<img
+								<Image
 									src={getFaviconUrl(item.link)}
 									alt="favicon"
-									className="w-8 h-8 mt-1"
+									className="rounded-full border"
+									width={40}
+									height={40}
 								/>
 								<div>
 									<li className="text-black font-semibold list-none">
