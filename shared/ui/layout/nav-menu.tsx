@@ -11,6 +11,7 @@ import {
 	navigationMenuTriggerStyle,
 } from '../navigation-menu';
 import Link from 'next/link';
+import Methodology from '@/app/methodology';
 
 const navigationItems = [
 	{
@@ -116,6 +117,14 @@ export function NavMenu() {
 					<Link href="/investigations" legacyBehavior passHref>
 						<NavigationMenuLink className={navigationMenuTriggerStyle()}>
 							Investigation
+						</NavigationMenuLink>
+					</Link>
+				</NavigationMenuItem>
+
+				<NavigationMenuItem>
+					<Link href="/methodology" legacyBehavior passHref>
+						<NavigationMenuLink className={navigationMenuTriggerStyle()}>
+							Methodology
 						</NavigationMenuLink>
 					</Link>
 				</NavigationMenuItem>
