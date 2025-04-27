@@ -113,7 +113,7 @@ export function NavMenu() {
 				</NavigationMenuItem>
 
 				<NavigationMenuItem>
-					<Link href="/investigation" legacyBehavior passHref>
+					<Link href="/investigations" legacyBehavior passHref>
 						<NavigationMenuLink className={navigationMenuTriggerStyle()}>
 							Investigation
 						</NavigationMenuLink>
