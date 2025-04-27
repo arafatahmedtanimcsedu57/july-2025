@@ -1,0 +1,165 @@
+{
+	"headline": "GAZIPUR – EVIDENCE OF A MURDER",
+
+	"feature_img": "./gazipur/featured.png",
+
+	"case_details": {
+		"date_of_incident": "05 August 2024",
+		"incident_location": "Kashimpur Road, Konabari, Gazipur, Dhaka",
+		"location_coordinates": "'24.006344', '90.320909'",
+		"preliminary_analysis": "12 September 2024",
+		"updated_on": "17 October 2024",
+		"release_date": "15 January 2025"
+	},
+
+	"context": [
+		"On August 5, 2024, Mohammad Riddoy (also referred to as Mohammed Hridoy), a 20-year-old student and auto-rickshaw driver, was killed near Shareef General Hospital in Konabari, Gazipur, close to Konabari Police Station. The incident occurred amid protests that escalated following news of Sheikh Hasina’s departure at 3:25 PM, leading to clashes between protestors and police. The protestors overturn a police vehicle and set it on fire. Riot police emerge from the station and start firing at protestors who flee or take cover. Twenty minutes later, the footage shows a young man called Mohammed Riddoy who has been captured by the police. Videos from the scene show Riddoy, dressed in a black T-shirt and red shorts, being surrounded by police officers. A group of armed police officers, some in helmets, beat Riddoy and shot him in the back at point-blank range. A uniformed officer, identified as Constable Akram Hossain of Gazipur Industrial Police, shot him, causing him to collapse. The police walk away, but there are disturbing signs of movement which suggest Riddoy was still alive at this point. After a brief departure from the scene, officers returned, dragged Riddoy’s body toward an alley near the police station, leaving a trail of blood. No further footage of Riddoy’s body has emerged, and his family reports that the police have not released his body, denying knowledge of its whereabouts. As a result, Riddoy’s name remains absent from the official list of martyrs. "
+	],
+
+	"method": {
+		"files_verified": [
+			"A total of 33 video files were analyzed.",
+			"Videos capturing events before, during, and after the killing.",
+			"Contextual videos showing protests, crowd movements, and police activities in the area.",
+			"Videos were recorded on various devices, including Google Pixel 7, iPhone 14 Pro Max, Oppo Reno3 Pro 5G, and Samsung SM-A525F, with metadata available for most files except where noted."
+		]
+	},
+
+	"types_of_analysis_conduct": {
+		"frame_by_frame_analysis": "Videos were examined frame-by-frame to identify key events, personnel, actions, and environmental details. This included noting the presence of protesters, police, civilians, their actions such as shooting, body movements, and specific visual cues (e.g., blood spatter, pellet shells, smoke from gunshots).",
+		"geolocation_verification": "Locations were confirmed using visual landmarks (e.g., Shareef General Hospital, Konabari Police Station, “Nurjahan Mohila Madrasa” signboard, “SHAH Cement” shop shutter) and geolocation data embedded in video metadata or cross-referenced with open-source maps.",
+		"crowd_estimation": "Crowd sizes were estimated using advanced crowd-counting techniques (e.g., assuming 2.00 people per square meter) and visual analysis to provide approximate numbers of protesters and police.",
+		"audio_analysis": "The audio cues were analyzed to determine the timing of gunshots, shouting, and statements from bystanders.",
+		"slow_motion_review": "Specific moments, such as gunshots and pellet impacts, were reviewed in slow motion to confirm details.",
+		"law_enforcement_unit_identification": "Police officers and civilians were tracked across videos using visual identifiers (e.g., uniforms, vests, helmets, emblems) and cross-referenced with media reports."
+	},
+
+	"open_source_research": [
+		{
+			"label": "Prothom Alo",
+			"para": "Confirmed arrest of constable Akram Hossain",
+			"link": "https://www.prothomalo.com/bangladesh/district/lqte3lxu6e"
+		},
+
+		{
+			"label": "The Business Standard",
+			"para": " Detailed the killing and arrest",
+			"link": "https://www.tbsnews.net/bangladesh/police-constable-arrested-over-killing-college-student-during-student-protest-gazipur"
+		},
+		{
+			"label": "Dhaka Tribune",
+			"para": "Reported legal actions against Akram Hossain",
+			"link": "https://www.dhakatribune.com/bangladesh/crime/357614/police-constable-lands-in-jail-over-killing"
+		},
+		{
+			"label": "Jamuna Television",
+			"para": "Provided family statements and police comments",
+			"link": "https://www.youtube.com/watch?v=nsHG5Nuaq-E&rco=1; https://jamuna.tv/news/560126"
+		},
+		{
+			"label": "Somoy News",
+			"para": "Covered legal cases against journalists and Awami League leaders",
+			"link": "https://www.somoynews.tv/news/2024-08-27/IsNwQYK1"
+		},
+		{
+			"label": "YouTube",
+			"para": "Additional footage and reports",
+			"link": "https://www.youtube.com/watch?v=2RR-ZCvzBdk"
+		}
+	],
+
+	"timeline_of_the_incident": {
+		"intro": "The following timeline outlines major events on 05 August 2024 based on the video analysis, using approximate times derived from metadata or estimates:",
+		"analysis": [
+			[
+				{
+					"label": "03:10:31 PM",
+					"para": "Civilians (25-26) celebrate Sheikh Hasina’s resignation inside a room, watching TV reports confirming her departure and public entry into Ganabhaban.",
+					"imgs": []
+				},
+				{
+					"label": "03:23:27 PM",
+					"para": "150-180 protesters gather near a red-painted building opposite the Konabari Police Station gate.",
+					"imgs": []
+				},
+				{
+					"label": "03:25:10 PM",
+					"para": "Approximately 300 protesters march past Konabari Police Station toward Shareef General Hospital.",
+					"imgs": []
+				},
+				{
+					"label": "03:52:39 PM",
+					"para": "200-300 protesters topple and attack a blue van in front of Konabari Police Station, with 150-200 additional people gathered nearby.",
+					"imgs": []
+				},
+				{
+					"label": "04:39:23 PM",
+					"para": "Around 33 police officers in riot gear gather at a Kashimpur Road crossroad, signaling intent to disperse protesters.",
+					"imgs": ["./gazipur/03.png"]
+				}
+			],
+			[
+				{
+					"label": "04:49:27 PM",
+					"para": "65-70 protesters, some throwing bricks, are near “Nurjahan Mohila Madrasa” alley; voices confirm police presence nearby.",
+					"imgs": []
+				},
+				{
+					"label": "04:54:21 PM",
+					"para": "Police fire two gunshots to disperse protesters.",
+					"imgs": []
+				},
+				{
+					"label": "04:55:15 PM",
+					"para": "16 police officers, including one with a revolver, chase protesters near Shareef General Hospital; four gunshots are fired, targeting protesters hiding behind a truck.",
+					"imgs": []
+				},
+				{
+					"label": "05:04:32 PM",
+					"para": "Two police officers fire two gunshots near the “Nurjahan Mohila Madrasa” alley.",
+					"imgs": []
+				},
+				{
+					"label": "05:21:50 PM",
+					"para": "Mohammad Riddoy is detained by 4-5 police officers in “Nurjahan Mohila Madrasa” alley.",
+					"imgs": ["./gazipur/02.png"]
+				}
+			],
+			[
+				{
+					"label": "05:23:08 PM",
+					"para": "Nine police officers surround Mohammad Riddoy; one slaps him, and another (Akram Hossain) shoots him in the back with a shotgun, killing him instantly. Blood and a pellet shell are visible.",
+					"imgs": ["./gazipur/01.png", "./gazipur/04.png"]
+				}
+			],
+			[
+				{
+					"label": "05:23:14 PM",
+					"para": "Six police officers approach Riddoy’s body; three begin dragging it away.",
+					"imgs": []
+				},
+
+				{
+					"label": "05:29:25 PM",
+					"para": "Six police officers drag Riddoy’s body southward past Shareef General Hospital, leaving a blood trail.",
+					"imgs": []
+				},
+				{
+					"label": "05:49:42 PM",
+					"para": "Six police officers patrol in front of Shareef General Hospital, firing two gunshots; protesters may be inside the hospital.",
+					"imgs": []
+				},
+				{
+					"label": "06:51:03 PM",
+					"para": "120-130 people were gathered in front of the hospital. No policemen in sight.",
+					"imgs": []
+				},
+				{
+					"label": "06:53:12 PM",
+					"para": "28-29 police officers regroup at a Kashimpur Road crossroad near the toppled van.",
+					"imgs": []
+				}
+			]
+		]
+	}
+}
