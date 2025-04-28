@@ -12,6 +12,7 @@ import {
 } from '../navigation-menu';
 import Link from 'next/link';
 import Methodology from '@/app/methodology';
+import { cn } from '@/lib/utils';
 
 const navigationItems = [
 	{
@@ -76,14 +77,24 @@ export function NavMenu() {
 			<NavigationMenuList>
 				<NavigationMenuItem>
 					<Link href="/" legacyBehavior passHref>
-						<NavigationMenuLink className={navigationMenuTriggerStyle()}>
+						<NavigationMenuLink
+							className={cn(
+								navigationMenuTriggerStyle(),
+								'px-0 py-0 bg-transparent hover:bg-transparent hover:text-primary mx-2 focus:bg-transparent',
+							)}
+						>
 							Home
 						</NavigationMenuLink>
 					</Link>
 				</NavigationMenuItem>
 
 				<NavigationMenuItem>
-					<NavigationMenuTrigger>
+					<NavigationMenuTrigger
+						className={cn(
+							navigationMenuTriggerStyle(),
+							'px-0 py-0 bg-transparent hover:bg-transparent hover:text-primary mx-2 focus:bg-transparent',
+						)}
+					>
 						<div className="flex items-center gap-2">
 							<SquareArrowOutUpRightIcon size={16} />
 							Map View
@@ -115,7 +126,12 @@ export function NavMenu() {
 
 				<NavigationMenuItem>
 					<Link href="/investigations" legacyBehavior passHref>
-						<NavigationMenuLink className={navigationMenuTriggerStyle()}>
+						<NavigationMenuLink
+							className={cn(
+								navigationMenuTriggerStyle(),
+								'px-0 py-0 bg-transparent hover:bg-transparent hover:text-primary mx-2 focus:bg-transparent',
+							)}
+						>
 							Investigation
 						</NavigationMenuLink>
 					</Link>
@@ -123,7 +139,12 @@ export function NavMenu() {
 
 				<NavigationMenuItem>
 					<Link href="/methodology" legacyBehavior passHref>
-						<NavigationMenuLink className={navigationMenuTriggerStyle()}>
+						<NavigationMenuLink
+							className={cn(
+								navigationMenuTriggerStyle(),
+								'px-0 py-0 bg-transparent hover:bg-transparent hover:text-primary mx-2 focus:bg-transparent',
+							)}
+						>
 							Methodology
 						</NavigationMenuLink>
 					</Link>
@@ -131,7 +152,12 @@ export function NavMenu() {
 
 				<NavigationMenuItem>
 					<Link href="/articles" legacyBehavior passHref>
-						<NavigationMenuLink className={navigationMenuTriggerStyle()}>
+						<NavigationMenuLink
+							className={cn(
+								navigationMenuTriggerStyle(),
+								'px-0 py-0 bg-transparent hover:bg-transparent hover:text-primary mx-2 focus:bg-transparent',
+							)}
+						>
 							Articles
 						</NavigationMenuLink>
 					</Link>
@@ -139,7 +165,12 @@ export function NavMenu() {
 
 				<NavigationMenuItem>
 					<Link href="/team" legacyBehavior passHref>
-						<NavigationMenuLink className={navigationMenuTriggerStyle()}>
+						<NavigationMenuLink
+							className={cn(
+								navigationMenuTriggerStyle(),
+								'px-0 py-0 bg-transparent hover:bg-transparent hover:text-primary mx-2 focus:bg-transparent',
+							)}
+						>
 							Team
 						</NavigationMenuLink>
 					</Link>
