@@ -169,7 +169,58 @@ const EffectedPersonMarker = memo(({ person }: EffectedPersonMarkerProps) => {
 				stroke: true,
 			}}
 			eventHandlers={{ click: handleMarkerClick }}
-		/>
+		>
+			{isSelected && (
+				<Tooltip permanent={true} direction="top">
+					<Card className="bg-transparent border-none shadow-none p-4" key={id}>
+						<CardHeader className="space-y-4 p-0">
+							<CardTitle className="flex flex-col gap-2">
+								<div className="flex justify-between items-center">
+									<div className="flex gap-2 items-center">
+										{GenderIcon ? (
+											<Image
+												src={GenderIcon || '/placeholder.svg'}
+												alt="gender"
+												width={32}
+												height={32}
+											/>
+										) : (
+											<></>
+										)}
+										<div className="flex flex-col">
+											<span className="text-xs">{name || 'Unknown'}</span>
+											<span className="text-xs font-normal">
+												{age || '...'} years, {occupation || '...'}
+											</span>
+										</div>
+									</div>
+
+									{type ? CASUALTY_ITEMS_COLOR_ELEMENTS[type]!() : <></>}
+								</div>
+							</CardTitle>
+							<Separator />
+							<CardDescription>
+								<div className="flex gap-2 items-center">
+									<div>
+										<MapPin width={16} />
+									</div>
+									<span className="text-xs">
+										{location || '...'}, {district || '...'}
+									</span>
+								</div>
+
+								<div className="flex gap-2 items-center">
+									<div>
+										<Calendar width={16} />
+									</div>
+									<span className="text-xs">{_dateString || '...'}</span>
+								</div>
+							</CardDescription>
+						</CardHeader>
+					</Card>
+				</Tooltip>
+			)}
+		</CircleMarker>
 	);
 
 	return (

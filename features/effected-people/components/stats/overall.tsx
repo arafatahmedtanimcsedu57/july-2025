@@ -29,7 +29,7 @@ import {
 	getTotalInjuredPeople,
 } from '@/features/effected-people/lib/data-managers';
 import { useSelectedPersonStore } from '@/features/effected-people/store/selected-person-store';
-import { useFilteredData } from '@/features/effected-people/hooks/useFiltered-data';
+import { useFilteredData } from '@/features/effected-people/hooks/use-filtered-data';
 
 import { GENDERS } from '@/constant/gender-types';
 import { CASUALTY_ITEMS_COLOR_ELEMENTS } from '@/constant/casualty-types';
