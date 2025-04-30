@@ -11,24 +11,21 @@ import {
 	navigationMenuTriggerStyle,
 } from '../navigation-menu';
 import Link from 'next/link';
-import Methodology from '@/app/methodology';
 import { cn } from '@/lib/utils';
 
 const navigationItems = [
 	{
-		title: 'Quick Look',
-		href: '/quick-view',
-		description: 'Organized by Districts.',
+		title: 'Country Map',
+		href: '/country-view',
+		description:
+			'Country Map is a section where the total casualties, including deaths and injuries, are displayed as dots on the map, organized by district and hospital views. The red colour indicates the dead, while Orange denotes the injured.',
 	},
+
 	{
-		title: 'Hospital View',
-		href: '/hospital-view',
-		description: 'Organized by Hospitals',
-	},
-	{
-		title: 'Incidents',
+		title: 'Incidents Map',
 		href: '/effected-people',
-		description: 'Analyzed Incidents',
+		description:
+			'In the Incident Map section, viewers can see the victims` names, along with their gender, occupation, Incident location, a description of the incident, and other relevant information by clicking each dot on the map. Each entry or incident is manually verified and analyzed by TGI`s forensics team.',
 	},
 ];
 
@@ -80,7 +77,7 @@ export function NavMenu() {
 						<NavigationMenuLink
 							className={cn(
 								navigationMenuTriggerStyle(),
-								'px-0 py-0 bg-transparent hover:bg-transparent hover:text-primary mx-2 focus:bg-transparent',
+								'px-0 py-0 bg-transparent hover:bg-transparent hover:text-primary mx-2 focus:bg-transparent text-slate-700',
 							)}
 						>
 							Home
@@ -92,12 +89,12 @@ export function NavMenu() {
 					<NavigationMenuTrigger
 						className={cn(
 							navigationMenuTriggerStyle(),
-							'px-0 py-0 bg-transparent hover:bg-transparent hover:text-primary mx-2 focus:bg-transparent',
+							'px-4 py-0 bg-transparent hover:bg-transparent hover:text-primary mx-2 focus:bg-transparent text-slate-700',
 						)}
 					>
 						<div className="flex items-center gap-2">
 							<SquareArrowOutUpRightIcon size={16} />
-							Map View
+							Map
 						</div>
 					</NavigationMenuTrigger>
 
@@ -108,7 +105,7 @@ export function NavMenu() {
 									<NavigationMenuLink asChild>
 										<a
 											href={item.href}
-											className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+											className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground text-slate-700"
 										>
 											<div className="text-sm font-medium leading-none">
 												{item.title}
@@ -129,7 +126,7 @@ export function NavMenu() {
 						<NavigationMenuLink
 							className={cn(
 								navigationMenuTriggerStyle(),
-								'px-0 py-0 bg-transparent hover:bg-transparent hover:text-primary mx-2 focus:bg-transparent',
+								'px-0 py-0 bg-transparent hover:bg-transparent hover:text-primary mx-2 focus:bg-transparent text-slate-700',
 							)}
 						>
 							Investigation
@@ -142,7 +139,7 @@ export function NavMenu() {
 						<NavigationMenuLink
 							className={cn(
 								navigationMenuTriggerStyle(),
-								'px-0 py-0 bg-transparent hover:bg-transparent hover:text-primary mx-2 focus:bg-transparent',
+								'px-0 py-0 bg-transparent hover:bg-transparent hover:text-primary mx-2 focus:bg-transparent text-slate-700',
 							)}
 						>
 							Methodology
@@ -155,7 +152,7 @@ export function NavMenu() {
 						<NavigationMenuLink
 							className={cn(
 								navigationMenuTriggerStyle(),
-								'px-0 py-0 bg-transparent hover:bg-transparent hover:text-primary mx-2 focus:bg-transparent',
+								'px-0 py-0 bg-transparent hover:bg-transparent hover:text-primary mx-2 focus:bg-transparent text-slate-700',
 							)}
 						>
 							Media
@@ -168,7 +165,7 @@ export function NavMenu() {
 						<NavigationMenuLink
 							className={cn(
 								navigationMenuTriggerStyle(),
-								'px-0 py-0 bg-transparent hover:bg-transparent hover:text-primary mx-2 focus:bg-transparent',
+								'px-0 py-0 bg-transparent hover:bg-transparent hover:text-primary mx-2 focus:bg-transparent text-slate-700',
 							)}
 						>
 							Timeline
@@ -181,7 +178,7 @@ export function NavMenu() {
 						<NavigationMenuLink
 							className={cn(
 								navigationMenuTriggerStyle(),
-								'px-0 py-0 bg-transparent hover:bg-transparent hover:text-primary mx-2 focus:bg-transparent',
+								'px-0 py-0 bg-transparent hover:bg-transparent hover:text-primary mx-2 focus:bg-transparent text-slate-700',
 							)}
 						>
 							About

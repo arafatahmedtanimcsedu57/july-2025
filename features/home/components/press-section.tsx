@@ -15,15 +15,15 @@ function getFaviconUrl(url: string) {
 
 export default function MediaCoverage() {
 	return (
-		<section className="px-10 py-16 bg-slate-100">
+		<section className="px-10 py-16 bg-foreground">
 			<div className="container mx-auto">
 				<div className="flex justify-between items-center mb-6">
-					<h2 className="text-2xl font-bold text-orange-600">
+					<h2 className="text-2xl font-bold text-destructive">
 						Monsoon Protest Archive in News
 					</h2>
 					<Link
 						href="/articles"
-						className="text-orange-600 text-sm font-semibold"
+						className="text-destructive text-sm font-semibold"
 					>
 						READ MORE +
 					</Link>
@@ -35,7 +35,7 @@ export default function MediaCoverage() {
 							target="_blank"
 							href={item.link}
 							key={index}
-							className="flex items-start gap-4 px-4 py-6 bg-white rounded-2xl shadow hover:shadow-md transition"
+							className="border flex items-start gap-4 px-4 py-6 bg-background rounded-sm shadow hover:shadow-md transition"
 						>
 							<Image
 								src={getFaviconUrl(item.link)}
@@ -45,12 +45,10 @@ export default function MediaCoverage() {
 								height={40}
 							/>
 							<div>
-								<li className="text-black font-semibold list-none">
+								<p className="text-black font-semibold list-none line-clamp-2 mb-4">
 									{item.title}
-								</li>
-								<p className="text-orange-600 text-sm font-semibold">
-									{item.source}
 								</p>
+								<p className="text-slate-700 text-sm">{item.source}</p>
 							</div>
 						</Link>
 					))}

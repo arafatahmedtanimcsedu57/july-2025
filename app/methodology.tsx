@@ -22,29 +22,30 @@ function Methodology() {
             justify-center
             gap-4
             text-lg
-            font-semibold
             bg-gradient-to-tr
 
-            from-pink-400
-            to-blue-400
+            from-slate-500
+            to-slate-200
             
             group
             hover:w-[172px]
             transition-all
             duration-100
             ease-in-out
+
+			text-slate-900
            `}
 					>
 						<span className="hidden group-hover:inline-block opacity-0 group-hover:opacity-100 transition-opacity">
 							Methodology
 						</span>{' '}
-						<InfoIcon className="text-white" />
+						<InfoIcon className="text-slate-800" />
 					</Button>
 				</PopoverTrigger>
 				<PopoverContent
 					side="bottom"
 					align="start"
-					className="text-slate-700 rounded-3xl w-80 h-[300px] shadow-xl scrollbar-hide overflow-auto p-6  bg-gradient-to-tr from-blue-300 to-pink-300 z-[10000]"
+					className="text-slate-700 rounded-3xl w-80 h-[300px] shadow-xl scrollbar-hide overflow-auto p-6  bg-gradient-to-tr from-slate-200 to-slate-100 z-[10000]"
 				>
 					<h1 className="text-sm mb-4 font-semibold">Methodology</h1>
 

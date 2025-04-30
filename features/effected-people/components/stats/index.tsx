@@ -24,7 +24,7 @@ const VIEWS: Record<string, Record<string, string>> = {
 
 function Stats() {
 	return (
-		<div className="h-full flex flex-col w-[430px] bg-foreground rounded-3xl border shadow-lg dark:text-white text-slate-700 relative">
+		<div className="h-full flex flex-col min-w-[430px] bg-foreground rounded-3xl border shadow-lg dark:text-white text-slate-700 relative">
 			<FilterControls />
 
 			<TotalCasualties />
@@ -33,14 +33,10 @@ function Stats() {
 				className="flex-1 min-h-0 flex flex-col p-10"
 				defaultValue={VIEWS.PERSON_LIST.value}
 			>
-				<TabsList className="grid grid-cols-2 mb-4 w-[250px] m-0 rounded-xl">
+				<TabsList className="grid grid-cols-2 mb-4 w-[250px] m-0">
 					{Object.keys(VIEWS).map((view) => {
 						return (
-							<TabsTrigger
-								key={view}
-								value={VIEWS[view].value}
-								className="rounded-xl text-slate-700 dark:text-white data-[state=active]:text-primary"
-							>
+							<TabsTrigger key={view} value={VIEWS[view].value}>
 								{VIEWS[view].label}
 							</TabsTrigger>
 						);

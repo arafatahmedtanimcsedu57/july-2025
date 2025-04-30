@@ -114,13 +114,16 @@ export default function FilterContainer() {
             gap-4
             text-lg
             font-semibold
+			bg-destructive
             
             group
             hover:w-[140px]
             transition-all
             duration-100
             ease-in-out
-            hover:bg-blue-600`}
+			hover:bg-destructive
+
+           `}
 				>
 					<span className="hidden group-hover:inline-block opacity-0 group-hover:opacity-100 transition-opacity">
 						Filter

@@ -4,7 +4,7 @@ import { memo, useState, useEffect } from 'react';
 import { CircleMarker, Tooltip, useMap } from 'react-leaflet';
 
 import { DonutChart } from '@/shared/ui/donut-chart';
-import { useSelectedCasualtyStore } from '@/features/quick-view/store/selected-casualty-store';
+import { useSelectedCasualtyStore } from '@/features/country-view/store/selected-casualty-store';
 
 import type { Casualty } from '@/types/data';
 import { scaleCircleRadius } from '@/lib/scale-circle-radius';
