@@ -9,7 +9,7 @@ export default function Header() {
 					MONSOON PROTESTS ARCHIVE{' '}
 				</h5>
 				<p className="text-xs font-light w-max">
-					Memory. Justice. Accountability
+					Documenting the July Uprising in Bangladesh{' '}
 				</p>
 			</div>
 		</div>
