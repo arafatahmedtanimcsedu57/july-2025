@@ -14,14 +14,6 @@ function LandingContainer() {
 				<HeroSection />
 			</SlideInSection>
 
-			{/* <SlideInSection direction="up">
-        <ProjectNumberSection />
-      </SlideInSection> */}
-
-			<SlideInSection direction="up">
-				<JulyUprisingTimeline />
-			</SlideInSection>
-
 			<SlideInSection direction="up">
 				<AboutSection />
 			</SlideInSection>
@@ -29,10 +21,6 @@ function LandingContainer() {
 			<SlideInSection direction="up">
 				<ImportantSection />
 			</SlideInSection>
-
-			{/* <SlideInSection direction="up">
-        <ArchiveSection />
-      </SlideInSection> */}
 
 			<SlideInSection direction="up">
 				<MediaCoverage />

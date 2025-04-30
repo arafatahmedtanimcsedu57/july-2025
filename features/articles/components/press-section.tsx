@@ -20,7 +20,7 @@ export default function MediaCoverage() {
 			<section className="px-10 py-16 bg-foreground  text-slate-700">
 				<div className="container mx-auto">
 					<div className="flex justify-between items-center mb-6">
-						<h2 className="text-2xl font-bold text-slate-600">REPORTS</h2>
+						<h2 className="text-2xl font-bold text-slate-600">Reports</h2>
 					</div>
 
 					<div className="flex gap-4 flex-wrap">
@@ -61,7 +61,7 @@ export default function MediaCoverage() {
 				<div className="container mx-auto">
 					<div className="flex justify-between items-center mb-6">
 						<h2 className="text-2xl font-bold text-orange-600">
-							MEDIA COVERAGE
+							Monsoon Protest Archive in News{' '}
 						</h2>
 					</div>
 

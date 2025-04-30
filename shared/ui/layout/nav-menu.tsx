@@ -164,6 +164,19 @@ export function NavMenu() {
 				</NavigationMenuItem>
 
 				<NavigationMenuItem>
+					<Link href="/timeline" legacyBehavior passHref>
+						<NavigationMenuLink
+							className={cn(
+								navigationMenuTriggerStyle(),
+								'px-0 py-0 bg-transparent hover:bg-transparent hover:text-primary mx-2 focus:bg-transparent',
+							)}
+						>
+							Timeline
+						</NavigationMenuLink>
+					</Link>
+				</NavigationMenuItem>
+
+				<NavigationMenuItem>
 					<Link href="/team" legacyBehavior passHref>
 						<NavigationMenuLink
 							className={cn(

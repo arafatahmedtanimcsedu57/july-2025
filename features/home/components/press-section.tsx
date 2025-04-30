@@ -18,7 +18,9 @@ export default function MediaCoverage() {
 		<section className="px-10 py-16 bg-slate-100">
 			<div className="container mx-auto">
 				<div className="flex justify-between items-center mb-6">
-					<h2 className="text-2xl font-bold text-orange-600">MEDIA COVERAGE</h2>
+					<h2 className="text-2xl font-bold text-orange-600">
+						Monsoon Protest Archive in News
+					</h2>
 					<Link
 						href="/articles"
 						className="text-orange-600 text-sm font-semibold"
