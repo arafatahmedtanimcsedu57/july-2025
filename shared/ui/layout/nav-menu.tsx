@@ -171,7 +171,7 @@ export function NavMenu() {
 								'px-0 py-0 bg-transparent hover:bg-transparent hover:text-primary mx-2 focus:bg-transparent',
 							)}
 						>
-							Team
+							About
 						</NavigationMenuLink>
 					</Link>
 				</NavigationMenuItem>

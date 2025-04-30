@@ -5,7 +5,7 @@ const TeamContainer = () => {
 		<section className="px-10 py-16 bg-foreground  text-slate-700">
 			<div className="container mx-auto">
 				<div className="flex justify-between items-center mb-6">
-					<h2 className="text-2xl font-bold text-slate-600">TEAM</h2>
+					<h2 className="text-2xl font-bold text-slate-600">About</h2>
 				</div>
 
 				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
