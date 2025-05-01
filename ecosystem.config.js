@@ -6,7 +6,7 @@ module.exports = {
         script: "npm",
         args: "run dev",
         env: {
-          PORT: 3554
+          PORT: 3000
         }
       }
     ]
