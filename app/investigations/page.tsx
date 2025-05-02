@@ -5,7 +5,7 @@ import InvestigationContainer from '@/features/investigations/investigation-cont
 export default function Investigations() {
 	return (
 		<>
-			<div className="flex-1 h-full overflow-auto">
+			<div className="flex-1 h-full overflow-auto ">
 				<InvestigationContainer />
 			</div>
 		</>

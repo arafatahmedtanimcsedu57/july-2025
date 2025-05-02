@@ -25,7 +25,7 @@ export default function MediaCoverage() {
 						href="/articles"
 						className="text-destructive text-sm font-semibold"
 					>
-						READ MORE +
+						Read More +
 					</Link>
 				</div>
 
@@ -35,7 +35,7 @@ export default function MediaCoverage() {
 							target="_blank"
 							href={item.link}
 							key={index}
-							className="border flex items-start gap-4 px-4 py-6 bg-background rounded-sm shadow hover:shadow-md transition"
+							className="border flex items-start gap-4 px-4 py-6 bg-background rounded-sm  transition"
 						>
 							<Image
 								src={getFaviconUrl(item.link)}

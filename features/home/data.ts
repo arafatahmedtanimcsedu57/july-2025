@@ -23,7 +23,7 @@ export const projectStats = {
 
 export const aboutData = [
 	{
-		heading: 'About the Project',
+		heading: 'About The Project',
 		paragraphs: [
 			'The Monsoon Protests Archive is a digital repository led by Tech Global Institute, in partnership with the International Truth and Justice Project, dedicated to preserving and documenting human rights violations during the July Uprising in Bangladesh in 2024, which led to the collapse of the government led by former Prime Minister Sheikh Hasina.  Using open-source investigations, research, digital forensics, eyewitness accounts, and storytelling, we reconstruct the chronology of events with the aim of advancing truth, transitional justice, and accountability in the country. This archive serves as a public memorial to victims and survivors, and a valuable tool for researchers, journalists, and human rights defenders worldwide fighting for a more just, democratic, and rights-respecting society.',
 		],

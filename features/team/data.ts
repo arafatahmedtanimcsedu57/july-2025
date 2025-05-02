@@ -28,7 +28,7 @@ export const team = [
 	},
 	{
 		name: 'Aarafat Ahmed',
-		des: '',
-		bio: '',
+		des: 'Sr. Software Engineer',
+		bio: 'Arafat is an experienced software engineer with a strong background in web application development. Over the years, he has worked on a wide range of projects, from large-scale fintech platforms to government service portals. ',
 	},
 ];
