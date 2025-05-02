@@ -44,42 +44,42 @@ export const importantData = [
 			'The Monsoon Protests Archive serves as a digital repository to preserve digital evidence of atrocities committed during the July Uprising. This digital archive safeguards materials related to justice and accountability efforts, serving as a repository for digital evidence of human rights violations. This is crucial given that social media platforms are increasingly removing online content they deem harmful or violent, which could otherwise be used in future legal proceedings. This archive will be helpful to acknowledge the suffering of victims and serve as a historical record to safeguard against revisionism and denial of atrocities. ',
 		],
 	} as const,
-	{
-		heading: 'Our Goal',
-		type: 'list',
-		content: [
-			{
-				label: 'Collect and Verify Digital Evidence',
-				paragraph:
-					'Systematically gathering digital evidence from open source and eyewitness accounts displays human rights violations perpetrated by law enforcement agencies, military forces, and pro-government entities during the July Uprising, ensuring accuracy and reliability.',
-			},
-			{
-				label: 'Secure Long-Term Preservation',
-				paragraph:
-					'Honor the victims and survivors of the July Uprising by meticulously documenting human rights abuses and establishing a secure and accessible digital repository to store evidence of atrocities, protecting it from tampering or erasure.',
-			},
-			{
-				label: 'Support Justice and Accountability',
-				paragraph:
-					'Provide thoroughly investigated findings to judicial and accountability bodies, enabling the prosecution of perpetrators and the pursuit of justice for victims.',
-			},
-			{
-				label: 'Facilitate Research and Advocacy',
-				paragraph:
-					'Offer researchers, journalists, and human rights defenders access to verified materials for in-depth analysis, reporting, and advocacy, fostering informed public discourse and policy change.',
-			},
-			{
-				label: 'Build Capacity for Human Rights Documentation',
-				paragraph:
-					'Deliver training programs to empower human rights defenders with the skills to collect, verify, preserve, and investigate open-source information related to human rights violations, strengthening global documentation efforts.',
-			},
-			{
-				label: 'Preserve Historical Truth',
-				paragraph:
-					'Safeguard the legacy of the Bangladeshi people’s resistance during the July Uprising by maintaining an accurate and comprehensive historical record, protecting it against manipulation or revisionism for future generations.',
-			},
-		],
-	} as const,
+	// {
+	// 	heading: 'Our Goal',
+	// 	type: 'list',
+	// 	content: [
+	// 		{
+	// 			label: 'Collect and Verify Digital Evidence',
+	// 			paragraph:
+	// 				'Systematically gathering digital evidence from open source and eyewitness accounts displays human rights violations perpetrated by law enforcement agencies, military forces, and pro-government entities during the July Uprising, ensuring accuracy and reliability.',
+	// 		},
+	// 		{
+	// 			label: 'Secure Long-Term Preservation',
+	// 			paragraph:
+	// 				'Honor the victims and survivors of the July Uprising by meticulously documenting human rights abuses and establishing a secure and accessible digital repository to store evidence of atrocities, protecting it from tampering or erasure.',
+	// 		},
+	// 		{
+	// 			label: 'Support Justice and Accountability',
+	// 			paragraph:
+	// 				'Provide thoroughly investigated findings to judicial and accountability bodies, enabling the prosecution of perpetrators and the pursuit of justice for victims.',
+	// 		},
+	// 		{
+	// 			label: 'Facilitate Research and Advocacy',
+	// 			paragraph:
+	// 				'Offer researchers, journalists, and human rights defenders access to verified materials for in-depth analysis, reporting, and advocacy, fostering informed public discourse and policy change.',
+	// 		},
+	// 		{
+	// 			label: 'Build Capacity for Human Rights Documentation',
+	// 			paragraph:
+	// 				'Deliver training programs to empower human rights defenders with the skills to collect, verify, preserve, and investigate open-source information related to human rights violations, strengthening global documentation efforts.',
+	// 		},
+	// 		{
+	// 			label: 'Preserve Historical Truth',
+	// 			paragraph:
+	// 				'Safeguard the legacy of the Bangladeshi people’s resistance during the July Uprising by maintaining an accurate and comprehensive historical record, protecting it against manipulation or revisionism for future generations.',
+	// 		},
+	// 	],
+	// } as const,
 ];
 
 export const archiveData = {
