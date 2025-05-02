@@ -23,8 +23,8 @@ export const team = [
 
 	{
 		name: 'Farhad Alam Bhuiyan',
-		des: '',
-		bio: '',
+		des: '...',
+		bio: '...',
 	},
 	{
 		name: 'Aarafat Ahmed',

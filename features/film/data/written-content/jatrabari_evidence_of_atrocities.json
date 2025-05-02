@@ -1,0 +1,141 @@
+{
+	"headline": "JATRABARI – EVIDENCE OF ATROCITIES",
+
+	"feature_img": "./jatrabari/featured.png",
+	"feature_vdo": "./jatrabari/film.mp4",
+
+	"case_details": {
+		"date_of_incident": "05 August 2024",
+		"incident_location": "Jatrabari Police Station, Dhaka",
+		"location_coordinates": "'23.709880', '90.435461'",
+		"preliminary_analysis": "11 September 2024",
+		"updated_on": "22 April 2025",
+		"release_date": "15 January 2025"
+	},
+
+	"context": [
+		"The 15-minute film, released in English and Bangla, seeks to reconstruct what happened outside Jatrabari police station between 1.56 pm and 3.30 pm on 5 August 2024. This investigation located 19 original videos shot by eyewitnesses to the killings of protesters by the Jatrabari police, and added to this eyewitness testimony and other videos. The video recordings begin by showing police officers in full riot gear exiting Jatrabari police station and firing at protesters, both indiscriminately and also in a targeted manner. The army then arrives on the scene, and the police return to the station. In striking contrast to the police, the military hold the crowd back, their weapons pointing downwards, and the protesters cooperate with the soldiers peacefully. The situation seems to be under control, with the military appearing to provide a line of protection around the entrance of the Jatrabari police station. Then, suddenly, a man inside the police compound throws a delayed-action sound grenade over the heads of the soldiers at the entrance, who scatter. Someone inside the station urges the armed riot police to move forward; they surge out and immediately start shooting at protesters, who are armed at most with sticks, and take cover or try to run away. Protected by the army, the police's breakout appears to be unnecessary and unprovoked, and to have directly resulted in the ensuing brutal and indiscriminate killing of protesters with tragic consequences."
+	],
+
+	"method": {
+		"files_verified": [
+			"A total of 47 videos, images, and audio files were analyzed.",
+			"Videos capturing events before, during, and after the killing.",
+			"Contextual videos showing protests, crowd movements, police, and army activities in the Jatrabari police station area.",
+			"Shadow analysis has been introduced to find the chronolocation of the downloaded footage."
+		]
+	},
+
+	"types_of_analysis_conduct": {
+		"frame_by_frame_analysis": " The videos were examined frame by frame to identify key events, personnel, actions, and environmental details. This included noting the presence of protesters, police, army, civilians, their actions such as shooting, body movements, and specific visual cues (e.g.,  positions of injured/dead bodies, blood, point of impact of gunshots, sound and spark of stun grenade and vehicles).",
+		"geolocation_verification": " Locations were confirmed using visual landmarks (e.g., Jatrabari Thana, Flyover) and cross-referenced with open-source maps",
+		"crowd_estimation": "Crowd sizes were estimated using advanced crowd-counting techniques and visual analysis to provide approximate numbers of demonstrators and police.",
+		"audio_analysis": "The audio cues were analyzed to determine the time and date of incidents, shouting, and statements from the witness.",
+		"slow_motion_review": "Specific moments, such as gunshots and pellet impacts, were reviewed in slow motion to confirm details.",
+		"law_enforcement_unit_identification": "Police officers, Military Personnel, and demonstrators were identified across videos using visual identifiers (e.g., uniforms, vests, helmets, car and Armoured personnel carriers.)"
+	},
+
+	"open_source_research": [
+		{
+			"label": "Prothom Alo",
+			"para": "109 killed in clashes in a single day",
+			"link": "https://en.prothomalo.com/amp/story/bangladesh/qhf6h8cwxy"
+		},
+
+		{
+			"label": "Sangbad",
+			"para": "People's anger, devastated Jatrabari police station: What happened on August 5 ",
+			"link": "https://sangbad.net.bd/news/national/2024/123445/"
+		},
+		{
+			"label": "Somoyer Alo",
+			"para": "News on Riton ",
+			"link": "https://www.shomoyeralo.com/news/282351"
+		},
+		{
+			"label": "Prothom Alo",
+			"para": "News on Yasir Sarkar ",
+			"link": "https://www.prothomalo.com/bangladesh/x3uxc0u08f"
+		},
+		{
+			"label": "Ittefaq",
+			"para": "News on Md. Khobaib",
+			"link": "https://www.ittefaq.com.bd/701603/%E0%A6%AE%E0%A6%BE%E0%A7%9F%E0%A7%87%E0%A6%B0-%E0%A6%B8%E0%A6%BE%E0%A6%A5%E0%A7%87-%E0%A6%B6%E0%A6%B9%E0%A7%80%E0%A6%A6-%E0%A6%B9%E0%A6%93%E0%A7%9F%E0%A6%BE%E0%A6%B0-%E0%A6%97%E0%A6%B2%E0%A7%8D%E0%A6%AA-%E0%A6%AC%E0%A6%B2%E0%A6%A4%E0%A7%87%E0%A6%A8-%E0%A6%96%E0%A7%8B%E0%A6%AC%E0%A6%BE%E0%A6%87%E0%A6%AC"
+		},
+		{
+			"label": "Tiktok",
+			"para": "Footage of Jatrabari Police Station",
+			"link": "https://www.tiktok.com/@nayonsharifbp/video/7400568488772832532"
+		}
+	],
+
+	"timeline_of_the_incident": {
+		"intro": "The following timeline on 05 August 2024 based on the video analysis, using approximate times derived from metadata or estimates:",
+		"analysis": [
+			[
+				{
+					"label": "1:56 PM",
+					"para": "A large number of police officers came out of the police station and started shooting at protestors. A group of four people behind a flyover pillar were running to escape from the police. ",
+					"imgs": ["./jatrabari/02.png"]
+				}
+			],
+			[
+				{
+					"label": "2:01 PM",
+					"para": "The army arrived in three vehicles. They were walking calmly towards the protestors in the same direction that the police had fired on. Their weapons were held in a relaxed position.",
+					"imgs": []
+				},
+				{
+					"label": "2:05 PM",
+					"para": "Soldiers are seen engaging with the protestors. Afterward, the soldiers begin to retreat toward the police station, and as they go back, the protestors follow them.. It appears the soldiers are forming a line to prevent the protestors from going beyond a certain point.",
+					"imgs": []
+				},
+				{
+					"label": "2:14 PM",
+					"para": "The soldiers can be seen trying to hold the line. The video shows that more protesters are coming towards the police station from further up the road.",
+					"imgs": []
+				},
+				{
+					"label": "2:20 PM",
+					"para": "A small line of soldiers guards the entrance of the police station trying to defuse the situation. Around 200 protestors are crowding in front of the police station, and are being held back from entering the police station by the soldiers.",
+					"imgs": []
+				},
+				{
+					"label": "2:39 PM",
+					"para": "Around 70 police officers, wearing helmets and bulletproof vests, deployed towards the exit of the police station, and faced the demonstrators and the line of the army, which was guarding the entrance of the police station. An officer at the front throws a delay-fuzed stun, or disorientation grenade, over the heads of the soldiers, into the crowd. As the grenade explodes, the crowd scatters, and the police surge forward and immediately open fire.",
+					"imgs": ["./jatrabari/01.png"]
+				}
+			],
+			[
+				{
+					"label": "2:46 PM:",
+					"para": "The police came slowly out of the police station and started shooting. Around 25 demonstrators were hiding behind the flyover pillar, and some were trying to escape. A number of them seem dead and injured, with one crawling away. We have been able to identify four dead bodies as Eyasir Sorkar, Khobaib Ahmed, Miraj Hossain, and Mohammad Ritton. The shooting continues.",
+					"imgs": ["./jatrabari/03.png", "./jatrabari/04.png"]
+				}
+			],
+			[
+				{
+					"label": "2:58 PM",
+					"para": "Three injured/dead bodies and scattered blood can be seen in the small lane opposite Jatrabari police station, where protestors were seen running in to escape before. It also shows several shoes and sticks, which likely belonged to the protestors.",
+					"imgs": []
+				},
+				{
+					"label": "Post 3 PM",
+					"para": "A total of six to seven injured/dead bodies were lying on the ground and were being lifted into a van by other survivors. The location has been geolocated to the right-sided flyover pillar, adjacent to the entrance of Jatrabari Police Station.",
+					"imgs": []
+				},
+
+				{
+					"label": "3:16 PM",
+					"para": "Some injured and dead bodies have been brought in from the lane leading up to the house’s entrance.",
+					"imgs": []
+				},
+				{
+					"label": "4:59 PM",
+					"para": "The police station was on fire. A big crowd was around the station. ",
+					"imgs": []
+				}
+			]
+		]
+	}
+}

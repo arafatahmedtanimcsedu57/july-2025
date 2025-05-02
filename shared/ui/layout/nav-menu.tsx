@@ -129,7 +129,33 @@ export function NavMenu() {
 								'px-0 py-0 bg-transparent hover:bg-transparent hover:text-primary mx-2 focus:bg-transparent text-slate-700',
 							)}
 						>
-							Investigation
+							Investigations
+						</NavigationMenuLink>
+					</Link>
+				</NavigationMenuItem>
+
+				<NavigationMenuItem>
+					<Link href="/films" legacyBehavior passHref>
+						<NavigationMenuLink
+							className={cn(
+								navigationMenuTriggerStyle(),
+								'px-0 py-0 bg-transparent hover:bg-transparent hover:text-primary mx-2 focus:bg-transparent text-slate-700',
+							)}
+						>
+							Films
+						</NavigationMenuLink>
+					</Link>
+				</NavigationMenuItem>
+
+				<NavigationMenuItem>
+					<Link href="/timeline" legacyBehavior passHref>
+						<NavigationMenuLink
+							className={cn(
+								navigationMenuTriggerStyle(),
+								'px-0 py-0 bg-transparent hover:bg-transparent hover:text-primary mx-2 focus:bg-transparent text-slate-700',
+							)}
+						>
+							Timeline
 						</NavigationMenuLink>
 					</Link>
 				</NavigationMenuItem>
@@ -156,19 +182,6 @@ export function NavMenu() {
 							)}
 						>
 							Media
-						</NavigationMenuLink>
-					</Link>
-				</NavigationMenuItem>
-
-				<NavigationMenuItem>
-					<Link href="/timeline" legacyBehavior passHref>
-						<NavigationMenuLink
-							className={cn(
-								navigationMenuTriggerStyle(),
-								'px-0 py-0 bg-transparent hover:bg-transparent hover:text-primary mx-2 focus:bg-transparent text-slate-700',
-							)}
-						>
-							Timeline
 						</NavigationMenuLink>
 					</Link>
 				</NavigationMenuItem>

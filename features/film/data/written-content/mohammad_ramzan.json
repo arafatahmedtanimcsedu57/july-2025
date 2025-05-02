@@ -1,0 +1,99 @@
+{
+	"headline": "RAMPURA",
+
+	"feature_img": "./mohammad_ramzan/featured.png",
+
+	"case_details": {
+		"date_of_incident": "19 July 2024",
+		"incident_location": "Rampura DIT Road, Dhaka",
+		"location_coordinates": "'23.759354', '90.418178'",
+		"preliminary_analysis": "09 September 2024",
+		"updated_on": "13 April 2025"
+	},
+
+	"context": [
+		"On 19 July 2024, Rampura witnessed widespread violence as Border Guard Bangladesh (BGB) personnel were deployed in this area to disperse the protestors and prevent them from entering the Bangladesh Television station. On the same day, a boy named Mohammad Ramzan was killed in the protest at Rampura DIT Road. He was a delivery boy at a local bakery shop. The digital forensics team at TGI has obtained a video of 01 minute and 45 seconds in length, which demonstrates the preceding and subsequent scenes of the killing of Mohammad Ramzan. In the video, Ramzan was observed wearing an orange-colored T-shirt, black jeans, and a pair of slippers. He was among the protesters and got shot in 50 seconds of the video. A thorough examination of the video indicates that the shot was a headshot, fired from a distance consistent with a rifle. Though he had been shot from the front where some BGB personnel were located at the beginning, his shooter is invisible in the video. Soon after Ramzan fell on the road, some protesters grabbed his hands and legs and took him to the Wapda Road. His blood was spattered on the road as he was dragged from the spot."
+	],
+
+	"method": {
+		" ": [
+			"A 1-minute and 45-second video and an eyewitness statement were analyzed.",
+			"The video demonstrates the preceding and subsequent scenes of the killing of Ramzan.",
+			"A weapons specialist was consulted to evaluate the shot that killed Ramzan."
+		]
+	},
+
+	"types_of_analysis_conduct": {
+		"frame_by_frame_analysis": "The video has been examined thoroughly to identify key individuals, weapons, and environmental details. This included observing whether the protestors posed a threat to law enforcement's use of deadly weapons and observing for visual cues like landmarks, trees, or buildings to determine the location. This also included assessing the impact of the weapons to know whether they were legal and/or lethal.",
+		"geolocation_verification": "The location of the incident was confirmed by the visual landmark of Al Kaderia Cafe on Rampura DIT Road.",
+		"audio_analysis": "Audio cue analysis determined the timing of the gunshot, the type of weapon used, its impact, and the statements made by individuals behind the camera.",
+		"personnel_identification": "The presence of Border Guard Bangladesh (BGB) in the video was confirmed by the inscription 'BGB' on the back of their uniforms, as well as by their uniforms, helmets, and weapons."
+	},
+
+	"open_source_research": [
+		{
+			"label": "Prothom Alo",
+			"para": "The Profession of Mohammad Ramzan was obtained through the report published by the Daily Prothom Alo ",
+			"link": "https://www.prothomalo.com/bangladesh/district/m5rldzis3s"
+		},
+		{
+			"label": "Jugantor",
+			"para": "The Date of the incident has been confirmed through the report published by the Daily Jugantor ",
+			"link": "https://www.jugantor.com/country-news/836461"
+		}
+	],
+
+	"timeline_of_the_incident": {
+		"intro": "The following timeline demonstrates the preceding and subsequent events of the killing of Mohammad Ramzan on 19 July 2024 based on the frame-by-frame video analysis and an eyewitness statement:",
+		"analysis": [
+			[
+				{
+					"label": "00:00:08",
+					"para": "22-23 BGB personnel, equipped with uniforms, helmets, and vests, were positioned in front of Al Kaderia Cafe. They were observed facing away from the cafe and walking north on Rampura DIT Road.",
+					"imgs": ["./mohammad_ramzan/01.png", "./mohammad_ramzan/05.png"]
+				}
+			],
+			[
+				{
+					"label": "00:00:19",
+					"para": "At this moment, some protesters were seen throwing bricks and sticks at the retreating BGB personnel.",
+					"imgs": []
+				},
+				{
+					"label": "00:00:34",
+					"para": "Mohammad Ramzan, in an orange-colored t-shirt, arrived on the scene.",
+					"imgs": ["./mohammad_ramzan/02.png"]
+				}
+			],
+			[
+				{
+					"label": "00:00:43",
+					"para": "Ramzan was seen amidst other protesters at the entrance of the Rampura Wapda Road. Some shops with closed shutters were seen behind him. He would not be visible if someone wanted to get a shot at him from behind.",
+					"imgs": []
+				},
+				{
+					"label": "00:00:51",
+					"para": "The sound of a gunshot echoed through the air, and Ramzan was observed falling backward with his arms outstretched. The nature of his fall suggests that he was shot in the head. Given the distance between Ramzan and the unseen shooter, it's likely that he was shot with a rifle, as a shotgun would be less effective at that range. A weapons specialist observed the video and determined that the shot required a long-range rifle.",
+					"imgs": ["./mohammad_ramzan/03.png"]
+				}
+			],
+			[
+				{
+					"label": "00:00:54",
+					"para": "The protesters fled towards Wapda Road, seeking shelter, after hearing a gunshot and seeing Ramzan fall. One of the protesters was seen pointing towards Ramzan, who was still lying on the road.",
+					"imgs": []
+				},
+				{
+					"label": "00:01:09",
+					"para": "Four of the protesters came to drag Ramzan’s body from the spot. As they dragged Ramzan towards Wapda Road, his blood was seen spattered on the spot.",
+					"imgs": []
+				},
+				{
+					"label": "00:01:12",
+					"para": "Two protesters pointed towards the direction of the retreated BGB personnel after Ramzan's body was removed from the spot, suggesting that the fatal shot originated from the BGB's position. Ramzan was shielded from behind by shops and to his left, the Wapda Road seemed safe for the protesters, leaving him exposed only to the side where the BGB were stationed.",
+					"imgs": ["./mohammad_ramzan/04.png"]
+				}
+			]
+		]
+	}
+}

@@ -3,10 +3,10 @@ import { team } from './data';
 const TeamContainer = () => {
 	return (
 		<section className="px-10 py-16 bg-foreground  text-slate-700">
-			<div className="container mx-auto">
-				<div className="flex flex-col justify-between mb-16">
+			<div className="container mx-auto flex flex-col gap-16">
+				<div className="grid md:grid-cols-4 gap-6 justify-between">
 					<h2 className="text-2xl font-bold text-slate-600">About Us</h2>
-					<p>
+					<p className="col-span-3">
 						Our team consists of experienced researchers and investigators with
 						background in international human rights law, open-source
 						investigations, journalism, and media research. In addition to team
@@ -16,9 +16,9 @@ const TeamContainer = () => {
 					</p>
 				</div>
 
-				<div className="flex flex-col justify-between  mb-16">
+				<div className="grid md:grid-cols-4 gap-6 justify-between">
 					<h2 className="text-2xl font-bold text-slate-600">Our Goals</h2>
-					<ul>
+					<ul className="col-span-3 flex flex-col gap-4">
 						<li>
 							<strong>Document and Verify Abuses:</strong> Systematically
 							collect and authenticate open-source and eyewitness evidence of
@@ -60,24 +60,28 @@ const TeamContainer = () => {
 					</ul>
 				</div>
 
-				<div className="flex flex-col justify-between mb-16">
-					<h2 className="text-2xl font-bold text-slate-600">Project Team</h2>
+				<div className="flex flex-col justify-between">
+					<div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-16 ">
+						<h2 className="text-2xl font-bold text-slate-600">Project Team</h2>
 
-					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
-						{' '}
-						{team.map((member) => {
-							return (
-								<div className="py-6 mb-16">
-									<h3 className="text-2xl font-semibold">{member.name}</h3>
-									<br />
-									<h4 className="text-xl font-medium">{member.des}</h4>
-									<br />
-									<br />
-									<br />
-									<p>{member.bio}</p>
-								</div>
-							);
-						})}
+						<div className="md:col-span-2 lg:col-span-3 grid  md:grid-cols-2 gap-16">
+							{team.map((member) => {
+								return (
+									<div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+										<div>
+											<h3 className="text-2xl font-semibold">{member.name}</h3>
+											<br />
+											<h4 className="text-xl font-medium">{member.des}</h4>
+											<br />
+										</div>
+
+										<div className="">
+											<p>{member.bio}</p>
+										</div>
+									</div>
+								);
+							})}
+						</div>
 					</div>
 				</div>
 			</div>
