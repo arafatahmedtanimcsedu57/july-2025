@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  july-2025-frontend:
+    image: july-2025-frontend:latest
+    container_name: july-2025-frontend
+    restart: always
+    ports:
+      - "3554:3000"   # Host:Container
+    environment:
+      - PORT=3000
