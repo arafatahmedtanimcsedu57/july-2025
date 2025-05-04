@@ -37,6 +37,7 @@ import { CASUALTY_ITEMS_COLOR_ELEMENTS } from '@/constant/casualty-types';
 import MaleIcon from '@/public/male.png';
 import FemaleIcon from '@/public/female.png';
 import Link from 'next/link';
+import { Table, TableBody, TableCell, TableRow } from '@/shared/ui/table';
 
 const dateWiseBarChartConfig = () => {
 	return {
@@ -287,71 +288,101 @@ const ListData = () => {
 								</div>
 							</CardTitle>
 							{selectedItem ? (
-								<>
-									<Separator />
-									<CardDescription
-										className={`${
-											selectedItem
-												? 'text-slate-700 dark:text-white flex flex-col gap-1'
-												: ''
-										}`}
-									>
-										<div className="flex gap-2 items-center">
-											<div>
-												<MapPin width={16} />
-											</div>
-											{district || location ? (
-												<span className="text-xs">
-													{location ? `${location} , ` : ''} {district || ''}
-												</span>
-											) : (
-												<></>
-											)}
-										</div>
-
-										<div className="flex gap-2 items-center">
-											<div>
-												<Calendar width={16} />
-											</div>
-											<span className="text-xs">{_dateString || ''}</span>
-										</div>
-
-										{graphicLevel ? (
-											<div className="flex gap-2 bg-slate-200 rounded-lg p-4">
-												<span>Graphical Level:</span>{' '}
-												<span>{graphicLevel || ''}</span>
-											</div>
-										) : (
-											<></>
-										)}
-
-										<div className="flex flex-col gap-1">
-											{mediaLinks.map((link) => (
-												<Link
-													href={link}
-													key={link}
-													target="_black"
-													className="inline-flex gap-2 text-xs text-blue-500 hover:underline items-center"
+								(() => {
+									const details = [
+										{ label: 'Name', value: name || 'Unknown' },
+										{ label: 'Age', value: age || 'N/A' },
+										{ label: 'Gender', value: gender || 'N/A' },
+										{ label: 'Occupation', value: occupation || 'N/A' },
+										{
+											label: 'Type',
+											value: type || 'N/A',
+											render: (val: string) => (
+												<span
+													className={`px-2 py-1 rounded-full text-xs font-medium ${
+														val === 'Death'
+															? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
+															: val === 'Injury'
+															? 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200'
+															: 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200'
+													}`}
 												>
-													<div>
-														<LinkIcon width={16} />
+													{val}
+												</span>
+											),
+										},
+										{ label: 'Date', value: _dateString },
+										{ label: 'District', value: district || 'N/A' },
+										{ label: 'Location', value: location || 'N/A' },
+										{ label: 'Graphic Level', value: graphicLevel || 'N/A' },
+										{
+											label: 'Media Links',
+											value: mediaLinks,
+											// Allow null for links
+											render: (links: string[] | null) =>
+												links && links.length > 0 ? (
+													<div className="flex flex-col gap-1">
+														{links.map((link) => (
+															<Link
+																href={link}
+																key={link}
+																target="_blank" // Corrected target attribute
+																rel="noopener noreferrer" // Added for security
+																className="inline-flex gap-2 text-xs text-blue-500 hover:underline items-center"
+															>
+																<LinkIcon width={14} height={14} />
+																<span className="truncate overflow-hidden whitespace-nowrap block max-w-xs">
+																	{link}
+																</span>
+															</Link>
+														))}
 													</div>
-													<span className="truncate overflow-hidden whitespace-nowrap block max-w-full">
-														{link}
-													</span>
-												</Link>
-											))}
-										</div>
+												) : (
+													'N/A'
+												),
+										},
+										{
+											label: 'Summary',
+											value: summary,
+											// Allow null for val
+											render: (val: string | null) =>
+												val ? (
+													<div className="text-xs whitespace-pre-wrap">
+														{val}
+													</div>
+												) : (
+													'N/A'
+												),
+										},
+									];
 
-										{summary ? (
-											<div className="bg-slate-200 rounded-lg p-4">
-												{summary}
-											</div>
-										) : (
-											<></>
-										)}
-									</CardDescription>
-								</>
+									return (
+										<div className="mt-4 overflow-auto h-full scrollbar-hide">
+											<Table>
+												{/* No TableHeader */}
+												<TableBody>
+													{details
+														.filter(
+															(item) => item.value && item.value !== 'N/A',
+														) // Filter out items with no value or 'N/A' except for links/summary which handle it internally
+														.map((item) => (
+															<TableRow key={item.label}>
+																<TableCell className="font-medium p-0 w-1/3 text-muted-foreground text-xs align-top">
+																	{item.label}
+																</TableCell>
+																<TableCell className="text-xs p-0 align-top max-w-[50px] ">
+																	{/* Call render if it exists, otherwise display value. Render functions handle null internally. */}
+																	{item.render
+																		? item.render(item.value as any)
+																		: item.value}
+																</TableCell>
+															</TableRow>
+														))}
+												</TableBody>
+											</Table>
+										</div>
+									);
+								})()
 							) : (
 								<></>
 							)}

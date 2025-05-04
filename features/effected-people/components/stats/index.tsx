@@ -24,7 +24,7 @@ const VIEWS: Record<string, Record<string, string>> = {
 
 function Stats() {
 	return (
-		<div className="h-full flex flex-col min-w-[430px] bg-foreground rounded-3xl border shadow-lg dark:text-white text-slate-700 relative">
+		<div className="h-full flex flex-col max-w-[430px] bg-foreground rounded-3xl border shadow-lg dark:text-white text-slate-700 relative">
 			<FilterControls />
 
 			<TotalCasualties />

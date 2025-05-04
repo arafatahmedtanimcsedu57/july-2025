@@ -34,7 +34,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 						<Header />
 					</div>
 
-					<div className=" gap-2 text-white hidden lg:flex">
+					<div className=" gap-2 text-white flex">
 						<NavMenu />
 					</div>
 				</header>

@@ -20,9 +20,9 @@ function HeroSection() {
 			<div className="container m-auto px-10 relative z-10">
 				<div className="flex flex-wrap justify-between gap-10 items-center">
 					<div>
-						<h1 className="text-5xl md:text-7xl font-bold uppercase tracking-tight mb-4">
+						<h1 className="text-5xl md:text-7xl lg:text-[100px] font-bold uppercase tracking-tight mb-4">
 							{heroData.title.map((line, idx) => (
-								<span key={idx}>
+								<span key={idx} className="tracking-tighter ">
 									{line}
 									<br />
 								</span>
@@ -31,7 +31,7 @@ function HeroSection() {
 					</div>
 
 					<div className="flex flex-col gap-4">
-						<p className="text-shadow-2xs drop-shadow-lg text-xl md:text-2xl uppercase mb-8 max-w-2xl">
+						<p className="text-shadow-2xs font-bold tracking-wider drop-shadow-lg text-xl md:text-2xl mb-8 max-w-2xl">
 							{heroData.subtitle}
 						</p>
 

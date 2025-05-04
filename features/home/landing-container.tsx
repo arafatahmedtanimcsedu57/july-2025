@@ -11,7 +11,7 @@ function LandingContainer() {
 				<HeroSection />
 			</SlideInSection>
 
-			<div className="container m-auto">
+			<div className="max-w-[1200px] mx-auto">
 				<SlideInSection direction="up">
 					<AboutSection />
 				</SlideInSection>
