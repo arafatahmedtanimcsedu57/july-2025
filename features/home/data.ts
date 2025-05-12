@@ -1,5 +1,5 @@
 export const heroData = {
-	title: ['MONSOON', 'REVOLUTION', 'ARCHIVE'],
+	title: ['MONSOON', 'PROTESTS', 'ARCHIVE'],
 	subtitle: 'Documenting the July Uprising in Bangladesh',
 	description:
 		'Since July-August 2024, when the mass uprising in Bangladesh took place, we have been collecting digital evidence, recordings of events, testimonies, and other materials to ensure that the truth about these historic events is preserved so that we are creating together.',
