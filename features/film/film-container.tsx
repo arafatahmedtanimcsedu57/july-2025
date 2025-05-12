@@ -94,7 +94,9 @@ function FilmContainer() {
                         <td className="font-semibold whitespace-nowrap">
                           Release Date
                         </td>
-                        <td className="ps-2"></td>
+                        <td className="ps-2">
+                          {film.case_details.release_date}
+                        </td>
                       </tr>
                     </table>
                   </div>
