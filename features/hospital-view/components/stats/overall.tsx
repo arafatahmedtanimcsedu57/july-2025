@@ -71,7 +71,9 @@ const TotalCasualties = () => {
 	return (
 		<div className="flex flex-col p-10">
 			<h5 className="text-xs w-max">Total Casualties</h5>
-			<p className="text-4xl font-semibold w-max">{total.toLocaleString()}</p>
+			<p className="text-4xl font-semibold w-max">
+				{(deathCount + injuryCount).toLocaleString()}
+			</p>
 		</div>
 	);
 };
