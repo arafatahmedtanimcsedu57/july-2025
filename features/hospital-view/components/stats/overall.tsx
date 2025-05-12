@@ -15,6 +15,7 @@ import { useSelectedCasualtyStore } from '@/features/hospital-view/store/selecte
 import { Badge } from '@/shared/ui/badge';
 import { Input } from '@/shared/ui/input';
 import { List, Menu } from 'lucide-react';
+import Link from 'next/link';
 
 const total = getTotalCases();
 const deathCount = getTotalDeaths();
@@ -70,6 +71,13 @@ const donutChartsConfig = () => {
 const TotalCasualties = () => {
 	return (
 		<div className="flex flex-col p-10">
+			<p className="font-semibold text-base">
+				Data Source:{' '}
+				<Link href=" https://medical-info.dghs.gov.bd/" target="_blank">
+					DGHS
+				</Link>{' '}
+			</p>
+			<br />
 			<h5 className="text-xs w-max">Total Casualties</h5>
 			<p className="text-4xl font-semibold w-max">
 				{(deathCount + injuryCount).toLocaleString()}
