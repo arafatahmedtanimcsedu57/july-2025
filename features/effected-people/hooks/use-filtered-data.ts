@@ -1,8 +1,8 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 
-import { dataEffectedPeople } from '@/features/effected-people/lib/data-managers';
+import { getDataEffectedPeople } from '@/features/effected-people/lib/data-managers';
 import { useFilterStore } from '@/features/effected-people/store/filter-store';
 
 import type { EffectedPerson } from '@/types/data';
@@ -10,9 +10,19 @@ import type { EffectedPerson } from '@/types/data';
 export function useFilteredData(): EffectedPerson[] {
 	const { dateFilter, minAgeFilter, maxAgeFilter, typeFilter, districtFilter } =
 		useFilterStore();
+	const [data, setData] = useState<EffectedPerson[]>([]);
+
+	useEffect(() => {
+		const fetchData = async () => {
+			const fetchedData = await getDataEffectedPeople();
+			setData(fetchedData);
+		};
+
+		fetchData();
+	}, []);
 
 	return useMemo(() => {
-		return dataEffectedPeople.filter((item) => {
+		return data.filter((item) => {
 			if (districtFilter.toLocaleUpperCase() !== 'ALL') {
 				if (!item.district) return false;
 				else if (
@@ -63,5 +73,12 @@ export function useFilteredData(): EffectedPerson[] {
 
 			return true;
 		});
-	}, [dateFilter, minAgeFilter, maxAgeFilter, typeFilter, districtFilter]);
+	}, [
+		dateFilter,
+		minAgeFilter,
+		maxAgeFilter,
+		typeFilter,
+		districtFilter,
+		data,
+	]);
 }
