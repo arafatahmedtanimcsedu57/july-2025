@@ -30,7 +30,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 			>
 				<header className="sticky shadow-md bg-background top-0 z-40 w-full p-4 flex flex-wrap justify-between items-center">
 					<div className="flex gap-2 text-slate-700">
-						<Image src={Logo} alt="brand" width={48} height={48} />
+						<Image
+							src={Logo}
+							alt="brand"
+							width={48}
+							height={48}
+							className="min-w-[56px] max-h-[64px]"
+						/>
 						<Header />
 					</div>
 

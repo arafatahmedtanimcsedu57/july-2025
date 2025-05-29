@@ -121,7 +121,7 @@ export function NavMenu() {
 					</NavigationMenuContent>
 				</NavigationMenuItem>
 
-				<NavigationMenuItem>
+				{/* <NavigationMenuItem>
 					<Link href="/investigations" legacyBehavior passHref>
 						<NavigationMenuLink
 							className={cn(
@@ -132,9 +132,9 @@ export function NavMenu() {
 							Investigations
 						</NavigationMenuLink>
 					</Link>
-				</NavigationMenuItem>
+				</NavigationMenuItem> */}
 
-				<NavigationMenuItem>
+				{/* <NavigationMenuItem>
 					<Link href="/films" legacyBehavior passHref>
 						<NavigationMenuLink
 							className={cn(
@@ -145,9 +145,9 @@ export function NavMenu() {
 							Films
 						</NavigationMenuLink>
 					</Link>
-				</NavigationMenuItem>
+				</NavigationMenuItem> */}
 
-				<NavigationMenuItem>
+				{/* <NavigationMenuItem>
 					<Link href="/timeline" legacyBehavior passHref>
 						<NavigationMenuLink
 							className={cn(
@@ -158,9 +158,9 @@ export function NavMenu() {
 							Timeline
 						</NavigationMenuLink>
 					</Link>
-				</NavigationMenuItem>
+				</NavigationMenuItem> */}
 
-				<NavigationMenuItem>
+				{/* <NavigationMenuItem>
 					<Link href="/methodology" legacyBehavior passHref>
 						<NavigationMenuLink
 							className={cn(
@@ -171,9 +171,9 @@ export function NavMenu() {
 							Methodology
 						</NavigationMenuLink>
 					</Link>
-				</NavigationMenuItem>
+				</NavigationMenuItem> */}
 
-				<NavigationMenuItem>
+				{/* <NavigationMenuItem>
 					<Link href="/articles" legacyBehavior passHref>
 						<NavigationMenuLink
 							className={cn(
@@ -184,9 +184,9 @@ export function NavMenu() {
 							Media
 						</NavigationMenuLink>
 					</Link>
-				</NavigationMenuItem>
+				</NavigationMenuItem> */}
 
-				<NavigationMenuItem>
+				{/* <NavigationMenuItem>
 					<Link href="/team" legacyBehavior passHref>
 						<NavigationMenuLink
 							className={cn(
@@ -197,7 +197,7 @@ export function NavMenu() {
 							About
 						</NavigationMenuLink>
 					</Link>
-				</NavigationMenuItem>
+				</NavigationMenuItem> */}
 			</NavigationMenuList>
 		</NavigationMenu>
 	);
