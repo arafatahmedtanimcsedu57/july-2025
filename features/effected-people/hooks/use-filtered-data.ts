@@ -1,5 +1,3 @@
-'use client';
-
 import { useMemo, useState, useEffect } from 'react';
 
 import { getDataEffectedPeople } from '@/features/effected-people/lib/data-managers';

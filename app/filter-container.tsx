@@ -1,5 +1,3 @@
-'use client';
-
 import React, { useEffect } from 'react';
 import { getDate, format } from 'date-fns';
 import { FilterIcon } from 'lucide-react';

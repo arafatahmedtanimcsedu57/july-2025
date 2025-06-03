@@ -1,8 +1,6 @@
-'use client';
-
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, Suspense } from 'react';
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from 'recharts';
-import { Calendar, LinkIcon, MapPin } from 'lucide-react';
+import { LinkIcon } from 'lucide-react';
 import Image from 'next/image';
 import { formatDate } from 'date-fns';
 
@@ -19,7 +17,6 @@ import {
 	CardHeader,
 	CardTitle,
 } from '@/shared/ui/card';
-import { Separator } from '@/shared/ui/separator';
 import {
 	getGroupedByDateData,
 	getTotalDeadPeople,
@@ -37,7 +34,7 @@ import MaleIcon from '@/public/male.png';
 import FemaleIcon from '@/public/female.png';
 import Link from 'next/link';
 import { Table, TableBody, TableCell, TableRow } from '@/shared/ui/table';
-import { actionAsyncStorage } from 'next/dist/server/app-render/action-async-storage.external';
+import TotalCasualtiesData from './total-casualties-data';
 
 const dateWiseBarChartConfig = () => {
 	return {
@@ -49,68 +46,6 @@ const dateWiseBarChartConfig = () => {
 		},
 	};
 };
-
-const donutChartsConfig = async () => {
-	const data = useFilteredData();
-	const total = await getTotalEffectedPeople(data);
-
-	const deathCount = (await getTotalDeadPeople(data)) || 0;
-	const injuryCount = getTotalInjuredPeople(data);
-	const totalNumber = total || 1;
-
-	const deathPercentage = total
-		? ((deathCount / totalNumber) * 100).toFixed(1) + '%'
-		: '0%';
-	const injuriesPercentage =
-		((Number(injuryCount) / Number(totalNumber)) * 100).toFixed(1) + '%';
-
-	return [
-		{
-			chart: {
-				data: [
-					{ label: 'Deaths', value: deathCount, color: '#9c0612' },
-					{
-						label: 'Total Casualties',
-						value: total,
-						color: '#e2e0df',
-					},
-				],
-
-				size: 40,
-				thickness: 3,
-				innerText: '',
-			},
-			legend: {
-				label: 'Deaths',
-				value: deathCount,
-			},
-		},
-
-		{
-			chart: {
-				data: [
-					{ label: 'Injuries', value: injuryCount, color: '#ee7f01' },
-					{
-						label: 'Total Casualties',
-						value: total,
-						color: '#e2e0df',
-					},
-				],
-
-				size: 40,
-				thickness: 3,
-				innerText: '',
-			},
-			legend: {
-				label: 'Injuries',
-				value: injuryCount,
-			},
-		},
-	];
-};
-
-import TotalCasualtiesData from './total-casualties-data';
-import { Suspense } from 'react';
 
 const TotalCasualties = () => {
 	return (
@@ -132,6 +67,7 @@ async function TotalCasualtiesValue() {
 
 const DonutCharts = async () => {
 	const data = useFilteredData();
+
 	const total = await getTotalEffectedPeople(data);
 	const deathCount = (await getTotalDeadPeople(data)) || 0;
 	const injuryCount = (await getTotalInjuredPeople(data)) || 0;
@@ -190,10 +126,11 @@ const DonutCharts = async () => {
 	);
 };
 
-const DateWiseBarChart = () => {
+const DateWiseBarChart = async () => {
 	const data = useFilteredData();
-
-	const groupedByDateData = getGroupedByDateData(data);
+	console.log(data);
+	const groupedByDateData = await getGroupedByDateData(data);
+	console.log(groupedByDateData);
 	const chartData = Object.values(groupedByDateData).sort(
 		(a, b) => a.timestamp - b.timestamp,
 	);
