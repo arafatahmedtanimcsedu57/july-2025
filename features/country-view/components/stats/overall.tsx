@@ -67,13 +67,20 @@ const donutChartsConfig = async () => {
 	];
 };
 
-const TotalCasualties = async () => {
-	// const deaths = await deathCount;
-	// const injuries = await injuryCount;
+const TotalCasualties = () => {
+	const [total, setTotal] = useState<number | null>(null);
 
-	// console.log(deaths, injuries);
+	useEffect(() => {
+		const fetchData = async () => {
+			const deaths = await deathCount;
+			const injuries = await injuryCount;
+			setTotal(deaths + injuries + 919);
+		};
 
-	return (
+		fetchData();
+	}, []);
+
+	return total !== null ? (
 		<div className="flex flex-col p-10">
 			<p className="font-semibold text-base">
 				Data Source:{' '}
@@ -85,10 +92,10 @@ const TotalCasualties = async () => {
 			<br />
 
 			<h5 className="text-xs w-max">Total Casualties</h5>
-			<p className="text-4xl font-semibold w-max">
-				{/* {(deaths + injuries + 919).toLocaleString()} */}
-			</p>
+			<p className="text-4xl font-semibold w-max">{total?.toLocaleString()}</p>
 		</div>
+	) : (
+		<div>Loading...</div>
 	);
 };
 
