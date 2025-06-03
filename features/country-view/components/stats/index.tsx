@@ -19,7 +19,7 @@ interface StatsProps {
 export default function Stats({ show, setShow }: StatsProps) {
 	return (
 		<div className="h-full flex flex-col min-w-[430px] bg-foreground rounded-3xl border shadow-lg dark:text-white text-slate-700 relative">
-			<TotalCasualties />
+			{/* <TotalCasualties /> */}
 			<Tabs defaultValue={'country-view'} className="p-10">
 				<TabsList className="grid grid-cols-2 mb-4 w-[250px] m-0">
 					<TabsTrigger value="country-view" asChild>
