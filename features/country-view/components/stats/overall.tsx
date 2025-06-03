@@ -99,10 +99,21 @@ const TotalCasualties = () => {
 	);
 };
 
-const DonutCharts = async () => {
+const DonutCharts = () => {
+	const [charts, setCharts] = useState<any[]>([]);
+
+	useEffect(() => {
+		const fetchData = async () => {
+			const config = await donutChartsConfig();
+			setCharts(config);
+		};
+
+		fetchData();
+	}, []);
+
 	return (
 		<>
-			{(await donutChartsConfig()).map((donutChart) => (
+			{charts.map((donutChart) => (
 				<div
 					className="flex flex-wrap gap-2 items-center"
 					key={donutChart.legend.label}
