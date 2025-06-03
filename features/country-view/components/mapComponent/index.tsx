@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { MapContainer } from 'react-leaflet';
 import type L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -12,6 +12,7 @@ import { Legend } from './legend';
 
 import { useResponsiveZoom } from '@/features/country-view/hooks/use-responsive-zoom';
 import { dataDistrictWiseInjuryDeath } from '@/features/country-view/lib/data-managers';
+import type { DistrictCasualty } from '@/features/country-view/lib/data-managers';
 
 import {
 	BANGLADESH_CENTER,
@@ -21,8 +22,17 @@ import {
 import './map.css';
 
 export default function MapComponent() {
+	const [casualties, setCasualties] = useState<DistrictCasualty[]>([]);
 	const markerRefsMap = useRef<Map<string, L.Marker>>(new Map());
 	const responsiveZoom = useResponsiveZoom();
+
+	useEffect(() => {
+		const fetchData = async () => {
+			const data = await dataDistrictWiseInjuryDeath();
+			setCasualties(data);
+		};
+		fetchData();
+	}, []);
 
 	return (
 		<div className="w-full h-full">
@@ -41,7 +51,7 @@ export default function MapComponent() {
 
 				<MapStatsControl />
 
-				{dataDistrictWiseInjuryDeath.map((casualty) => {
+				{casualties.map((casualty: DistrictCasualty) => {
 					return <CasualtyMarker key={casualty.district} casualty={casualty} />;
 				})}
 

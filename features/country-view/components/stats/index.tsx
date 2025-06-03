@@ -33,9 +33,9 @@ export default function Stats({ show, setShow }: StatsProps) {
 				</TabsList>
 			</Tabs>
 			<div className="flex-1 min-h-0 flex flex-col p-10">
-				<div className="flex flex-wrap gap-10 mb-10">
+				{/* <div className="flex flex-wrap gap-10 mb-10">
 					<DonutCharts />
-				</div>
+				</div> */}
 
 				<div className="flex-1 min-h-0 overflow-auto">
 					<TabularData />
