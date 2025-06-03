@@ -44,9 +44,9 @@ function Stats() {
 				</TabsList>
 				<TabsContent value={VIEWS.OVERVIEW.value}>
 					<div className="py-10 flex-1 flex flex-col">
-						{/* <div className="w-max flex flex-wrap gap-10 mb-10">
+						<div className="w-max flex flex-wrap gap-10 mb-10">
 							<DonutCharts />
-						</div> */}
+						</div>
 
 						<DateWiseBarChart />
 					</div>

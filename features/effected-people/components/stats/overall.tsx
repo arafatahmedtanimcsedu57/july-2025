@@ -1,4 +1,4 @@
-import { useEffect, useRef, Suspense } from 'react';
+import { useEffect, useRef, Suspense, useState } from 'react';
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from 'recharts';
 import { LinkIcon } from 'lucide-react';
 import Image from 'next/image';
@@ -65,19 +65,22 @@ async function TotalCasualtiesValue() {
 	);
 }
 
-const DonutCharts = async () => {
+const DonutCharts = () => {
+	const [deathCount, setDeathCount] = useState(0);
+	const [injuryCount, setInjuryCount] = useState(0);
+
 	const data = useFilteredData();
 
-	const total = await getTotalEffectedPeople(data);
-	const deathCount = (await getTotalDeadPeople(data)) || 0;
-	const injuryCount = (await getTotalInjuredPeople(data)) || 0;
+	const total = getTotalEffectedPeople(data);
 
-	const deathPercentage = total
-		? ((deathCount / total) * 100).toFixed(1) + '%'
-		: '0%';
-	const injuriesPercentage = total
-		? ((Number(injuryCount) / Number(total)) * 100).toFixed(1) + '%'
-		: '0%';
+	useEffect(() => {
+		getTotalDeadPeople(data).then((data) => {
+			setDeathCount(data);
+		});
+		getTotalInjuredPeople(data).then((data) => {
+			setInjuryCount(data);
+		});
+	}, [data]);
 
 	const donutChart = {
 		chart: {
@@ -104,6 +107,7 @@ const DonutCharts = async () => {
 				thickness={3}
 				innerText=""
 			/>
+
 			<div>
 				<h1 className="text-xs font-semibold">
 					{deathCount?.toLocaleString()}
@@ -127,11 +131,34 @@ const DonutCharts = async () => {
 };
 
 const DateWiseBarChart = () => {
+	const [groupedByDateData, setGroupedByDateData] = useState<
+		Record<
+			string,
+			{
+				date: string;
+				displayDate: string;
+				timestamp: number;
+				deaths: number;
+				injuries: number;
+			}
+		>
+	>({});
 	const data = useFilteredData();
-	console.log(data);
-	const groupedByDateData = getGroupedByDateData(data);
+
+	useEffect(() => {
+		getGroupedByDateData(data).then((data) => {
+			setGroupedByDateData(data);
+		});
+	}, [data]);
+
 	console.log(groupedByDateData);
-	const chartData = Object.values(groupedByDateData).sort(
+	const chartData: {
+		date: string;
+		displayDate: string;
+		timestamp: number;
+		deaths: number;
+		injuries: number;
+	}[] = Object.values(groupedByDateData).sort(
 		(a, b) => a.timestamp - b.timestamp,
 	);
 	return (
