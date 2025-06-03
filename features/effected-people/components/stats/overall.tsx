@@ -126,10 +126,10 @@ const DonutCharts = async () => {
 	);
 };
 
-const DateWiseBarChart = async () => {
+const DateWiseBarChart = () => {
 	const data = useFilteredData();
 	console.log(data);
-	const groupedByDateData = await getGroupedByDateData(data);
+	const groupedByDateData = getGroupedByDateData(data);
 	console.log(groupedByDateData);
 	const chartData = Object.values(groupedByDateData).sort(
 		(a, b) => a.timestamp - b.timestamp,
@@ -161,6 +161,8 @@ const DateWiseBarChart = async () => {
 const ListData = () => {
 	const { selectedPerson, toggleSelectedPerson } = useSelectedPersonStore();
 	const data = useFilteredData();
+
+	console.log('LIst', data);
 	const selectedPersonRef = useRef<HTMLDivElement>(null);
 	const listContainerRef = useRef<HTMLDivElement>(null);
 
