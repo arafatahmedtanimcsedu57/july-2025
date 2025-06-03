@@ -35,13 +35,13 @@ export default function Stats({ show, setShow }: StatsProps) {
 			</Tabs>
 
 			<div className="flex-1 min-h-0 flex flex-col p-10">
-				<div className="flex flex-wrap gap-10 mb-10">
+				{/* <div className="flex flex-wrap gap-10 mb-10">
 					<DonutCharts />
-				</div>
-
-				{/*<div className="flex-1 min-h-0 overflow-auto">
-					<TabularData />
 				</div> */}
+
+				<div className="flex-1 min-h-0 overflow-auto">
+					<TabularData />
+				</div>
 			</div>
 
 			<div className="absolute right-0 top-10 translate-x-[100%]">

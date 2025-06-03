@@ -21,6 +21,53 @@ const deathCountPromise = getTotalDeaths();
 const injuryCountPromise = getTotalInjuries();
 const topNCasesByTotalCasesPromise = getTopNCasesByTotalCases();
 
+const donutChartsConfig = async () => {
+	return [
+		{
+			chart: {
+				data: [
+					{ label: 'Deaths', value: await deathCountPromise, color: '#9c0612' },
+					{
+						label: 'Total Casualties',
+						value: await totalPromise,
+						color: '#e2e0df',
+					},
+				],
+				size: 40,
+				thickness: 3,
+				innerText: '',
+			},
+			legend: {
+				label: 'Deaths',
+				value: await deathCountPromise,
+			},
+		},
+		{
+			chart: {
+				data: [
+					{
+						label: 'Injuries',
+						value: await injuryCountPromise,
+						color: '#ee7f01',
+					},
+					{
+						label: 'Total Casualties',
+						value: await totalPromise,
+						color: '#e2e0df',
+					},
+				],
+				size: 40,
+				thickness: 3,
+				innerText: '',
+			},
+			legend: {
+				label: 'Injuries',
+				value: await injuryCountPromise,
+			},
+		},
+	];
+};
+
 const TotalCasualties = async () => {
 	const total = await totalPromise;
 	const deathCount = await deathCountPromise;
@@ -43,58 +90,20 @@ const TotalCasualties = async () => {
 };
 
 const DonutCharts = async () => {
-	const totalPromise = getTotalCases();
-	const deathCountPromise = getTotalDeaths();
-	const injuryCountPromise = getTotalInjuries();
-	const total = await totalPromise;
-	const deathCount = await deathCountPromise;
-	const injuryCount = await injuryCountPromise;
+	const [charts, setCharts] = useState<any[]>([]);
 
-	const donutChartsConfig = () => {
-		return [
-			{
-				chart: {
-					data: [
-						{ label: 'Deaths', value: deathCount, color: '#9c0612' },
-						{
-							label: 'Total Casualties',
-							value: total,
-							color: '#e2e0df',
-						},
-					],
-					size: 40,
-					thickness: 3,
-					innerText: '',
-				},
-				legend: {
-					label: 'Deaths',
-					value: deathCount,
-				},
-			},
-			{
-				chart: {
-					data: [
-						{ label: 'Injuries', value: injuryCount, color: '#ee7f01' },
-						{
-							label: 'Total Casualties',
-							value: total,
-							color: '#e2e0df',
-						},
-					],
-					size: 40,
-					thickness: 3,
-					innerText: '',
-				},
-				legend: {
-					label: 'Injuries',
-					value: injuryCount,
-				},
-			},
-		];
-	};
+	useEffect(() => {
+		const fetchData = async () => {
+			const config = await donutChartsConfig();
+			setCharts(config);
+		};
+
+		fetchData();
+	}, []);
+
 	return (
 		<>
-			{donutChartsConfig().map((donutChart) => (
+			{charts.map((donutChart) => (
 				<div
 					className="flex flex-wrap gap-2 items-center"
 					key={donutChart.legend.label}
