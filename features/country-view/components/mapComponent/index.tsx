@@ -34,6 +34,7 @@ export default function MapComponent() {
 		fetchData();
 	}, []);
 
+	console.log(casualties);
 	return (
 		<div className="w-full h-full">
 			<MapContainer

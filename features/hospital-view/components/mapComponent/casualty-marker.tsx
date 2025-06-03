@@ -23,6 +23,7 @@ const CasualtyMarker = memo(({ casualty }: CasualtyMarkerProps) => {
 
 		total_verified_cases,
 	} = casualty;
+
 	if (lat === null || lng === null) return null;
 
 	const { selectedCasualty, toggleSelectedCasualty } =
@@ -47,9 +48,12 @@ const CasualtyMarker = memo(({ casualty }: CasualtyMarkerProps) => {
 
 	const deathCircleRadius = scaleCircleRadius({
 		value: verified_deaths || 0,
-		maxValue: 126,
+		maxValue: 100,
 		zoom,
 	});
+	console.log(lat, lng, deathCircleRadius);
+
+	// console.log(markerPosition, deathCircleRadius);
 
 	const casualtyCircleRadius = scaleCircleRadius({
 		value: verified_injuries || 0,
@@ -140,7 +144,7 @@ const CasualtyMarker = memo(({ casualty }: CasualtyMarkerProps) => {
 
 	const deathCircleMarker = deathCircleRadius ? (
 		<CircleMarker
-			key={facility}
+			// key={facility}
 			center={markerPosition}
 			radius={deathCircleRadius}
 			pathOptions={{
@@ -150,7 +154,7 @@ const CasualtyMarker = memo(({ casualty }: CasualtyMarkerProps) => {
 				weight: 0,
 			}}
 			eventHandlers={{ click: handleMarkerClick }}
-			className="drop-shadow-[0_0_0.1rem_crimson]"
+			className="drop-shadow-[0_0_0.1rem_crimson] z-50"
 		>
 			{isSelected && (
 				<Tooltip permanent={true} direction="top">

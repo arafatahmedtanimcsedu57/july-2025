@@ -74,15 +74,12 @@ export const getTotalInjuredPeople = async (data: EffectedPerson[]) => {
 };
 
 export const getGroupedByDateData = async (data: EffectedPerson[]) => {
-	// console.log(data);
 	try {
 		return data.reduce(
 			(acc, person) => {
-				// console.log(person);
 				if (!person.date) return acc;
 
 				const dateStr = format(new Date(person.date), 'yyyy-MM-dd');
-				// console.log(dateStr);
 
 				if (!acc[dateStr]) {
 					acc[dateStr] = {

@@ -14,9 +14,12 @@ interface StatsProps {
 }
 
 export default function Stats({ show, setShow }: StatsProps) {
+	// Force re-evaluation
 	return (
 		<div className="h-full flex flex-col min-w-[430px] bg-foreground rounded-3xl border shadow-lg dark:text-white text-slate-700 relative">
-			<TotalCasualties />
+			<React.Suspense fallback={<div>Loading Total Casualties...</div>}>
+				<TotalCasualties />
+			</React.Suspense>
 
 			<Tabs defaultValue={'hospital-view'} className="p-10">
 				<TabsList className="grid grid-cols-2 mb-4 w-[250px] m-0">
@@ -36,9 +39,9 @@ export default function Stats({ show, setShow }: StatsProps) {
 					<DonutCharts />
 				</div>
 
-				<div className="flex-1 min-h-0 overflow-auto">
+				{/*<div className="flex-1 min-h-0 overflow-auto">
 					<TabularData />
-				</div>
+				</div> */}
 			</div>
 
 			<div className="absolute right-0 top-10 translate-x-[100%]">

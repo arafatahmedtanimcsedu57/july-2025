@@ -151,7 +151,6 @@ const DateWiseBarChart = () => {
 		});
 	}, [data]);
 
-	console.log(groupedByDateData);
 	const chartData: {
 		date: string;
 		displayDate: string;
@@ -189,7 +188,6 @@ const ListData = () => {
 	const { selectedPerson, toggleSelectedPerson } = useSelectedPersonStore();
 	const data = useFilteredData();
 
-	console.log('LIst', data);
 	const selectedPersonRef = useRef<HTMLDivElement>(null);
 	const listContainerRef = useRef<HTMLDivElement>(null);
 
