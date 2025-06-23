@@ -1,5 +1,3 @@
-'use client';
-
 import React, { useEffect } from 'react';
 import { getDate, format } from 'date-fns';
 import { FilterIcon } from 'lucide-react';
@@ -50,8 +48,40 @@ export default function FilterContainer() {
 		setDistrictFilter,
 	} = useFilterStore();
 
-	const availableDays = extractAvailableDays();
-	const availableDistricts = extractUniqueDistricts();
+	const [availableDays, setAvailableDays] = React.useState<
+		{
+			date: string;
+			[CASUALTY_ITEMS.DEATH]: boolean;
+			[CASUALTY_ITEMS.INJURY]: boolean;
+			[CASUALTY_ITEMS.MULTIPLE_CASUALTIES]: boolean;
+		}[]
+	>([]);
+	const [availableDistricts, setAvailableDistricts] = React.useState<
+		{
+			name: string;
+			value: string;
+		}[]
+	>([]);
+
+	useEffect(() => {
+		const fetchAvailableDays = async () => {
+			const days = await extractAvailableDays();
+			if (days) {
+				setAvailableDays(days);
+			}
+		};
+
+		const fetchAvailableDistricts = async () => {
+			const districts = await extractUniqueDistricts();
+			if (districts) {
+				setAvailableDistricts(districts as { name: string; value: string }[]);
+			}
+		};
+
+		fetchAvailableDays();
+		fetchAvailableDistricts();
+	}, []);
+
 	const { resetSelectedPerson } = useSelectedPersonStore();
 
 	const handleDateSelect = (date: Date | undefined) => {
@@ -143,42 +173,46 @@ export default function FilterContainer() {
 						<Label>Casualty Dates</Label>
 
 						<div className="flex flex-wrap gap-2 items-center text-center">
-							{availableDays.map((day) => {
-								const _date = new Date(day.date);
+							{Array.isArray(availableDays) && availableDays.length > 0 ? (
+								availableDays.map((day) => {
+									const _date = new Date(day.date);
 
-								return (
-									<div
-										className="p-4 border cursor-pointer rounded flex flex-col items-center justify-center"
-										key={day.date}
-										onClick={() => handleDateSelect(new Date(day.date))}
-									>
-										<div className="text-sm uppercase">
-											{format(_date, 'LLL')}
-										</div>
+									return (
+										<div
+											className="p-4 border cursor-pointer rounded flex flex-col items-center justify-center"
+											key={day.date}
+											onClick={() => handleDateSelect(new Date(day.date))}
+										>
+											<div className="text-sm uppercase">
+												{format(_date, 'LLL')}
+											</div>
 
-										<div className="text-2xl font-extrabold">
-											{getDate(_date)}
-										</div>
+											<div className="text-2xl font-extrabold">
+												{getDate(_date)}
+											</div>
 
-										<div className="flex gap-2 items-center justify-center">
-											{Object.entries(CASUALTY_ITEMS).map(([key, value]) =>
-												day[value] ? (
-													<div
-														key={`${key}_${value}`}
-														className="flex items-center gap-1"
-													>
-														{CASUALTY_ITEMS_COLOR_ELEMENTS[value]?.()}
-													</div>
-												) : (
-													<React.Fragment
-														key={`empty_${key}_${value}`}
-													></React.Fragment>
-												),
-											)}
+											<div className="flex gap-2 items-center justify-center">
+												{Object.entries(CASUALTY_ITEMS).map(([key, value]) =>
+													day[value] ? (
+														<div
+															key={`${key}_${value}`}
+															className="flex items-center gap-1"
+														>
+															{CASUALTY_ITEMS_COLOR_ELEMENTS[value]?.()}
+														</div>
+													) : (
+														<React.Fragment
+															key={`empty_${key}_${value}`}
+														></React.Fragment>
+													),
+												)}
+											</div>
 										</div>
-									</div>
-								);
-							})}
+									);
+								})
+							) : (
+								<div>No dates available.</div>
+							)}
 						</div>
 					</div>
 

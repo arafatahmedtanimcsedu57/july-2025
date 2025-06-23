@@ -1,6 +1,5 @@
-'use client';
-
 import { useRef, useEffect, useState } from 'react';
+import { DistrictCasualty } from '@/features/country-view/lib/data-managers';
 
 import { DonutChart } from '@/shared/ui/donut-chart';
 
@@ -15,21 +14,22 @@ import { useSelectedCasualtyStore } from '@/features/country-view/store/selected
 import { Badge } from '@/shared/ui/badge';
 import { List } from 'lucide-react';
 import { Input } from '@/shared/ui/input';
+import Link from 'next/link';
 
-const total = getTotalCases();
+const totalPromise = getTotalCases();
 const deathCount = getTotalDeaths();
 const injuryCount = getTotalInjuries();
-const topNCasesByTotalCases = getTopNCasesByTotalCases();
+const topNCasesByTotalCasesPromise = getTopNCasesByTotalCases();
 
-const donutChartsConfig = () => {
+const donutChartsConfig = async () => {
 	return [
 		{
 			chart: {
 				data: [
-					{ label: 'Deaths', value: deathCount, color: '#9c0612' },
+					{ label: 'Deaths', value: await deathCount, color: '#9c0612' },
 					{
 						label: 'Total Casualties',
-						value: total,
+						value: await totalPromise,
 						color: '#e2e0df',
 					},
 				],
@@ -40,17 +40,17 @@ const donutChartsConfig = () => {
 			},
 			legend: {
 				label: 'Deaths',
-				value: deathCount,
+				value: await deathCount,
 			},
 		},
 
 		{
 			chart: {
 				data: [
-					{ label: 'Injuries', value: injuryCount, color: '#ee7f01' },
+					{ label: 'Injuries', value: await injuryCount, color: '#ee7f01' },
 					{
 						label: 'Total Casualties',
-						value: total,
+						value: await totalPromise,
 						color: '#e2e0df',
 					},
 				],
@@ -61,27 +61,59 @@ const donutChartsConfig = () => {
 			},
 			legend: {
 				label: 'Injuries',
-				value: injuryCount,
+				value: await injuryCount,
 			},
 		},
 	];
 };
 
 const TotalCasualties = () => {
-	return (
+	const [total, setTotal] = useState<number | null>(null);
+
+	useEffect(() => {
+		const fetchData = async () => {
+			const deaths = await deathCount;
+			const injuries = await injuryCount;
+			setTotal(deaths + injuries + 919);
+		};
+
+		fetchData();
+	}, []);
+
+	return total !== null ? (
 		<div className="flex flex-col p-10">
-			<h5 className="text-xs w-max">Total Casualties</h5>
-			<p className="text-4xl font-semibold w-max">
-				{(deathCount + injuryCount + 919).toLocaleString()}
+			<p className="font-semibold text-base">
+				Data Source:{' '}
+				<Link href=" https://medical-info.dghs.gov.bd/" target="_blank">
+					DGHS
+				</Link>{' '}
 			</p>
+
+			<br />
+
+			<h5 className="text-xs w-max">Total Casualties</h5>
+			<p className="text-4xl font-semibold w-max">{total?.toLocaleString()}</p>
 		</div>
+	) : (
+		<div>Loading...</div>
 	);
 };
 
 const DonutCharts = () => {
+	const [charts, setCharts] = useState<any[]>([]);
+
+	useEffect(() => {
+		const fetchData = async () => {
+			const config = await donutChartsConfig();
+			setCharts(config);
+		};
+
+		fetchData();
+	}, []);
+
 	return (
 		<>
-			{donutChartsConfig().map((donutChart) => (
+			{charts.map((donutChart) => (
 				<div
 					className="flex flex-wrap gap-2 items-center"
 					key={donutChart.legend.label}
@@ -123,11 +155,18 @@ const TabularData = () => {
 		}
 	}, [selectedCasualty]);
 
-	const displayData = dataDistrictWiseInjuryDeath
-		.filter((item) =>
-			item.district?.toLowerCase().includes(searchTerm.toLowerCase()),
-		)
-		.sort((a, b) => (b.verified_deaths || 0) - (a.verified_deaths || 0));
+	const [displayData, setDisplayData] = useState<any[]>([]);
+	useEffect(() => {
+		dataDistrictWiseInjuryDeath().then((data: any) => {
+			const filteredData = data.filter((item: any) =>
+				item.district?.toLowerCase().includes(searchTerm.toLowerCase()),
+			);
+			const sortedData = filteredData.sort(
+				(a: any, b: any) => (b.verified_deaths || 0) - (a.verified_deaths || 0),
+			);
+			setDisplayData(sortedData);
+		});
+	}, [searchTerm]);
 
 	return (
 		<div className="flex flex-col h-full">
@@ -186,17 +225,28 @@ const TabularData = () => {
 	);
 };
 
-const TopNCasesByTotalCases = () => {
-	const maxCases = Math.max(
-		...topNCasesByTotalCases.map((item) => item.total_cases || 0),
-	);
+const TopNCasesByTotalCases = async () => {
+	const [maxCases, setMaxCases] = useState(0);
+	const [topCases, setTopCases] = useState<DistrictCasualty[]>([]);
+
+	useEffect(() => {
+		(async () => {
+			const data = await topNCasesByTotalCasesPromise;
+			setTopCases(data);
+			const max =
+				data.length > 0
+					? Math.max(...data.map((item: any) => item.total_cases || 0))
+					: 0;
+			setMaxCases(max);
+		})();
+	}, []);
 
 	return (
 		<div className="flex flex-col gap-2">
 			<span className="font-bold uppercase text-xs font-mono">
 				Most Effected
 			</span>
-			{topNCasesByTotalCases.map((item, index) => {
+			{topCases.map((item: any, index: any) => {
 				const widthPercentage = Math.max(
 					10,
 					Math.min(100, ((item.total_cases || 0) / maxCases) * 100),

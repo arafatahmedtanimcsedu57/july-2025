@@ -1,5 +1,3 @@
-'use client';
-
 import { useRef } from 'react';
 import { MapContainer } from 'react-leaflet';
 import type L from 'leaflet';
@@ -12,7 +10,6 @@ import { Legend } from './legend';
 
 import { useResponsiveZoom } from '@/features/effected-people/hooks/use-responsive-zoom';
 import { useFilteredData } from '@/features/effected-people/hooks/use-filtered-data';
-import { useFilterContainerStore } from '@/features/effected-people/store/filter-container-store';
 
 import {
 	BANGLADESH_CENTER,
@@ -23,7 +20,6 @@ import './map.css';
 import { MapStatsControl } from './map-controller';
 
 export default function MapComponent() {
-	const { isOpen, toggle } = useFilterContainerStore();
 	const responsiveZoom = useResponsiveZoom();
 	const data = useFilteredData();
 	const markerRefsMap = useRef<Map<string, L.Marker>>(new Map());

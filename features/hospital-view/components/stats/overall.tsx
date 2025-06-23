@@ -1,6 +1,5 @@
-'use client';
-
 import { useState, useRef, useEffect } from 'react';
+import type { HospitalCasualty } from '@/types/data';
 
 import { DonutChart } from '@/shared/ui/donut-chart';
 
@@ -9,67 +8,79 @@ import {
 	getTotalCases,
 	getTotalDeaths,
 	getTotalInjuries,
-	dataHospitalWiseInjuryDeath,
+	fetchHospitalData,
 } from '@/features/hospital-view/lib/data-managers';
 import { useSelectedCasualtyStore } from '@/features/hospital-view/store/selected-casualty-store';
 import { Badge } from '@/shared/ui/badge';
 import { Input } from '@/shared/ui/input';
 import { List, Menu } from 'lucide-react';
+import Link from 'next/link';
 
-const total = getTotalCases();
-const deathCount = getTotalDeaths();
-const injuryCount = getTotalInjuries();
-const topNCasesByTotalCases = getTopNCasesByTotalCases();
+const totalPromise = getTotalCases();
+const deathCountPromise = getTotalDeaths();
+const injuryCountPromise = getTotalInjuries();
+const topNCasesByTotalCasesPromise = getTopNCasesByTotalCases();
 
-const donutChartsConfig = () => {
+const donutChartsConfig = async () => {
 	return [
 		{
 			chart: {
 				data: [
-					{ label: 'Deaths', value: deathCount, color: '#9c0612' },
+					{ label: 'Deaths', value: await deathCountPromise, color: '#9c0612' },
 					{
 						label: 'Total Casualties',
-						value: total,
+						value: await totalPromise,
 						color: '#e2e0df',
 					},
 				],
-
 				size: 40,
 				thickness: 3,
 				innerText: '',
 			},
 			legend: {
 				label: 'Deaths',
-				value: deathCount,
+				value: await deathCountPromise,
 			},
 		},
-
 		{
 			chart: {
 				data: [
-					{ label: 'Injuries', value: injuryCount, color: '#ee7f01' },
+					{
+						label: 'Injuries',
+						value: await injuryCountPromise,
+						color: '#ee7f01',
+					},
 					{
 						label: 'Total Casualties',
-						value: total,
+						value: await totalPromise,
 						color: '#e2e0df',
 					},
 				],
-
 				size: 40,
 				thickness: 3,
 				innerText: '',
 			},
 			legend: {
 				label: 'Injuries',
-				value: injuryCount,
+				value: await injuryCountPromise,
 			},
 		},
 	];
 };
 
-const TotalCasualties = () => {
+const TotalCasualties = async () => {
+	const total = await totalPromise;
+	const deathCount = await deathCountPromise;
+	const injuryCount = await injuryCountPromise;
 	return (
 		<div className="flex flex-col p-10">
+			<p className="font-semibold text-base">
+				Data Source:{' '}
+				<Link href=" https://medical-info.dghs.gov.bd/" target="_blank">
+					DGHS
+				</Link>{' '}
+			</p>
+			<br />
 			<h5 className="text-xs w-max">Total Casualties</h5>
 			<p className="text-4xl font-semibold w-max">
 				{(deathCount + injuryCount).toLocaleString()}
@@ -78,10 +89,21 @@ const TotalCasualties = () => {
 	);
 };
 
-const DonutCharts = () => {
+const DonutCharts = async () => {
+	const [charts, setCharts] = useState<any[]>([]);
+
+	useEffect(() => {
+		const fetchData = async () => {
+			const config = await donutChartsConfig();
+			setCharts(config);
+		};
+
+		fetchData();
+	}, []);
+
 	return (
 		<>
-			{donutChartsConfig().map((donutChart) => (
+			{charts.map((donutChart) => (
 				<div
 					className="flex flex-wrap gap-2 items-center"
 					key={donutChart.legend.label}
@@ -92,7 +114,6 @@ const DonutCharts = () => {
 						thickness={donutChart.chart.thickness}
 						innerText={donutChart.chart.innerText}
 					/>
-
 					<div>
 						<h1 className="text-xs font-semibold">{donutChart.legend.value}</h1>
 						<p className="text-xs">{donutChart.legend.label}</p>
@@ -123,11 +144,24 @@ const TabularData = () => {
 		}
 	}, [selectedCasualty]);
 
-	const displayData = dataHospitalWiseInjuryDeath
-		.filter((item) =>
+	const [hospitalData, setHospitalData] = useState<HospitalCasualty[]>([]);
+
+	useEffect(() => {
+		const fetchData = async () => {
+			const data: HospitalCasualty[] = await fetchHospitalData();
+			setHospitalData(data);
+		};
+		fetchData();
+	}, []);
+
+	const displayData = hospitalData
+		.filter((item: HospitalCasualty) =>
 			item.facility?.toLowerCase().includes(searchTerm.toLowerCase()),
 		)
-		.sort((a, b) => (b.verified_deaths || 0) - (a.verified_deaths || 0));
+		.sort(
+			(a: HospitalCasualty, b: HospitalCasualty) =>
+				(b.verified_deaths || 0) - (a.verified_deaths || 0),
+		);
 
 	return (
 		<div className="flex flex-col h-full">
@@ -142,7 +176,6 @@ const TabularData = () => {
 				onChange={(e) => setSearchTerm(e.target.value)}
 				className="w-full mb-4"
 			/>
-
 			<div ref={containerRef} className="overflow-auto h-full scrollbar-hide">
 				<div className="min-w-full text-sm">
 					<div>
@@ -156,7 +189,7 @@ const TabularData = () => {
 
 							return (
 								<div
-									key={`${item.facility}_${index}_${item.lat}_${item.lng}`}
+									key={`${item.facility}_${index}`}
 									ref={selected ? selectedRowRef : null}
 									className={`cursor-pointer w-full hover:bg-slate-200 flex justify-between items-center px-4 py-4 gap-3 ${
 										selected
@@ -166,7 +199,6 @@ const TabularData = () => {
 									onClick={() => toggleSelectedCasualty(item)}
 								>
 									<div className="max-w-[220px] flex-1">{item.facility}</div>
-
 									<div className="flex flex-wrap gap-2">
 										<Badge className="bg-[#970811] text-white">
 											{item.verified_deaths}
@@ -185,9 +217,10 @@ const TabularData = () => {
 	);
 };
 
-const TopNCasesByTotalCases = () => {
+const TopNCasesByTotalCases = async () => {
+	const topNCasesByTotalCasesData = await topNCasesByTotalCasesPromise;
 	const maxCases = Math.max(
-		...topNCasesByTotalCases.map((item) => item.total_verified_cases || 0),
+		...topNCasesByTotalCasesData.map((item) => item.total_verified_cases || 0),
 	);
 
 	return (
@@ -195,7 +228,7 @@ const TopNCasesByTotalCases = () => {
 			<span className="font-bold uppercase text-xs font-mono">
 				Most Effected
 			</span>
-			{topNCasesByTotalCases.map((item, index) => {
+			{topNCasesByTotalCasesData.map((item, index) => {
 				const widthPercentage = Math.max(
 					10,
 					Math.min(100, ((item.total_verified_cases || 0) / maxCases) * 100),

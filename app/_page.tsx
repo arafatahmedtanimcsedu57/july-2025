@@ -1,12 +1,12 @@
 'use client';
 
-import FilmContainer from '@/features/film/film-container';
+import LandingContainer from '@/features/home/landing-container';
 
 export default function Home() {
 	return (
 		<>
 			<div className="flex-1 h-full overflow-auto">
-				<FilmContainer />{' '}
+				<LandingContainer />{' '}
 			</div>
 		</>
 	);
