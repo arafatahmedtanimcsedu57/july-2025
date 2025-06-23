@@ -1,0 +1,8 @@
+version: '3.8'
+
+services:
+  frontend:
+    image: july-2025-frontend:latest
+    restart: always
+    ports:
+      - "3554:3000"
