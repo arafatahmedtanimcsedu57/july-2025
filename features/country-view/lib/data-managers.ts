@@ -13,7 +13,7 @@ export interface DistrictCasualty {
 }
 
 const API_ENDPOINT =
-  "http://srv810592.hstgr.cloud:3001/api/district-incidents?depth=0&draft=true&limit=1000";
+  "https://monsoonprotestsarchive.com/api/district-incidents?depth=0&draft=true&limit=1000";
 
 interface ApiResponse {
   docs: {

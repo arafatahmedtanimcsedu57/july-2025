@@ -3,7 +3,7 @@ import { CASUALTY_ITEMS } from "@/constant/casualty-types";
 import type { EffectedPerson } from "@/types/data";
 
 const API_ENDPOINT =
-  "http://srv810592.hstgr.cloud:3001/api/individual-incidents?depth=0&draft=true&limit=10000";
+  "https://monsoonprotestsarchive.com/api/individual-incidents?depth=0&draft=true&limit=10000";
 
 async function fetchData(): Promise<EffectedPerson[]> {
   try {

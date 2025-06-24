@@ -1,7 +1,7 @@
 import type { HospitalCasualty } from "@/types/data";
 
 const API_ENDPOINT =
-  "http://srv810592.hstgr.cloud:3001/api/hospital-incidents?depth=0&draft=true&limit=1000";
+  "https://monsoonprotestsarchive.com/api/hospital-incidents?depth=0&draft=true&limit=1000";
 
 interface HospitalIncident {
   id: string;
