@@ -1,82 +1,82 @@
-import type { HospitalCasualty } from '@/types/data';
+import type { HospitalCasualty } from "@/types/data";
 
 const API_ENDPOINT =
-	'http://localhost:3000/api/hospital-incidents?depth=0&draft=true&limit=1000';
+  "http://srv810592.hstgr.cloud:3001/api/hospital-incidents?depth=0&draft=true&limit=1000";
 
 interface HospitalIncident {
-	id: string;
-	name: string;
-	verified_injuries: number;
-	verified_deaths: number;
-	lat: number;
-	lng: number;
-	createdAt: string;
-	updatedAt: string;
+  id: string;
+  name: string;
+  verified_injuries: number;
+  verified_deaths: number;
+  lat: number;
+  lng: number;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export const fetchHospitalData = async (): Promise<HospitalCasualty[]> => {
-	try {
-		const response = await fetch(API_ENDPOINT);
-		const data = await response.json();
+  try {
+    const response = await fetch(API_ENDPOINT);
+    const data = await response.json();
 
-		if (!data.docs || !Array.isArray(data.docs)) {
-			console.error('Invalid API response:', data);
-			return [];
-		}
+    if (!data.docs || !Array.isArray(data.docs)) {
+      console.error("Invalid API response:", data);
+      return [];
+    }
 
-		const transformedData: HospitalCasualty[] = data.docs.map(
-			(item: HospitalIncident) => ({
-				facility: item.name,
-				verified_injuries: item.verified_injuries,
-				verified_deaths: item.verified_deaths,
-				total_verified_cases: item.verified_injuries + item.verified_deaths,
-				lat: item.lat,
-				lng: item.lng,
-			}),
-		);
+    const transformedData: HospitalCasualty[] = data.docs.map(
+      (item: HospitalIncident) => ({
+        facility: item.name,
+        verified_injuries: item.verified_injuries,
+        verified_deaths: item.verified_deaths,
+        total_verified_cases: item.verified_injuries + item.verified_deaths,
+        lat: item.lat,
+        lng: item.lng,
+      })
+    );
 
-		return transformedData;
-	} catch (error) {
-		console.error('Error fetching hospital data:', error);
-		return [];
-	}
+    return transformedData;
+  } catch (error) {
+    console.error("Error fetching hospital data:", error);
+    return [];
+  }
 };
 
 export const getTotalCases = async (): Promise<number> => {
-	const data = await fetchHospitalData();
-	return data.reduce(
-		(sum: number, item: HospitalCasualty) =>
-			sum + (item?.total_verified_cases || 0),
-		0,
-	);
+  const data = await fetchHospitalData();
+  return data.reduce(
+    (sum: number, item: HospitalCasualty) =>
+      sum + (item?.total_verified_cases || 0),
+    0
+  );
 };
 
 export const getTotalInjuries = async (): Promise<number> => {
-	const data = await fetchHospitalData();
-	return data.reduce(
-		(sum: number, item: HospitalCasualty) =>
-			sum + (item?.verified_injuries || 0),
-		0,
-	);
+  const data = await fetchHospitalData();
+  return data.reduce(
+    (sum: number, item: HospitalCasualty) =>
+      sum + (item?.verified_injuries || 0),
+    0
+  );
 };
 
 export const getTotalDeaths = async (): Promise<number> => {
-	const data = await fetchHospitalData();
-	return data.reduce(
-		(sum: number, item: HospitalCasualty) => sum + (item?.verified_deaths || 0),
-		0,
-	);
+  const data = await fetchHospitalData();
+  return data.reduce(
+    (sum: number, item: HospitalCasualty) => sum + (item?.verified_deaths || 0),
+    0
+  );
 };
 
 export const getTopNCasesByTotalCases = async (
-	n = 3,
+  n = 3
 ): Promise<HospitalCasualty[]> => {
-	const data = await fetchHospitalData();
-	const sortedData = [...data];
+  const data = await fetchHospitalData();
+  const sortedData = [...data];
 
-	sortedData.sort(
-		(a, b) => (b?.total_verified_cases || 0) - (a?.total_verified_cases || 0),
-	);
+  sortedData.sort(
+    (a, b) => (b?.total_verified_cases || 0) - (a?.total_verified_cases || 0)
+  );
 
-	return sortedData.slice(0, n);
+  return sortedData.slice(0, n);
 };
