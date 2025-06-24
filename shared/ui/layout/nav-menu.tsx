@@ -73,7 +73,7 @@ export function NavMenu() {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <Link href="http://217.21.78.76:3001/" legacyBehavior passHref>
+          <Link href="https://monsoonprotestsarchive.com" legacyBehavior passHref>
             <NavigationMenuLink
               className={cn(
                 navigationMenuTriggerStyle(),
