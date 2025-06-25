@@ -16,15 +16,18 @@ import type { DistrictCasualty } from '@/features/country-view/lib/data-managers
 
 import {
 	BANGLADESH_CENTER,
+	DHAKA_LAT_LONG,
 	MAP_CONTAINER,
 } from '@/constant/map-container-config';
 
 import './map.css';
+import { useMediaQuery } from 'react-responsive';
 
 export default function MapComponent() {
 	const [casualties, setCasualties] = useState<DistrictCasualty[]>([]);
 	const markerRefsMap = useRef<Map<string, L.Marker>>(new Map());
 	const responsiveZoom = useResponsiveZoom();
+  	const isTabletOrMobile = useMediaQuery({ query: "(max-width: 992px)" });
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -37,7 +40,7 @@ export default function MapComponent() {
 	return (
 		<div className="w-full h-full">
 			<MapContainer
-				center={BANGLADESH_CENTER}
+				center={isTabletOrMobile ? DHAKA_LAT_LONG : BANGLADESH_CENTER}
 				zoom={responsiveZoom.DEFAULT}
 				zoomControl={MAP_CONTAINER.zoomControl}
 				minZoom={responsiveZoom.MIN}
