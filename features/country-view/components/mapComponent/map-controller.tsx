@@ -9,7 +9,8 @@ import Stats from '@/features/country-view/components/stats';
 
 import { useSelectedCasualtyStore } from '@/features/country-view/store/selected-casualty-store';
 
-import { BANGLADESH_CENTER, MAP_ZOOM } from '@/constant/map-container-config';
+import { BANGLADESH_CENTER, DHAKA_LAT_LONG, MAP_ZOOM } from '@/constant/map-container-config';
+import { useMediaQuery } from 'react-responsive';
 
 interface MapControllerProps {
 	markerRefs: Map<string, L.Marker> | null;
@@ -25,6 +26,7 @@ export function MapContainerController({
 	defaultZoom = MAP_ZOOM.DEFAULT,
 }: MapControllerProps) {
 	const { selectedCasualty } = useSelectedCasualtyStore();
+	const isTabletOrMobile = useMediaQuery({ query: "(max-width: 992px)" });
 
 	const map = useMap();
 	const flyingRef = useRef(false);
@@ -66,7 +68,7 @@ export function MapContainerController({
 			}
 
 			map
-				.flyTo(BANGLADESH_CENTER, defaultZoom, {
+				.flyTo(isTabletOrMobile ? DHAKA_LAT_LONG : BANGLADESH_CENTER, defaultZoom, {
 					animate: true,
 					duration: flyToDuration,
 				})
@@ -112,7 +114,7 @@ export const MapStatsControl: React.FC = () => {
 		const Custom = L.Control.extend({
 			onAdd: () => {
 				const div = L.DomUtil.create('div');
-				div.className = `custom-leaflet-control h-screen `; // Optional class for styling
+				div.className = `mr-2.5 custom-leaflet-control h-screen `; // Optional class for styling
 
 				L.DomEvent.disableClickPropagation(div);
 				L.DomEvent.disableScrollPropagation(div);

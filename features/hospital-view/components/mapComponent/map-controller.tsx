@@ -7,7 +7,8 @@ import Stats from '@/features/hospital-view/components/stats';
 
 import { useSelectedCasualtyStore } from '@/features/hospital-view/store/selected-casualty-store';
 
-import { BANGLADESH_CENTER, MAP_ZOOM } from '@/constant/map-container-config';
+import { BANGLADESH_CENTER, DHAKA_LAT_LONG, MAP_ZOOM } from '@/constant/map-container-config';
+import { useMediaQuery } from 'react-responsive';
 
 interface MapControllerProps {
 	markerRefs: Map<string, L.Marker> | null;
@@ -23,6 +24,7 @@ export function MapContainerController({
 	defaultZoom = MAP_ZOOM.DEFAULT,
 }: MapControllerProps) {
 	const { selectedCasualty } = useSelectedCasualtyStore();
+	const isTabletOrMobile = useMediaQuery({ query: "(max-width: 992px)" });
 
 	const map = useMap();
 	const flyingRef = useRef(false);
@@ -64,7 +66,7 @@ export function MapContainerController({
 			}
 
 			map
-				.flyTo(BANGLADESH_CENTER, defaultZoom, {
+				.flyTo(isTabletOrMobile ? DHAKA_LAT_LONG : BANGLADESH_CENTER, defaultZoom, {
 					animate: true,
 					duration: flyToDuration,
 				})

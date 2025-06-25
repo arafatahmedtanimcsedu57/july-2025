@@ -89,7 +89,7 @@ export function NavMenu() {
           <NavigationMenuTrigger
             className={cn(
               navigationMenuTriggerStyle(),
-              "px-4 py-0 bg-transparent hover:bg-transparent hover:text-primary mx-2 focus:bg-transparent text-slate-700"
+              "px-0 sm:px-4 py-0 bg-transparent hover:bg-transparent hover:text-primary mx-2 focus:bg-transparent text-slate-700"
             )}
           >
             <div className="flex items-center gap-2">

@@ -73,7 +73,7 @@ const TotalCasualties = async () => {
 	const deathCount = await deathCountPromise;
 	const injuryCount = await injuryCountPromise;
 	return (
-		<div className="flex flex-col p-10">
+		<div className="flex flex-col p-6 sm:p-10">
 			<p className="font-semibold text-base">
 				Data Source:{' '}
 				<Link href=" https://medical-info.dghs.gov.bd/" target="_blank">

@@ -15,15 +15,18 @@ import { fetchHospitalData } from '@/features/hospital-view/lib/data-managers';
 
 import {
 	BANGLADESH_CENTER,
+	DHAKA_LAT_LONG,
 	MAP_CONTAINER,
 } from '@/constant/map-container-config';
 
 import './map.css';
+import { useMediaQuery } from 'react-responsive';
 
 export default function MapComponent() {
 	const [hospitalData, setHospitalData] = useState<any[]>([]);
 	const markerRefsMap = useRef<Map<string, L.Marker>>(new Map());
 	const responsiveZoom = useResponsiveZoom();
+	const isTabletOrMobile = useMediaQuery({ query: "(max-width: 992px)" });
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -37,7 +40,7 @@ export default function MapComponent() {
 	return (
 		<div className="w-full h-full">
 			<MapContainer
-				center={BANGLADESH_CENTER}
+				center={isTabletOrMobile ? DHAKA_LAT_LONG : BANGLADESH_CENTER}
 				zoom={responsiveZoom.DEFAULT}
 				zoomControl={MAP_CONTAINER.zoomControl}
 				minZoom={responsiveZoom.MIN}
@@ -68,7 +71,7 @@ export default function MapComponent() {
 				/>
 			</MapContainer>
 
-			<div className="absolute bottom-8 right-4 z-[100] min-h-[100px]">
+			<div className="invisible sm:visible absolute bottom-8 right-4 z-[100] min-h-[100px]">
 				<div className="mx-auto">
 					<div className="relative group cursor-pointer">
 						<div className="absolute -inset-1 bg-gradient-to-r from-red-600 to-blue-600 rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
