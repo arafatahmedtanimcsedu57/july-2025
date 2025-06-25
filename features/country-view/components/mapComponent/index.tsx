@@ -34,7 +34,6 @@ export default function MapComponent() {
 		fetchData();
 	}, []);
 
-	console.log(casualties);
 	return (
 		<div className="w-full h-full">
 			<MapContainer
@@ -64,7 +63,7 @@ export default function MapComponent() {
 				/>
 			</MapContainer>
 
-			<div className="absolute bottom-8 right-4 z-[100] min-h-[100px]">
+			<div className="invisible sm:visible absolute bottom-8 right-4 z-[100] min-h-[100px]">
 				<div className="mx-auto">
 					<div className="relative group cursor-pointer">
 						<div className="absolute -inset-1 bg-gradient-to-r from-red-600 to-blue-600 rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>

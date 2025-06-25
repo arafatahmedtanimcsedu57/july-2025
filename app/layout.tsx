@@ -45,7 +45,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 					</div>
 				</header>
 				<ThemeProvider defaultTheme="light" storageKey="july-map-theme">
-					<main className="flex flex-1 flex-col bg-background h-[calc(100vh-80px)] overflow-hidden">
+					<main className="flex flex-1 flex-col bg-background h-[calc(100vh-95px)] overflow-hidden">
 						<div className="flex h-full">{children}</div>
 					</main>
 				</ThemeProvider>

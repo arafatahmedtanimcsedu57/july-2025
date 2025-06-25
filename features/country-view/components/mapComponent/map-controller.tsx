@@ -112,7 +112,7 @@ export const MapStatsControl: React.FC = () => {
 		const Custom = L.Control.extend({
 			onAdd: () => {
 				const div = L.DomUtil.create('div');
-				div.className = `custom-leaflet-control h-screen `; // Optional class for styling
+				div.className = `mr-2.5 custom-leaflet-control h-screen `; // Optional class for styling
 
 				L.DomEvent.disableClickPropagation(div);
 				L.DomEvent.disableScrollPropagation(div);
