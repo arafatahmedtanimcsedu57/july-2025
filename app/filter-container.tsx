@@ -161,7 +161,7 @@ export default function FilterContainer() {
 					<FilterIcon className="text-white font-extrabold" />
 				</Button>
 			</SheetTrigger>
-			<SheetContent side="left" className=" dark:text-white text-slate-700">
+			<SheetContent side="left" className=" dark:text-white text-slate-700 overflow-auto">
 				<SheetHeader className="dark:text-white text-slate-700">
 					<SheetTitle className=" dark:!text-white !text-slate-700">
 						Filter
@@ -172,7 +172,7 @@ export default function FilterContainer() {
 					<div className="grid grid-cols-1 items-center gap-4 ">
 						<Label>Casualty Dates</Label>
 
-						<div className="flex flex-wrap gap-2 items-center text-center">
+						<div className="grid grid-cols-3 md:grid-cols-4 gap-2 items-center text-center">
 							{Array.isArray(availableDays) && availableDays.length > 0 ? (
 								availableDays.map((day) => {
 									const _date = new Date(day.date);
@@ -187,11 +187,11 @@ export default function FilterContainer() {
 												{format(_date, 'LLL')}
 											</div>
 
-											<div className="text-2xl font-extrabold">
+											<div className="text-xl md:text-2xl font-extrabold">
 												{getDate(_date)}
 											</div>
 
-											<div className="flex gap-2 items-center justify-center">
+											<div className="flex gap-1 md:gap-2 items-center justify-center">
 												{Object.entries(CASUALTY_ITEMS).map(([key, value]) =>
 													day[value] ? (
 														<div
